@@ -1,0 +1,1155 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+@media screen and (max-width: 1600px){
+   
+    #order_of_payment_and_registration_p_last{
+        width: 50px;
+    }
+    #order_of_payment_and_registration ul li .middle .middle_solid h3 {
+        width: 80px!important;
+    }
+}
+
+body,
+input,
+textarea {
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+i {
+  font-style: normal;
+}
+
+.information_fill {
+  height: 64px;
+  background-color: #ffff;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(55, 63, 74, 0.1);
+  line-height: 64px;
+  padding-left: 24px;
+  font-weight: 700;
+  color: #373f4a;
+}
+img {
+  vertical-align: -middle;
+  margin-bottom: 5px;
+}
+.information_fill img {
+  vertical-align: middle;
+  margin-bottom: 5px;
+}
+.information_fill span {
+  font-family: Microsoft YaHei;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 24px;
+  color: #373f4a;
+  margin-left: 16px;
+}
+#applicationParent .content_top {
+  padding-left: 30px;
+}
+
+#applicationParent .content_top .title {
+  font-family: Microsoft YaHei;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  color: #373f4a;
+  margin-top: 20px;
+}
+
+#Information_to_fill_out .content_top ul {
+  margin-top: 23px;
+  overflow: hidden;
+}
+#Information_to_fill_out .content_top ul li {
+  float: left;
+}
+#Information_to_fill_out .content_top ul li:nth-child(1) {
+  width: 400px;
+}
+#Information_to_fill_out .content_top ul li:nth-child(2) {
+  width: 400px;
+}
+
+#Information_to_fill_out .content_top ul li label {
+  display: inline-block;
+  font-family: Microsoft YaHei;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(55, 63, 74, 0.6);
+  margin-right: 36px;
+}
+#Information_to_fill_out .content_top ul li img{
+    vertical-align: middle;
+    margin-left: 10px;
+    cursor: pointer;
+}
+#Information_to_fill_out #required_information {
+  padding-left: 30px;
+  margin-top: 23px;
+}
+#Information_to_fill_out #required_information h6 {
+  font-weight: bold;
+  font-size: 14px;
+  color: #373f4a;
+  margin-bottom: 20px;
+}
+
+#Information_to_fill_out #required_information ul li {
+  overflow: hidden;
+}
+
+#Information_to_fill_out #required_information ul li .left,
+#Information_to_fill_out #required_information ul li .middle,
+#Information_to_fill_out #required_information ul li .right {
+  float: left;
+}
+#Information_to_fill_out #required_information ul li .left {
+  width: 28px;
+  margin-right: 13px;
+}
+#Information_to_fill_out #required_information ul li .left span {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #47cd69;
+  display: block;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 28px;
+  margin-bottom: 10px;
+}
+
+#Information_to_fill_out #required_information ul li .left i {
+  display: block;
+  width: 1px;
+  height: 60px;
+  background: rgba(55, 63, 74, 0.3);
+  margin-left: 14px;
+}
+#Information_to_fill_out #required_information ul li .middle {
+  width: 420px;
+  height: 100px;
+}
+
+#Information_to_fill_out #required_information ul li .middle h5 {
+  font-family: OPPOSans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+}
+#Information_to_fill_out #required_information ul li .middle p {
+  font-family: OPPOSans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  color: rgba(55, 63, 74, 0.8);
+  width: 370px;
+}
+
+#Information_to_fill_out #required_information ul li .right {
+  width: 106px;
+  height: 50px;
+}
+#Information_to_fill_out #required_information ul li .right b {
+  display: block;
+  width: 106px;
+  height: 32px;
+  border: 1px solid rgba(55, 63, 74, 0.3);
+  box-sizing: border-box;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 32px;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 400;
+}
+
+#applicationParent .application {
+  padding: 20px 30px;
+}
+
+#optional_information {
+  padding-left: 30px;
+  margin-top: 10px;
+}
+#optional_information h6 {
+  font-weight: bold;
+  font-size: 14px;
+  color: #373f4a;
+  margin-bottom: 15px;
+}
+#optional_information .middle h5 {
+  font-size: 20px;
+  color: #373f4a;
+  font-weight: 400;
+}
+#optional_information .middle p {
+  color: rgba(55, 63, 74, 0.8);
+  font-size: 14px;
+}
+#optional_information .bottom p {
+  width: 130px;
+  height: 40px;
+  background: #47cd69;
+  border-radius: 4px;
+  color: #ffffff;
+  line-height: 40px;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+#order_of_payment_and_registration ul {
+  overflow: hidden;
+  margin: 25px;
+}
+
+#order_of_payment_and_registration ul li {
+  float: left;
+  margin-right: 10px;
+  box-sizing: border-box;
+}
+#order_of_payment_and_registration ul li .left,
+#order_of_payment_and_registration ul li .middle {
+  float: left;
+}
+#order_of_payment_and_registration ul li .left{
+    margin-right: 10px;
+    margin-top:3px
+}
+#order_of_payment_and_registration ul li .middle .middle_solid h5 {
+  font-family: OPPOSans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  float: left;
+}
+#order_of_payment_and_registration ul li .middle .middle_solid{
+    overflow: hidden;
+}
+
+
+
+#order_of_payment_and_registration ul li .middle .middle_solid h3 {
+  width: 180px;
+  height: 1px;
+  background: rgba(55, 63, 74, 0.3);
+  float: left;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+
+#order_of_payment_and_registration ul li .middle .p1 {
+  width: 169px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  color: rgba(55, 63, 74, 0.8);
+}
+
+#order_of_payment_and_registration ul li span {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #47cd69;
+  display: block;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 26px;
+  margin-top: 12px;
+}
+
+.authorized_application {
+  margin: auto;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 903px;
+  height: 617px;
+  background: #ffff;
+}
+
+.authorized_application .check_p_one {
+  color: #373f4a;
+  font-weight: 400;
+  font-size: 28px;
+  text-align: center;
+  margin-top: 50px;
+  font-family: OPPOSans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 28px;
+}
+.authorized_application .check_p_two {
+  text-align: center;
+  font-size: 20px;
+  color: #373f4a;
+  line-height: 27px;
+  margin-bottom: 40px;
+}
+
+.authorized_application ul {
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.authorized_application ul li {
+  float: left;
+  width: 318px;
+  height: 179px;
+  border-radius: 4px;
+  border: 1px solid rgba(55, 63, 74);
+  border: 1px solid rgba(55, 63, 74, 0.3);
+  box-sizing: border-box;
+  margin-right: 50px;
+  position: relative;
+}
+.authorized_application ul .activeLiInit {
+  border: 1px solid rgba(55, 63, 74);
+  border: 1px solid rgba(55, 63, 74, 0.3);
+}
+
+.authorized_application ul li .divs {
+  color: #47cd69;
+}
+
+.authorized_application ul li:nth-child(1),
+.authorized_application ul li:nth-child(3) {
+  margin-left: 107px;
+}
+
+.authorized_application ul li:nth-child(1),
+.authorized_application ul li:nth-child(2) {
+  margin-bottom: 50px;
+}
+
+.authorized_application ul li div {
+  color: #373f4a;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.authorized_application ul li p {
+  font-size: 12px;
+  color: rgba(55, 63, 74);
+  color: rgba(55, 63, 74, 0.8);
+  margin-left: 17px;
+  margin-top: 4px;
+}
+
+.authorized_application ul li button {
+  background-color: #47cd69;
+  width: 130px;
+  height: 40px;
+  border-radius: 4px;
+  text-align: center;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  position: absolute;
+  bottom: 20px;
+  left: 94px;
+  cursor: pointer;
+}
+
+.authorized_application ul .activeLi {
+  border: 1px solid #47cd69;
+}
+
+.ico-msg,
+.ico-msg-s,
+.ico-msg-l,
+.ico-new,
+.ico-hot,
+.ico-top,
+.ico-rdo,
+.ico-cbx,
+.ico-exp,
+.ico-xls,
+.ico-txt,
+.ico-rar,
+.ico-add,
+.ico-refresh,
+.topbar .ico-news,
+.btn-zoom,
+.btn-clear,
+.topbar .ico-help,
+.topbar .ico-docu,
+.topbar .ico-search,
+.bread-crumb .ico-goback,
+.choice-tab .ico-tick,
+.datepicker-switch .ico-date,
+.dialog .ico-cls,
+.pendant .ico-edit,
+.pendant .ico-down,
+.pendant .ico-miniapp,
+.step-list .step-icon,
+.upload-box .del,
+.panel-card .horn,
+.scan-qrcode .qrcode-img .ico {
+  display: inline-block;
+  background: url(../img/sprite.png) no-repeat;
+}
+
+.application_phone .msg-ico {
+  float: left;
+  margin-top: -1px;
+}
+.application_phone .ng-scope {
+  overflow: hidden;
+}
+#application_phone_upData {
+  margin-top: 30px;
+}
+
+.application_phone .ico-msg-s.info {
+  background-position: -60px -122px;
+}
+.application_phone .ico-msg-s {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+.application_phone .data-hd {
+  margin-bottom: 30px;
+  height: 14px;
+  line-height: 1;
+  padding-left: 10px;
+  border-left: 3px solid #00c250;
+}
+.application_phone h4 {
+  font-size: 100%;
+  font-weight: 400;
+}
+
+.application_phone .form-item {
+  margin-bottom: 24px;
+}
+
+.application_phone .form.long-label .label {
+  width: 138px;
+}
+
+.form-item .labels {
+  float: left;
+  padding-top: 9px;
+  width: 138px;
+  position: relative;
+  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+.form-item .element {
+  margin-left: 138px;
+}
+.upload-box {
+  position: relative;
+  /* z-index: 1; */
+}
+
+.upload-box .upload-area {
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+}
+
+.btn-default {
+  background: #eee;
+  border-color: #eee;
+  color: #333 !important;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0 36px;
+  height: 38px;
+  line-height: 38px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-item .upload-tips {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #999;
+}
+
+#applicationParent .clear_float:after{
+  display:block;clear:both;content:"";visibility:hidden;height:0
+}
+#applicationParent .clear_float{
+  zoom:1;
+}
+#application_list_one_ul:after {
+  display:block;clear:both;content:"";visibility:hidden;height:0
+   
+}
+
+.application_list_one_ul_li_div{
+  position: relative;
+  margin-top: 23px;
+}
+
+#application_list_one_ul{
+  zoom:1;
+}
+#application_list_one_ul_childer,.application_list_one_ul_childer{
+  padding-left: 138px;
+  overflow: hidden;
+}
+#application_list_one_ul_childer li,.application_list_one_ul_childer li {
+  float: left;
+  margin: 10px 15px 0 0;
+  position: relative;
+}
+
+#application_list_one_ul_childer li img,.application_list_one_ul_childer li img {
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+}
+
+#application_list_one_ul_childer li .del,.application_list_one_ul_childer li .del,#application_list_one ul .del {
+  width: 18px;
+  height: 18px;
+  background: url(../img/sprite.png) no-repeat;
+  position: absolute;
+  right: -9px;
+  top: -9px;
+  text-indent: -999px;
+  overflow: hidden;
+  background-position: -105px -166px;
+}
+
+.form-item_children {
+  overflow: hidden;
+}
+
+.application_phone_div .a-upload {
+  padding: 4px 10px;
+  height: 20px;
+  line-height: 20px;
+  position: relative;
+  cursor: pointer;
+  color: #333 !important;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+  display: inline-block;
+  padding: 0 36px;
+  height: 38px;
+  margin-right: 10px;
+  line-height: 38px;
+  text-align: center;
+  text-decoration: none;
+  *display: inline;
+  *zoom: 1;
+}
+
+.application_phone_div .a-upload:hover {
+  background: #f3f3f3;
+  border-color: #f3f3f3;
+}
+
+.application_phone_div .a-upload input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  cursor: pointer;
+}
+
+
+
+.application_phone_div .text-error {
+  padding-top: 8px;
+  color: #f15451;
+  margin-left: 0px;
+}
+.text-error {
+  
+  color: #f15451;
+  margin-left: 138px;
+}
+.text-errors {
+  color: #f15451;
+  margin-left: 138px;
+}
+
+.upload-tips {
+  padding-top: 15px;
+  padding-bottom: 10px;
+  color: #999;
+   margin-left: 138px; 
+}
+
+.lable_left {
+  display: inline-block;
+  width: 138px;
+  height: 25px;
+  word-spacing:10px;
+  vertical-align: middle;
+   padding-top:1px;
+  /* background-color: red; */
+  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+
+#registration_Number {
+  margin-top: 25px;
+}
+
+.registration_Number_children .registration_Number_childrens,
+.registration_Number_children .lable_left {
+  float: left;
+}
+
+.input_public {
+  height: 38px;
+  width: 503px;
+  line-height: 38px;
+  border: 1px solid #e0e0e0;
+  outline: 0;
+  padding: 8px 10px;
+  margin-bottom: 7px;
+  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+
+.applicationParent_public {
+  margin-bottom: 15px;
+}
+
+.legal_person_lable {
+  line-height: 22px;
+  margin-top: 9px;
+}
+.ico-date {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -9px;
+  background-position: -66px -166px;
+}
+
+
+.three_syndromes_lable_left{
+  width: 138px;
+}
+.labelone_three_syndromes{
+   margin-right: 20px;
+}
+
+
+
+.labeltwo_three_syndromes span:hover,.labelone_three_syndromes span:hover {
+   border: 1px rgb(0, 190, 80) solid;
+}
+
+.labelone_three_syndromes i{
+   margin-left: 26px;
+   display: inline-block;
+
+}
+.labeltwo_three_syndromes i{
+   margin-left: 26px;
+   display: inline-block;
+}
+.three_zhengOne .application_list_one_ul_li_div{
+  margin-top: 23px;
+  overflow: hidden;
+}
+.three_zhengOne p{
+  width: 100%;
+  margin-left: 138px;
+  color: #999;
+}
+#organization_code_certificate,#form_item_shenfenzhengbottom{
+   padding-bottom: 30px!important; 
+   overflow: hidden; 
+}
+
+#applicationParent .public_hr{
+    height: 1px;
+    margin: 30px 15px;
+    background: #EEE;
+    overflow: hidden;
+}
+
+.application_list_one_ul_li_div .col-sm-6 .form-group{
+  width: 140px;
+}
+
+@media (min-width: 768px){
+.col-sm-6 {
+    width: auto;
+}
+}
+
+.col-sm-6{
+  padding-left: 0px;
+  position: relative;
+}
+
+.col-sm-6 .lable_left{
+  padding-top: 6px;
+}
+
+#organization_code_certificate .col-sm-6 .form-group,.organization_code_certificate .col-sm-6 .form-group{
+  /* float: left; */
+  width: 160px;
+}
+/* #datetimepicker1_input{
+  width: 100px;
+}
+#datetimepicker2_input{
+  width: 100px;
+} */
+#datetimepicker1 i{
+  display: block;
+   float: left; 
+  margin-bottom: 6px;
+  margin-left: 10px;
+} 
+
+.application_list_one_ul_li_div .col-sm-6 .form-group #datetimepicker1{
+  width: 165px;
+}
+.application_list_one_ul_li_div .col-sm-6 .form-group #datetimepicker2{
+  margin-left: 20px;
+  width: 140px;
+}
+.term_of_validity{
+  float: left;
+}
+
+@media (min-width: 768px){
+  .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5,  .col-sm-7, .col-sm-8, .col-sm-9 {
+    float: none; 
+}
+}
+
+.application_list_one_ul_li_divs{
+  float: left;
+  padding-top: 22px;
+}
+.lable_lefts_time{
+  float: left;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  width: 138px;
+  padding-top: 6px;
+}
+.col-sm_time,.col-sm_time_i{
+  float: left;
+}
+.col-sm_time_i{
+  margin-top: 5px;
+  margin-right: 13px;
+}
+ 
+.text-errors_timeone,.text-errors_timetwo{
+  clear: both;
+  margin-left: 138px;
+  color: #f15451;
+  margin-top: 4px!important;
+}
+.form-group {
+  margin-bottom: 9px;
+}
+
+.form-item_shenfenzheng{
+  /* overflow: hidden; */
+}
+.form-item_shenfenzheng ul {
+  overflow: hidden;
+  margin-top: 40px;
+  width: 80%;
+}
+.form-item_shenfenzheng ul .lable_left{
+   float: left;
+   height: 50px;
+}
+.form-item_shenfenzheng ul li .labelone_three_syndromes{
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  line-height: 20px;
+}
+.msg-cnt{
+  padding-left: 25px;
+}
+.bootstrap-datetimepicker-widget{
+  z-index: 9999999999999999;
+  position: absolute;
+  left: 10px;
+  top:10px;
+}
+.label_three_syndromes_li{
+  overflow: hidden;
+  float: left;
+}
+.label_three_syndromes {
+  height: 40px;
+  position: relative;
+}
+
+.three_syndromes_lable_left,
+.label_three_syndromes {
+  float: left;
+}
+
+.labelone_three_syndromes {
+  position: relative;
+  display: block;
+}
+
+.labelone_three_syndromes .radioSelect {
+  display: none;
+}
+
+.labelone_three_syndromes .radioSelect:checked~span {
+  box-shadow: 0 0 0 6px rgb(0 190 80);
+  width: 8px;
+  height: 8px;
+  border: none;
+  left: 6px;
+  top: 6px;
+}
+
+.labelone_three_syndromes span {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 1px rgb(195, 197, 200) solid;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.labels_public_shenfen{
+  width: 138px;
+  float: left;
+  height: 50px;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+#applicationParent .createTitleTopAndImg_top .labels {
+  float: left;
+  padding-top: 9px;
+  width: 138px;
+  position: relative;
+  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+#applicationParent .common_header_method{
+  margin-top: 25px;
+}
+
+#applicationParent .form-group {
+  width: 160px;
+}
+
+#applicationParent input{
+ border:1px solid #e0e0e0;
+ box-shadow: 0 0 0 0;
+}
+#form_item_shenfenzhengbottom{
+  
+}
+#form_item_shenfenzhengbottomTwo{
+ 
+  padding-bottom: 30px;
+}
+#applicationParent .publick_checked_list{
+   padding-top: 10px;
+   font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+   width: 100%;
+   position: relative;
+}
+
+#applicationParent .publick_checked_list i{
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+
+}
+
+#applicationParent .divs_public_shenfen:after,#applicationParent .publick_checked_list:after{
+  display:block;clear:both;content:"";visibility:hidden;height:0;
+}
+
+#applicationParent .divs_public_shenfen{
+  zoom:1;
+  /* width: 315px;
+  float: left; */
+}
+
+#applicationParent .publick_checked_list{
+  zoom:1;
+}
+#applicationParent .divs_public_shenfen li{
+  overflow: hidden;
+  float: left;
+}
+
+
+#applicationParent .publick_checked_list .ico-msg-s.ask {
+  background-position: -80px -122px;
+  left: 453px;
+  top:12px;
+  position: absolute;
+} 
+#applicationParent .publick_checked_list .ico-msg-s {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  float: left;
+  background: url(../img/sprite.png) no-repeat;
+}
+
+#applicationParent .pop-left{
+  position: absolute;
+  left: 480px;
+  top:-20px;
+  width: 292px;
+  color: #333;
+  position: absolute;
+  z-index: 99;
+  border: 1px solid #EEE;
+  zoom: 1;
+  line-height: 1.6;
+  text-align: left;
+  font-weight: 400;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px -1px rgb(0 0 0 / 8%);
+}
+
+
+#applicationParent .popup .inner {
+  padding: 20px;
+}
+
+#applicationParent .popup.pos-top .arrow {
+  position: absolute;
+  top: 40px;
+}
+#applicationParent .popup.pop-left .arrow-out {
+  left: 0;
+  border-right-color: #E0E0E0;
+}
+#applicationParent .popup.pop-left .arrow {
+  border-color: transparent #ffffff transparent transparent;
+  border-style: dashed solid dashed dashed;
+  border-width: 8px 8px 8px 0;
+  margin: -8px 0 0 -8px;
+  background-color: red;
+}
+#applicationParent .popup.pop-left .arrow-out {
+  left: 0;
+  border-right-color: #E0E0E0;
+}
+
+#applicationParent ul li .labelone_three_syndromes {
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  line-height: 20px;
+}
+
+
+#matation_form-item_shenfenzheng .info-hd {
+  height: 38px;
+  line-height: 38px;
+  padding: 0 20px;
+  background: #fafafa;
+  border-bottom: 1px solid #EEE;
+}
+
+#applicationParent h1,#applicationParent h2,#applicationParent h3,#applicationParent h4,#applicationParent h5,#applicationParent h6 {
+  font-size: 100%;
+  font-weight: 400;
+  /* line-height: 38px; */
+}
+
+#applicationParent  .ico-msg-s {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  /* float: left;
+  background: url(../img/sprite.png) no-repeat; */
+}
+
+#matation_form-item_shenfenzhengTwo,#matation_form-item_shenfenzhengThree {
+  position: relative;
+}
+
+
+#matation_form-item_shenfenzhengTwo .ico-msg-s{
+  background-position: -80px -122px;
+  left: 655px;
+  top:70px;
+  position: absolute;
+  cursor: pointer;
+}
+#matation_form-item_shenfenzhengThree .ico-msg-s{
+  background-position: -80px -122px;
+  position: absolute;
+  left: 655px;
+  top:10px;
+  cursor: pointer;
+}
+
+#matation_form-item_shenfenzhengTwo .matation_jingying_img,#matation_form-item_shenfenzhengThree .matation_jingying_img{
+  width: 292px;
+  padding: 20px;
+  height: 490px;
+  left: 683px;
+  top:30px;
+  position: absolute;
+  border: 1px solid #EEE;
+    zoom: 1;
+    line-height: 1.6;
+    text-align: left;
+    font-weight: 400;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px -1px rgb(0 0 0 / 8%);
+}
+#matation_form-item_shenfenzhengThree .matation_jingying_img{
+  top: -30px;
+}
+
+#matation_form-item_shenfenzhengTwo img,#matation_form-item_shenfenzhengThree img{
+  width: 100%;
+}
+
+#matation_form-item_shenfenzhengTwo .imgs,#matation_form-item_shenfenzhengThree .imgs{
+   width: 10px;
+   height: 18px;
+   display: inline-block;
+   position: absolute;
+   left: -10px;
+   top: 40px;
+}
+#applicationParent .rotate_p {
+  width: 10px;
+  height: 10px; 
+  border-left: 1px solid #EEE;
+  border-bottom: 1px solid #EEE; 
+  transform: rotate(45deg);
+  position: absolute;
+  left: -6px;
+  top: 44px;
+  z-index: 10;
+}
+#applicationParent .rotate_p_Two {
+  width: 15px;
+  height: 12px; 
+  background:#ffffff;
+  margin: 10px;
+  position: absolute;
+  left: -11px;
+  top: 33px;
+}
+#matation_form-item_shenfenzhengTwo .info-hd{
+     height: 38px;
+    line-height: 38px;
+    padding: 0 20px;
+    background: #fafafa;
+    border-bottom: 1px solid #EEE;
+}
+#matation_form-item_shenfenzhengTwo .info-hd h2{
+  line-height: 38px;
+}
+#matation_form-item_shenfenzhengTwo .tips-info,#matation_form-item_shenfenzhengThree .tips-info,
+#matation_form-item_shenfenzhengfour .tips-info,#matation_form_item_xianxia .tips-info,
+#matation_form_item_div_official_account .tips-info,#div_app_scence .tips-info,#div_app_scence .tips-info,
+#div_applets_scene .tips-info,#div_pc_scence .tips-info,#div_enterprise_wechat .tips-info {
+  padding-top: 16px;
+  color: #999;
+  margin-left: 138px;
+}
+#applicationParent input[type='checkbox'] {
+  cursor: pointer;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  font-size:14px;
+  visibility: hidden;
+  margin-top: 5px;
+}
+
+#applicationParent input[type='checkbox']::after {
+  position: absolute;
+  top: 0;
+  border: 1px solid #e0e0e0;
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  visibility: visible;
+  padding-left: 0px;
+  text-align: center;
+  content: ' ';
+}
+
+#applicationParent input[type='checkbox']:checked::after {
+  content: '✓';
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #33d883;
+  line-height: 16px;
+}
+#matation_form-item_shenfenzhengfour{
+  margin-top: 30px;
+}
+#matation_form-item_shenfenzhengfour .checkbox_i {
+   margin-left: 16px;
+   display: inline-block;
+   color: #333;
+   margin-top: 2px;
+}
+#matation_form-item_shenfenzhengfour ul{
+   margin-bottom: -32px; 
+}
+#matation_form-item_shenfenzhengfour ul li{
+  margin-left: 14px;
+}
+#matation_form-item_shenfenzhengfour ul label{
+  padding-top: 4px;
+}
+#matation_form-item_shenfenzhengfour ul li input,#matation_form-item_shenfenzhengfour ul li i{
+  float: left;
+  vertical-align: middle;
+}
+#applicationParent .public_hrs {
+  height: 1px;
+  margin: 30px 0px;
+  background: #EEE;
+  overflow: hidden;
+}
+
+#matation_form_item_xianxia,#matation_form_item_div_official_account,#div_applets_scene,#div_app_scence,
+#div_pc_scence,#div_enterprise_wechat{
+  padding-top: 20px;
+}
+

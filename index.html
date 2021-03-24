@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap_datetimepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/css.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="applicationParent">
+
+
+        <!-- 这个是申请单信息，必填信息，选填信息 -->
+        <div id='Information_to_fill_out' class="Information_title_back">
+
+        </div>
+
+
+
+
+        <!-- 这个是提示到哪一步和具体的组件信息 -->
+        <div id="order_application">
+            <!-- 这个是提示到哪一步的提示框 -->
+            <div id="order_of_payment_and_registration">
+
+            </div>
+
+
+            <!-- 这个是具体的组件框 -->
+            <div class="application" id="application_list_one">
+
+            </div>
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/moment_with_locales.js"></script>
+    <script src="./js/bootstrap_datetimepicker.min.js"></script>
+    <!-- 上是事件插件引入的js -->
+    <script src="./json.js"></script>
+    <script src="./renderMatation.js"></script>
+    <script src="./merchantNumberRegistration.js"></script>
+    <script src="./registerVerification.js"></script>
+    <script src="./registerEvent.js"></script>
+    <script src="./registerComponent.js"></script>
+
+    <script>
+        let subject_type = null;
+        new Register(wechartJson, function () {}); // 这个是 registerEvent.js 里面的对象；专门是挂载生成的组件和input框的value值；
+        new RecursiveTool(function (res) {
+            if (res.caption == "主体资料") {
+                new RecursiveTool(function (response) { // response 是主体资料里面的值；
+                    if (response.caption == "主体类型") {
+                        //选中主体类型后通知
+                        response.generate_component(function (value) {
+                            subject_type = value;
+                            // console.log(value); 公司还是个体
+                            required_information(function (values) {
+                              var fun = eval(values);
+                              fun(values);
+                            })
+                        });
+                    }
+                }).recursive(res.subobject);
+            }
+        }).recursive(wechartJson);
+
+
+
+        let SubjectInformation = function (value) {
+                let array = wechartJson[2].subobject.filter(item => {
+                    if (item.caption != "主体类型") {
+                        return item;
+                    }
+                });
+                console.log(array);
+                new RecursiveTool(function (response) {
+                    if (response.generate_component !=null && typeof response.generate_component == 'function') {
+                        response.generate_component();
+                    }
+                }).recursive(array);
+        }
+
+        let ManagementInformation=function(value){
+            let array = wechartJson[3].subobject;
+            new RecursiveTool(function (response) {
+                    if (response.generate_component !=null && typeof response.generate_component == 'function') {
+                        response.generate_component();
+                    }
+            }).recursive(array);
+        }
+   
+   
+   
+   
+   </script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
