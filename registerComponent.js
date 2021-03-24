@@ -1429,7 +1429,7 @@ function Component_list() {
                         data_arr.splice(i,1);
                       //  allArr.splice(i,1);
                         console.log(data_arr);
-                       // console.log(allArr);
+                        console.log(allArr);
                     }
                 }
             }
