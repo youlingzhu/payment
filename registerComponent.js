@@ -1427,7 +1427,7 @@ function Component_list() {
                         li.remove();
                         console.log(i);
                         data_arr.splice(i,1);
-                      //  allArr.splice(i,1);
+                        allArr.splice(i,1);
                         console.log(data_arr);
                         console.log(allArr);
                     }
