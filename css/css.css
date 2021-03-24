@@ -543,6 +543,7 @@ img {
   text-indent: -999px;
   overflow: hidden;
   background-position: -105px -166px;
+  display: none;
 }
 
 .form-item_children {
@@ -1151,5 +1152,10 @@ img {
 #matation_form_item_xianxia,#matation_form_item_div_official_account,#div_applets_scene,#div_app_scence,
 #div_pc_scence,#div_enterprise_wechat{
   padding-top: 20px;
+}
+
+#applicationParent .application_list_one_ul_childer a{
+   display: none;
+   cursor: pointer;
 }
 

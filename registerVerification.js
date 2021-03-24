@@ -344,8 +344,53 @@ function Validation_Type() {
             }
          })
      }
+     
+     // 线下场所对应的商家appID
+     this.biz_sub_appid_type=function(data){
+         return returnInfo(data,function(){
+            var reg=/^[0-9a-zA-Z]{18}$/;      // appid为18位数字和字母的组合
+            var str = data.value;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue = '格式不正确，appid为18位数字和字母的组合。<a href="https://kf.qq.com/faq/181105JJNbmm181105eUZfee.html" target="_blank">appid查看指引</a>';
+                return strValue;
+            }
+         })
+     }
+     
+     // 公众号服务商appId
+     this.mp_appid_type=function(data){
+        return returnInfo(data,function(){
+            var reg=/^[0-9a-zA-Z]{18}$/;      // appid为18位数字和字母的组合
+            var str = data.value;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue ='格式不正确，appid为18位数字和字母的组合。<a href="https://kf.qq.com/faq/181105JJNbmm181105eUZfee.html" target="_blank">appid查看指引</a>';
+                return strValue;
+            }
+        })
+     }
 
+
+     // 
+     // 互联网网站域名 互联网网站域名
+     this.domain_type=function(data){
+        return returnInfo(data,function(){
+            var reg=/[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/;      // 域名
+            var str = data.value;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue ='网站格式错误（暂不支持中文域名）';
+                return strValue;
+            }
+        })
+     }
    
+
+
    
 
 
