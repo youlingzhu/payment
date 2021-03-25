@@ -492,7 +492,7 @@ img {
   cursor: pointer;
 }
 
-.form-item .upload-tips {
+#applicationParent .form-item .upload-tips {
   padding-top: 10px;
   padding-bottom: 10px;
   color: #999;
@@ -546,11 +546,11 @@ img {
   display: none;
 }
 
-.form-item_children {
+#applicationParent .form-item_children {
   overflow: hidden;
 }
 
-.application_phone_div .a-upload {
+#applicationParent .application_phone_div .a-upload {
   padding: 4px 10px;
   height: 20px;
   line-height: 20px;
@@ -588,29 +588,29 @@ img {
 
 
 
-.application_phone_div .text-error {
+#applicationParent .application_phone_div .text-error {
   padding-top: 8px;
   color: #f15451;
   margin-left: 0px;
 }
-.text-error {
+#applicationParent .text-error {
   
   color: #f15451;
   margin-left: 138px;
 }
-.text-errors {
+#applicationParent .text-errors {
   color: #f15451;
   margin-left: 138px;
 }
 
-.upload-tips {
+#applicationParent .upload-tips {
   padding-top: 15px;
   padding-bottom: 10px;
   color: #999;
    margin-left: 138px; 
 }
 
-.lable_left {
+#applicationParent .lable_left {
   display: inline-block;
   width: 138px;
   height: 25px;
@@ -620,17 +620,25 @@ img {
   /* background-color: red; */
   font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
-
-#registration_Number {
+#applicationParent .lable_left_rule {
+  float: left;
+  width: 138px;
+  height: 25px;
+  word-spacing:10px;
+  vertical-align: middle;
+   padding-top:7px;
+  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+#applicationParent #registration_Number {
   margin-top: 25px;
 }
 
-.registration_Number_children .registration_Number_childrens,
-.registration_Number_children .lable_left {
+#applicationParent .registration_Number_children .registration_Number_childrens,
+#applicationParent .registration_Number_children .lable_left {
   float: left;
 }
 
-.input_public {
+#applicationParent .input_public,#applicationParent .b_public {
   height: 38px;
   width: 503px;
   line-height: 38px;
@@ -639,6 +647,14 @@ img {
   padding: 8px 10px;
   margin-bottom: 7px;
   font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  cursor: pointer;
+}
+#applicationParent .b_public{
+   height: 44px;
+   width: 703px;
+   float: left;
+   padding: 10px 47px 10px 24px;
+   position: relative;
 }
 
 .applicationParent_public {
@@ -1071,14 +1087,17 @@ img {
   left: -11px;
   top: 33px;
 }
-#matation_form-item_shenfenzhengTwo .info-hd{
+#matation_form-item_shenfenzhengTwo .info-hd,#matation_settlement_rules .info-hd{
      height: 38px;
     line-height: 38px;
     padding: 0 20px;
     background: #fafafa;
     border-bottom: 1px solid #EEE;
 }
-#matation_form-item_shenfenzhengTwo .info-hd h2{
+#matation_settlement_rules{
+  position: relative;
+}
+#matation_form-item_shenfenzhengTwo .info-hd h2,#matation_settlement_rules .info-hd h2{
   line-height: 38px;
 }
 #matation_form-item_shenfenzhengTwo .tips-info,#matation_form-item_shenfenzhengThree .tips-info,
@@ -1159,3 +1178,109 @@ img {
    cursor: pointer;
 }
 
+#applicationParent .rotate_ps {
+  width: 10px;
+  height: 10px;
+  /* border-left: 1px solid #EEE;
+  border-bottom: 1px solid #EEE; */
+  border-left: 1px solid #e0e0e0;
+  border-bottom:1px solid #e0e0e0;
+  transform: rotate(-45deg);
+  position: absolute;
+  right: 22px;
+  top: 40%;
+}
+
+#applicationParent #matation_settlement_rules .application_list_one_ul_li_div,#matation_qualification_type .application_list_one_ul_li_div{
+  overflow: hidden;
+}
+
+#applicationParent .categoryList_rule{
+  position: absolute;
+  left: 138px;
+  top:105px;
+  width: 703px;
+  height:331px;
+  z-index: 999;
+  overflow: auto;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
+  background-color: #fff;
+}
+
+#applicationParent .categoryList_rule li{
+  padding: 15px 0px;
+  margin: 0 15px;
+  border-bottom: 1px solid #e7eaf0;
+  position: relative;
+  overflow: hidden;
+}
+#applicationParent .categoryList_rule li b{
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  background: url(../img/vector_gou.png) no-repeat;
+  top: 40%;
+  left: 0px;
+  display: none;
+}
+
+#applicationParent .categoryList_rule li span,#applicationParent .categoryList_rule li i{
+  float: left;
+}
+#applicationParent .categoryList_rule li span{
+  width: 340px;
+  padding-left: 30px;
+}
+#applicationParent .categoryList_rule li i{
+  width: 305px;
+  text-align: right;
+  height: 100%;
+  line-height: 100%;
+}
+
+#applicationParent .categoryList_rule li:nth-child(1) i{
+   padding-top: 25px;
+}
+#applicationParent .categoryList_rule li:nth-child(6) i{
+  padding-top: 15px;
+}
+
+#applicationParent .b_public span{
+  width: 340px;
+  float: left;
+}
+#applicationParent .b_public i{
+  width: 290px;
+  float: left;
+  text-align: right;
+}
+#applicationParent .matation_settlement_rules_bottom{
+  padding-top: 4px;
+  color: #999;
+  margin-left: 138px;
+}
+
+#applicationParent #matation_qualification_type{
+  position: relative;
+}
+
+
+#applicationParent #matation_qualification_type .categoryList_rules {
+  position: absolute;
+  left: 138px;
+  top: 45px;
+  width: 703px;
+  height: 331px;
+  z-index: 99;
+  overflow: auto;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
+  background-color: #fff;
+}
+
+#applicationParent .categoryList_rules li {
+  padding: 15px 0px;
+  margin: 0 15px;
+  border-bottom: 1px solid #e7eaf0;
+  position: relative;
+  overflow: hidden;
+}

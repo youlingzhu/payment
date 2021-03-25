@@ -1,5 +1,10 @@
-function Component_list() {
 
+
+
+
+
+function Component_list() {
+   
     var application_list_one = document.getElementById('application_list_one');
     // 选择经营者类型
     this.subjectType = function (data, componentNextPro) {
@@ -46,7 +51,7 @@ function Component_list() {
         var Information_to_fill_out = document.getElementById('Information_to_fill_out');
         var order_application = document.getElementById('order_application');
 
-        for (var i = 0; i < li.length; i++) {
+        for (let i = 0; i < li.length; i++) {
             li[i].index = i;
             if (li[i].getElementsByTagName) {
                 var btn = li[i].getElementsByTagName("button")[0];
@@ -57,8 +62,13 @@ function Component_list() {
                     Information_to_fill_out.style.display = 'block';
                     order_application.style.display = 'none';
                     if (componentNextPro) {
-                        componentNextPro(data.value);
+                        componentNextPro(data.value,i);
                     }
+                    
+                  
+                    pushHistory_two();
+
+                
                 })
             }
 
@@ -71,6 +81,7 @@ function Component_list() {
     // 营业执照照片
     this.photosOfBusinessLicense = function (data) {
         console.log(subject_type);
+        console.log(subject_index);
         var div = document.createElement("div");
         div.setAttribute('class', 'form-item');
         var str = "<div class='public_hr'></div>" +
@@ -891,7 +902,7 @@ function Component_list() {
 
     // 小程序小程序截图
     this.mini_program_pics = function (data) {
-        var str = this.create_multiple_pictures('小程序截图', '请上传小程序截图','请提供展示商品/服务的页面截图/设计稿（最多5张），若小程序未建设完善或未上线请务必提供。图片需在2M内。', 'xiaochengxu_appid');
+        var str = this.create_multiple_pictures('小程序截图', '请上传小程序截图', '请提供展示商品/服务的页面截图/设计稿（最多5张），若小程序未建设完善或未上线请务必提供。图片需在2M内。', 'xiaochengxu_appid');
         var matation_form_item_div_official_account = document.getElementById('div_applets_scene');
         matation_form_item_div_official_account.appendChild(str);
         var div_hr = document.createElement('div');
@@ -925,12 +936,13 @@ function Component_list() {
 
     //  APP场景APP截图
     this.app_pics = function (data) {
-        var str = this.create_multiple_pictures('小程序截图', '请上传小程序截图', '请提供APP首页截图、尾页截图、应用内截图、支付页截图各1张。<a target="_blank" href="http://kf.qq.com/faq/190130aqumuq190130A326Bf.html">查看示例</a>。', 'xiaochengxu_appid');
+        var str = this.create_multiple_pictures('APP截图', '请上传APP截图', '请提供APP首页截图、尾页截图、应用内截图、支付页截图各1张。<a target="_blank" href="http://kf.qq.com/faq/190130aqumuq190130A326Bf.html">查看示例</a>。', 'app_appid');
         var matation_form_item_div_official_account = document.getElementById('div_app_scence');
         matation_form_item_div_official_account.appendChild(str);
         var div_hr = document.createElement('div');
         div_hr.setAttribute('class', 'public_hrs');
         matation_form_item_div_official_account.appendChild(div_hr);
+        this.multiple_pictures('app_appid', data);
     }
 
 
@@ -949,7 +961,7 @@ function Component_list() {
 
     // PC 场景 网站授权函 
     this.web_authorisation = function (data) {
-        var str = this.createTitleTopAndImg('网站授权函(选填)','请填写网站授权函(选填)', 'pcwangzhanshouquanhan','若备案主体与申请主体不同，请务必上传加盖公章的网站授权函');
+        var str = this.createTitleTopAndImg('网站授权函(选填)', '请填写网站授权函(选填)', 'pcwangzhanshouquanhan', '若备案主体与申请主体不同，请务必上传加盖公章的网站授权函');
         var form_item_shenfenzhengbottomTwo = document.getElementById('div_pc_scence');
         form_item_shenfenzhengbottomTwo.appendChild(str);
         this.publicImgUupData('pcwangzhanshouquanhan', data);
@@ -983,14 +995,219 @@ function Component_list() {
 
     // 企业微信页面截图
     this.wework_pics = function (data) {
-        var str = this.create_multiple_pictures('企业微信页面截图', '请填写企业微信页面截图', '请提供展示商品/服务的页面截图/设计稿。<a target="_blank" href="http://kf.qq.com/faq/190130aqumuq190130A326Bf.html">查看示例</a>,最多可上传5张照片。', 'xiaochengxu_appid');
+        var str = this.create_multiple_pictures('企业微信页面截图', '请填写企业微信页面截图', '请提供展示商品/服务的页面截图/设计稿。<a target="_blank" href="http://kf.qq.com/faq/190130aqumuq190130A326Bf.html">查看示例</a>,最多可上传5张照片。', 'qiyeweixin_appid');
         var matation_form_item_div_official_account = document.getElementById('div_enterprise_wechat');
         matation_form_item_div_official_account.appendChild(str);
         var div_hr = document.createElement('div');
         div_hr.setAttribute('class', 'public_hrs');
         matation_form_item_div_official_account.appendChild(div_hr);
+        this.multiple_pictures('qiyeweixin_appid', data);
+    }
+
+
+    //结算规则 结算规则信息 入驻结算规则ID   matation_title
+    this.settlement_id=function(data){
+        var div=document.createElement('div');
+        div.setAttribute('id','matation_settlement_rules');
+        application_list_one.appendChild(div);
+        div.innerHTML += this.matation_title('结算规则');
+        var div_bottom=document.createElement('div');
+        div_bottom.setAttribute('class','matation_settlement_rules_bottom')
+        div_bottom.innerHTML='请根据实际经营行业选择结算规则，可看 <a href="https://kf.qq.com/faq/190610vmIfei190610AfMzii.html" target="_blank">结算规则指引</a>，若结算规则说明有单笔收款限额，请看 <a href="https://kf.qq.com/faq/201130jyeAFr201130NJVv6z.html" target="_blank">收款限额说明</a>';
+        this.rules_lable(data, 'matation_settlement_rules','matation_settlement_rules_children');
+        this.pay_rule(data,div,'matation_settlement_rules_children');
+        div.appendChild(div_bottom);
 
     }
+  
+    //  结算规则方法label和右边部分
+    this.rules_lable=function(data,dom,dom_children){
+        var div = document.createElement("div");
+        var label = document.createElement("label");
+        var p = document.createElement('p');
+        var p_rotate=document.createElement('p');
+        p_rotate.className='rotate_ps';
+        div.className = 'application_list_one_ul_li_div';
+        label.className = "lable_left_rule";
+        p.className = "text-errors";
+        label.innerText = data.caption;
+        var divs = document.createElement("div");
+        divs.setAttribute('class','rule_divs');
+        divs.setAttribute('id',dom_children);
+        divs.className = "b_public";
+        var span=document.createElement('span');
+        var i = document.createElement('i');
+        divs.appendChild(span);
+        divs.appendChild(i);
+        span.innerText='请选择';
+        span.style.paddingLeft='20px';
+        div.appendChild(label);
+        div.appendChild(divs);
+        divs.appendChild(p_rotate);
+        var organization_code_certificate = document.getElementById(dom);
+        organization_code_certificate.appendChild(div);
+    }
+    
+    // 结算规则所属行业
+    this.qualification_type=function(data){
+        var div=document.createElement('div');
+        div.setAttribute('id','matation_qualification_type');
+        application_list_one.appendChild(div);
+        this.rules_lable(data, 'matation_qualification_type','matation_qualification_type_children');
+        var div_bottom=document.createElement('div');
+      //  this.qualification_type_ul(data,div)
+        div_bottom.setAttribute('class','matation_settlement_rules_bottom');
+        div_bottom.innerHTML='1、请提供为“申请商家主体”所属的特殊资质，可授权使用总公司/分公司的特殊资质；<a href="https://kf.qq.com/faq/190610B7baQb190610NN3mQN.html" target="_blank">上传特殊资质指引</a><br>2、请上传2M以内的图片。';
+        div.appendChild(div_bottom);
+    }
+
+    // 结算规则信息方法下面生成的ul;
+    this.pay_rule=function(data,dom,dom_children){
+        var arrs=[];
+        var arrs_child=[];
+        var that=this;
+        var arr_subject_type=[
+            [    // 企业
+                {hangye_range:'餐饮、零售批发、网上综合商城、交通出行、生活娱乐服务、培训教育机构、民营医疗机构、缴费等业务',rate:'费率0.6%，入账周期T+1',rule_id:'716',
+                arr:[
+                    {title:'餐饮',require:'选填，若贵司具备以下资质，建议提供：餐饮业态，提供《食品经营许可证》或《餐饮服务许可证》'},
+                    {title:'食品生鲜',require:'选填，若贵司具备以下资质，建议提供：食品业态，提供《食品经营许可证》或《食品生产许可证》或供销协议'},
+                    {title:'电信运营商/宽带收费',require:'《电信业务经营许可证》'},
+                    {title:'私立/民营医院/诊所',require:'《医疗机构执业许可证》'},
+                    {title:'保健器械/医疗器械/非处方药品',require:'互联网售药：提供《互联网药品交易服务证》。线下门店卖药：提供《药品经营许可证》。医疗器械：《医疗器械经营企业许可证》'},
+                   
+                    {title:'游艺厅/KTV/网吧',require:'游艺厅/KTV：《娱乐场所许可证》。网吧：《网络文化经营许可证》'},
+                    {title:'机票/机票代理',require:'《航空公司营业执照》或《航空公司机票代理资格证》'},
+                    {title:'宠物医院',require:'《动物诊疗许可证》'},
+                    {title:'旅行社',require:'《旅行社业务经营许可证》'},
+                    {title:'宗教组织',require:'宗教类提供《宗教活动场所登记证》'},
+                   
+                    {title:'房地产/房产中介',require:'房地产开发商提供以下五个资质：《建设用地规划许可证》《建设工程规划许可证》《建筑工程开工许可证》《国有土地使用证》《商品房预售许可证》，房地产中介无需特殊资质'},
+                    {title:'共享服务',require:'需提供资金监管协议。协议要求：1、主体与商业银行签订。2、内容针对交易资金使用和偿付进行监管。3、协议须在有效期内。4、结算账户须与资金监管账户一致'},
+                 
+                    {title:'文物经营/文物复制品销售',require:'销售文物，需提供《文物经营许可证》'},
+                    {title:'拍卖典当',require:'拍卖：《拍卖经营批准证书》。典当：《典当经营许可证》'},
+                    {title:'培训机构',require:'选填，若贵司具备以下资质，建议提供：1、学科类培训，提供办学许可证或相关批文。2、驾校培训，提供有“驾驶员培训”项目的《道路运输经营许可证》'},
+                    {title:'零售批发/生活娱乐/网上商城/其他',require:''},
+                ]},
+               
+               
+               
+                {hangye_range:'保险公司、保险代理公司',rate:'费率0.6%，入账周期T+1',rule_id:'715'},
+                {hangye_range:'众筹业务',rate:'费率0.6%，入账周期T+3',rule_id:'714'},
+                {hangye_range:'财经资讯/荐股业务',rate:'费率0.6%，入账周期T+7，单笔限额3K',rule_id:'713'},
+                {hangye_range:'婚介平台、就业信息平台、话费代理充值等业务',rate:'费率0.6%，入账周期T+7，单笔限额3K',rule_id:'728'},
+                {hangye_range:'在线图书/视频/音乐、游戏、网络直播、门户论坛、网络广告及推广、软件开发业务',rate:'费率1%，入账周期T+7，单笔限额3K',rule_id:'711'},
+                {hangye_range:'加油、物流快递、民办中小学、幼儿园业务',rate:'费率0.3%，入账周期T+1',rule_id:'717'},
+                {hangye_range:'水电煤暖气民生缴费',rate:'费率0.2%，入账周期T+1',rule_id:'730'},
+                {hangye_range:'信用还款业务（不涉及理财）',rate:'费率0.2%，入账周期T+1，禁信用卡',rule_id:'718'},
+                {hangye_range:'民办大学及院校',rate:'费率0%，入账周期T+1',rule_id:'739'}
+            ],
+            
+            
+            
+            
+            [    // 个体户
+                {hangye_range:'餐饮、零售批发、交通出行、生活娱乐服务、培训教育机构、民营医疗机构、代理缴纳话费等业务',rate:'费率0.6%，入账周期T+1','rule_id':'719'},
+                {hangye_range:'话费代理充值业务',rate:'费率0.6%，入账周期T+7，单笔限额3K',rule_id:'720'},
+                {hangye_range:'游戏、网络广告及推广、软件开发',rate:'费率0.6%，入账周期T+7，单笔限额3K',rule_id:'746'},
+                {hangye_range:'加油业务',rate:'费率0.3%，入账周期T+1',rule_id:'721'}
+            ],
+           
+            [   // 党政，机关及事业
+                {hangye_range:'党团费、停车缴费、物业缴费等其他缴费类业务',rate:'费率0.6%，入账周期T+1',rule_id:'725'},
+                {hangye_range:'水电煤暖气民生缴费',rate:'费率0.2%，入账周期T+1',rule_id:'722'},
+                {hangye_range:'交通罚款业务',rate:'费率0.1%，入账周期T+1',rule_id:'723'},
+                {hangye_range:'公立医院、公立院校及指定要求的挂号平台',rate:'费率0%，入账周期T+1',rule_id:'724'}
+             
+            ],
+
+            [    // 其他组织
+                {hangye_range:'民办非企业单位业务、社区服务、咨询、娱乐票务等',rate:'费率0.6%，入账周期T+1',rule_id:'727'},
+                {hangye_range:'民办中小学、幼儿园',rate:'费率0.3%，入账周期T+1',rule_id:'738'},
+                {hangye_range:'民办大学院校及公益基金会',rate:'费率0%，入账周期T+1',rule_id:'726'}
+            ]
+        ]
+
+        var ul=document.createElement('ul');
+        ul.setAttribute('class','categoryList_rule');
+        var arrs=arr_subject_type[subject_index];
+        ul.style.display='none';
+        var div_b_public=document.getElementById(dom_children);
+        for(let j=0;j<arrs.length;j++){
+            var li=document.createElement('li');
+            var span=document.createElement('span');
+            var i=document.createElement('i');
+            var b=document.createElement('b');
+            li.appendChild(b);
+            li.appendChild(span);
+            li.appendChild(i);
+            span.innerText=arrs[j].hangye_range;
+            i.innerHTML=arrs[j].rate;
+            ul.appendChild(li);
+            li.onclick=function(){
+                data.value=arrs[j].rule_id;
+                div_b_public.children[0].innerHTML=this.children[1].innerText;
+                div_b_public.children[1].innerHTML=this.children[2].innerText;
+                div_b_public.style.height=this.offsetHeight+'px';
+                this.parentNode.style.display='none';
+                var h=getComputedStyle(this.children[2])["paddingTop"];
+                if(j==0){
+                    div_b_public.style.paddingTop='10px';
+                    div_b_public.children[1].style.paddingTop=parseInt(h)+'px';
+                }else if(j==5){
+                    div_b_public.children[1].style.paddingTop='15px';
+                }
+                else{
+                    div_b_public.style.paddingTop='15px';
+                    div_b_public.children[1].style.paddingTop='2px';
+                }
+                for(var n=0;n<ul.children.length;n++){
+                    ul.children[n].children[0].style.display='none';
+                }
+                this.children[0].style.display='block';
+                that.qualification_type_ul(arrs[j].arr)
+            }
+        }
+
+        div_b_public.onclick=function(){
+            var h=63+parseInt(this.offsetHeight);
+            ul.style.display='block';
+            ul.style.top=h+'px';
+        }
+        dom.appendChild(ul);
+
+    }
+
+    // 结算规则所属行业下的ul框
+    this.qualification_type_ul=function(arr){
+         console.log(arr);
+         var div_hangye=document.getElementById('matation_qualification_type');
+         console.log(div_hangye);
+         var ul=document.createElement('ul');
+         ul.setAttribute('class','categoryList_rules');
+         ul.style.display='none';
+         for(let j=0;j<arr.length;j++){
+            var li=document.createElement('li');
+            var span=document.createElement('span');
+            var i=document.createElement('i');
+            var b=document.createElement('b');
+            li.appendChild(b);
+            li.appendChild(span);
+            li.appendChild(i);
+            span.innerText=arr[j].title;
+            i.innerHTML=arr[j].require;
+            ul.appendChild(li);
+         }
+
+         div_hangye.appendChild(ul);
+    }
+    
+   
+
+    
+ 
+
 
     // 这个方法主要是针对dom的移除和添加设置公共方法；和input_box；相似。身份证姓名和身份证号码的方法
     this.input_box_id_card = function (data, dom, componentNextPro) { // componentNextPro 是一个函数；
@@ -1191,9 +1408,9 @@ function Component_list() {
 
 
     // 生成单张上传图片信息的方法
-    this.createTitleTopAndImg = function (str1, str2, domID,str3) {
+    this.createTitleTopAndImg = function (str1, str2, domID, str3) {
         var div = document.createElement("div");
-        str3=str3?str3:'请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）';
+        str3 = str3 ? str3 : '请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）';
         div.setAttribute('class', 'common_header_method');
         div.setAttribute('id', domID);
         var str = '<div class="createTitleTopAndImg_top">' +
@@ -1201,7 +1418,7 @@ function Component_list() {
             '<div class="application_phone_div">' +
             '<a href="javascript:;" class="a-upload"><input type="file" name="" id="">上传</a >' +
             '<a href="javascript:;" style="display:none" class="a-upload"><input type="file" name="" id="">重新上传</a>' +
-            '<div class="upload-tips ng-binding">'+str3+'</div>' +
+            '<div class="upload-tips ng-binding">' + str3 + '</div>' +
             '</div>' +
             '</div>' +
             '<ul class="application_list_one_ul_childer">' +
@@ -1236,8 +1453,8 @@ function Component_list() {
             // '</li>' +
             '</ul>' +
             '<p class="text-error">' + str2 + '</p>' +
-            '<p class="text-error">请上传2M内的彩色图片，格式可为bmp、png、jpg</p>'+
-            '<p class="text-error">最多只能上传5张图片</p>'+
+            '<p class="text-error">请上传2M内的彩色图片，格式可为bmp、png、jpg</p>' +
+            '<p class="text-error">最多只能上传5张图片</p>' +
             '<p class="text-error">系统出现错误</p>';
         div.innerHTML = str;
         return div;
@@ -1358,6 +1575,7 @@ function Component_list() {
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].onchange = function (e) {
                 var file = this.files[0];
+                console.log(file)
                 console.log(file);
                 var sizeImg = file.size;
                 if (sizeImg > 1024 * 1024 * 2) {
@@ -1367,12 +1585,12 @@ function Component_list() {
                     p[0].style.display = 'none';
                 }
                 console.log(e.target.files);
-               // data.value = e.target.files[0];
+                // data.value = e.target.files[0];
                 var reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = function (ev) {
                     li.style.display = 'block';
-                    data.value=ev.target.result;
+                    data.value = ev.target.result;
                     img.src = ev.target.result;
                     aA[1].style.display = 'block';
                     aA[0].style.display = 'none';
@@ -1385,11 +1603,11 @@ function Component_list() {
                 }
             }
         }
-        li.onmousemove=function(){
-            this.children[1].style.display='block';
+        li.onmousemove = function () {
+            this.children[1].style.display = 'block';
         }
-        li.onmouseout=function(){
-            this.children[1].style.display='none';
+        li.onmouseout = function () {
+            this.children[1].style.display = 'none';
         }
         var a = ul.getElementsByTagName('a')[0];
         a.onclick = function () {
@@ -1401,48 +1619,43 @@ function Component_list() {
     }
 
     // 上传多图片验证的公共方法
- /* 
+    /* 
     this.multiple_pictures = function (dom, data) {
         var parentId = document.getElementById(dom);
         var ul = parentId.getElementsByTagName('ul')[0];
-       // console.log(data.caption);
         var input = parentId.getElementsByTagName('input')[0];
-        var span=parentId.getElementsByTagName('span')[0];
+        var span = parentId.getElementsByTagName('span')[0];
         var p = parentId.getElementsByTagName('p');
         p[0].style.display = 'none';
         p[1].style.display = 'none';
         p[2].style.display = 'none';
         p[3].style.display = 'none';
         ul.innerHTML = '';
-        var allArr = [];
-        var data_arr=[];
-        var data_arr_obj=[];
-        var num=0;
+        var arr = [];
+        var arr_result = [];
+        var nums = 0;
+        var arr_li = [];
         input.onchange = function (e) {
-            span.innerText='继续上传';
-            var files = this.files;
+            span.innerText = '继续上传';
+            var files = e.target.files;
+            var num = 0;
             for (let i = 0; i < files.length; i++) {
                 var file = e.target.files[i];
                 var sizeImg = file.size;
-                console.log(e.target.files[i]);
+
                 if (sizeImg > 1024 * 1024 * 2) {
                     p[1].style.display = 'block';
                     return;
-                } else {
-                    if(data.caption=='小程序截图'||data.caption=='公众号页面截图'){
-                        var len=parseInt(data_arr.length)+parseInt(files.length);
-                        if(len>5){
-                            p[2].style.display = 'block';
-                            return;
-                        }else{
-                            allArr.push(file);
-                        }
-                    }else{
-                        allArr.push(file);
+                }
+
+                num += 1;
+                if (data.caption == '小程序截图' || data.caption == '公众号页面截图') {
+                    var len = parseInt(arr.length) + num;
+                    if (len > 5) {
+                        p[2].style.display = 'block';
+                        return;
                     }
-                    console.log(allArr);
-                    p[0].style.display = 'none';  
-                }   
+                }
                 var reader = new FileReader();
                 reader.readAsDataURL(files[i]);
                 reader.onload = function (ev) {
@@ -1450,51 +1663,62 @@ function Component_list() {
                     var img = document.createElement('img');
                     var a = document.createElement('a');
                     a.setAttribute('class', 'del');
-                    console.log(num)
                     img.src = ev.target.result;
-                    data_arr.push(ev.target.result);
-                    data.value=data_arr;
-                    var datas={
-                        name:num,
-                        data:ev.target.result
-                    }
-                    console.log(num)
-                    li.setAttribute('index',num)
-                    data_arr_obj.push(datas);
                     ul.appendChild(li);
                     li.appendChild(img);
                     li.appendChild(a);
+                    nums += 1;
+                    var datas = {
+                        name: nums - 1,
+                        data_file: files[i]
+                    }
+                    arr.push(datas);
+                    var datas_result = {
+                        name: nums - 1,
+                        datas: e.target.result
+                    }
+                    arr_result.push(datas_result);
+                    li.setAttribute('index', nums - 1);
+                    console.log(i);
+                    data.value.push(files[i])
                     p[0].style.display = 'none';
                     p[1].style.display = 'none';
                     p[2].style.display = 'none';
                     p[3].style.display = 'none';
-                    num+=1;
-                    console.log(data_arr_obj);
-                    li.onmousemove=function(){
-                        this.children[1].style.display='block';
+                    li.onmousemove = function () {
+                        this.children[1].style.display = 'block';
                     }
-                    li.onmouseout=function(){
-                        this.children[1].style.display='none';
+                    li.onmouseout = function () {
+                        this.children[1].style.display = 'none';
                     }
                     a.onclick = function () {
-                        var indexLi=this.parentNode.getAttribute('index');
-                        li.remove();
-                        data_arr_obj = data_arr_obj.filter(function(item,index){
-                            return item.name!=indexLi;
-                        })
-                        console.log(data_arr_obj);
-                        data_arr=[];
-                        for(let i=0;i<data_arr_obj.length;i++){
-                            data_arr.push(data_arr_obj[i].data);
+                        var index_name = this.parentNode.getAttribute('index');
+                        this.parentNode.remove();
+                        var arrs = [];
+                        var arr_results = [];
+                        data.value = [];
+                        for (var i = 0; i < arr.length; i++) {
+                            if (arr[i].name != index_name) {
+                                arrs.push(arr[i]);
+                                data.value.push(arr[i].data_file);
+                            }
                         }
-                      //  console.log(data_arr);
-                        data.value=data_arr;
+                        for (var i = 0; i < arr_result.length; i++) {
+                            if (arr_result[i].name != index_name) {
+                                // console.log(index_name);
+                                arr_results.push(arr_result[i]);
+                            }
+                        }
+                        arr = arrs;
+                        arr_result = arr_results;
                     }
-                   
+
                 }
             }
- 
+
+
         }
+
 
     }
 
@@ -1506,44 +1730,39 @@ function Component_list() {
     this.multiple_pictures = function (dom, data) {
         var parentId = document.getElementById(dom);
         var ul = parentId.getElementsByTagName('ul')[0];
-       // console.log(data.caption);
         var input = parentId.getElementsByTagName('input')[0];
-        var span=parentId.getElementsByTagName('span')[0];
+        var span = parentId.getElementsByTagName('span')[0];
         var p = parentId.getElementsByTagName('p');
         p[0].style.display = 'none';
         p[1].style.display = 'none';
         p[2].style.display = 'none';
         p[3].style.display = 'none';
         ul.innerHTML = '';
-        var allArr = [];
-        var data_arr=[];
-        var data_arr_obj=[];
-        var num=0;
+        var arr = [];
+        var arr_result = [];
+        var nums = 0;
+        var arr_data = [];
         input.onchange = function (e) {
-            span.innerText='继续上传';
-            var files = this.files;
+            span.innerText = '继续上传';
+            var files = e.target.files;
+            var num = 0;
             for (let i = 0; i < files.length; i++) {
                 var file = e.target.files[i];
                 var sizeImg = file.size;
-                console.log(e.target.files[i]);
+
                 if (sizeImg > 1024 * 1024 * 2) {
                     p[1].style.display = 'block';
                     return;
-                } else {
-                    if(data.caption=='小程序截图'||data.caption=='公众号页面截图'){
-                        var len=parseInt(data_arr.length)+parseInt(files.length);
-                        if(len>5){
-                            p[2].style.display = 'block';
-                            return;
-                        }else{
-                            allArr.push(file);
-                        }
-                    }else{
-                        allArr.push(file);
+                }
+
+                num += 1;
+             //   if (data.caption == '小程序截图' || data.caption == '公众号页面截图') {
+                    var len = parseInt(arr.length) + num;
+                    if (len > 5) {
+                        p[2].style.display = 'block';
+                        return;
                     }
-                    console.log(allArr);
-                    p[0].style.display = 'none';  
-                }   
+              //  }
                 var reader = new FileReader();
                 reader.readAsDataURL(files[i]);
                 reader.onload = function (ev) {
@@ -1551,57 +1770,76 @@ function Component_list() {
                     var img = document.createElement('img');
                     var a = document.createElement('a');
                     a.setAttribute('class', 'del');
-                    console.log(num)
                     img.src = ev.target.result;
-                    data_arr.push(ev.target.result);
-                    data.value=data_arr;
-                    var datas={
-                        name:num,
-                        data:ev.target.result
-                    }
-                    console.log(num)
-                    li.setAttribute('index',num)
-                    data_arr_obj.push(datas);
                     ul.appendChild(li);
                     li.appendChild(img);
                     li.appendChild(a);
+                    nums += 1;
+                    var datas = {
+                        name: nums - 1,
+                        data_file: files[i]
+                    }
+                    arr.push(datas);
+                    var datas_result = {
+                        name: nums - 1,
+                        datas: e.target.result
+                    }
+                    arr_result.push(datas_result);
+                    li.setAttribute('index', nums - 1);
+                  //  console.log(i);
+                    arr_data.push(files[i]);
+                    data.value=arr_data;
+                  //  console.log(data.value);
                     p[0].style.display = 'none';
                     p[1].style.display = 'none';
                     p[2].style.display = 'none';
                     p[3].style.display = 'none';
-                    num+=1;
-                    console.log(data_arr_obj);
-                    li.onmousemove=function(){
-                        this.children[1].style.display='block';
+                    li.onmousemove = function () {
+                       // console.log(a);
+                        a.style.display = 'block';
                     }
-                    li.onmouseout=function(){
-                        this.children[1].style.display='none';
+                    li.onmouseout = function () {
+                        a.style.display = 'none';
                     }
+                  //  console.log(data.value)
                     a.onclick = function () {
-                        var indexLi=this.parentNode.getAttribute('index');
-                        li.remove();
-                        data_arr_obj = data_arr_obj.filter(function(item,index){
-                            return item.name!=indexLi;
-                        })
-                        console.log(data_arr_obj);
-                        data_arr=[];
-                        for(let i=0;i<data_arr_obj.length;i++){
-                            data_arr.push(data_arr_obj[i].data);
+                        var index_name = this.parentNode.getAttribute('index');
+                        this.parentNode.remove();
+                        var arrs = [];
+                        var arr_results = [];
+                        arr_data = [];
+                        for (var i = 0; i < arr.length; i++) {
+                            if (arr[i].name != index_name) {
+                                arrs.push(arr[i]);
+                                arr_data.push(arr[i].data_file);
+                            }
                         }
-                      //  console.log(data_arr);
-                        data.value=data_arr;
+                        for (var i = 0; i < arr_result.length; i++) {
+                            if (arr_result[i].name != index_name) {
+                                // console.log(index_name);
+                                arr_results.push(arr_result[i]);
+                            }
+                        }
+                        arr = arrs;
+                        arr_result = arr_results;
+                        data.value=arr_data;
+                       // console.log(arr);
+                       // console.log(data.value);
                     }
-                   
+
                 }
             }
-          
+
+
         }
 
-
-
-
-
     }
+
+
+
+
+
+
 
 
     // 公共方法生成节点
@@ -1685,97 +1923,11 @@ function Component_list() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 个体户经营者/法人 姓名
-/*   this.legal_person=function(data,componentNextPro){
-        var div = document.createElement("div");
-        var label = document.createElement("label");
-        var p = document.createElement('p');
-        div.className='application_list_one_ul_li_div';
-        label.className = "lable_left";
-        p.className = "text-errors";
-        label.innerText = data.caption;
-        var input = document.createElement("input");
-        input.className = "input_public";
-        div.appendChild(label);
-        div.appendChild(input);
-        div.appendChild(p);
-        application_list_one.appendChild(div);
-        input.onblur = function(){
-            data.value=input.value ? input.value:"";
-            var a = data.verification_method();
-            if(a){
-                p.style.display = 'block';
-                p.innerHTML = a;
-            }
-        }
-
-        input.onfocus = function(){
-            p.style.display = 'none';
-        }
-        var div = document.createElement("div");
-        div.className='three_zhengOne';
-        var p = document.createElement('p');
-        p.innerHTML='若营业执照注册号为18位统一社会信用代码，请选择“已三证合一”，否则请选择“未三证合一”';
-        div.innerHTML=three_syndromes_component();
-        div.appendChild(p);
-        application_list_one.appendChild(div);
-
-        var label_three_syndromes=document.getElementById('label_three_syndromes');
-        var inputs=label_three_syndromes.getElementsByTagName('input');
-        for(var i=0;i<inputs.length;i++){
-            inputs.onclick=function(){
-                console.log(this)
-            }
-        }
-
-    }
-
-*/
-
-
-/*
-function three_syndromes_component(arr){
-    console.log(arr);
-    var str='';
-    for(var i=0;i<arr.length;i++){
-        str += '<div class="application_list_one_ul_li_div">'+
-        '<label class="three_syndromes_lable_left">类型</label>'+
-        '<div class="label_three_syndromes" id="label_three_syndromes">'+
-            '<label class="labelone_three_syndromes">'+
-                '<input type="radio" name="radio" class="radioSelect">'+
-                '<span></span>'+
-                '<i>已三证合一</i>'+
-            '</label>'+
-            '<label class="labeltwo_three_syndromes">'+
-                '<input type="radio" name="radio" checked class="radioSelect">'+
-                '<span></span>'+
-                '<i>未三证合一</i>'+
-            '</label>'+
-        '</div>'+
-      '</div>';
-    }
-      return str;
+  // 自己做的回退事件
+  function pushHistory_two() {
+    var state = {
+        title: "title",
+        url: "#"
+    };
+    window.history.pushState(state, "title", "#");
 }
-
-*/

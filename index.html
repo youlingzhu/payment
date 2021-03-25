@@ -71,18 +71,20 @@
 
     <script>
         let subject_type = null;
+        let subject_index=null;
         new Register(wechartJson, function () {}); // 这个是 registerEvent.js 里面的对象；专门是挂载生成的组件和input框的value值；
         new RecursiveTool(function (res) {
             if (res.caption == "主体资料") {
                 new RecursiveTool(function (response) { // response 是主体资料里面的值；
                     if (response.caption == "主体类型") {
                         //选中主体类型后通知
-                        response.generate_component(function (value) {
+                        response.generate_component(function (value,index) {
                             subject_type = value;
+                            subject_index = index;
                             // console.log(value); 公司还是个体
                             required_information(function (values) {
-                              var fun = eval(values);
-                              fun(values);
+                                var fun = eval(values);
+                                fun(values);
                             })
                         });
                     }
@@ -93,28 +95,47 @@
 
 
         let SubjectInformation = function (value) {
-                let array = wechartJson[2].subobject.filter(item => {
-                    if (item.caption != "主体类型") {
-                        return item;
-                    }
-                });
-                console.log(array);
-                new RecursiveTool(function (response) {
-                    if (response.generate_component !=null && typeof response.generate_component == 'function') {
-                        response.generate_component();
-                    }
-                }).recursive(array);
-        }
-
-        let ManagementInformation=function(value){
-            let array = wechartJson[3].subobject;
+            let array = wechartJson[2].subobject.filter(item => {
+                if (item.caption != "主体类型") {
+                    return item;
+                }
+            });
+            console.log(array);
             new RecursiveTool(function (response) {
-                    if (response.generate_component !=null && typeof response.generate_component == 'function') {
-                        response.generate_component();
-                    }
+                if (response.generate_component != null && typeof response.generate_component ==
+                    'function') {
+                    response.generate_component();
+                }
             }).recursive(array);
         }
-   
+
+        let ManagementInformation = function (value) {
+            let array = wechartJson[3].subobject;
+            new RecursiveTool(function (response) {
+                if (response.generate_component != null && typeof response.generate_component =='function') {
+                    response.generate_component();
+                }
+            }).recursive(array);
+        }
+
+
+        let Settlementrules = function (value) {
+            let array = wechartJson[4].subobject;
+            new RecursiveTool(function (response) {
+               // console.log(response);
+                if (response.generate_component != null && typeof response.generate_component == 'function') {
+                    response.generate_component();
+                }
+            }).recursive(array);
+        }
+
+
+
+
+        window.addEventListener("popstate", function (e) {
+            console.log("我监听到了浏览器的返回按钮事件啦"); //根据自己的需求实现自己的功能  
+            window.location.href = 'http://127.0.0.1:5500/index.html#';
+        }, false);
    
    
    

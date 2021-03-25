@@ -50,7 +50,7 @@ function required_information(nextPro) {
         {
             title: "结算规则",
             content: "请填写商家的结算费率规则、特殊资质等信息",
-            component:"SubjectInformation",
+            component:"Settlementrules",
         },
         {
             title: "结算账户",
@@ -95,6 +95,7 @@ function required_information(nextPro) {
             Information_to_fill_out.style.display = 'none';
             order_application.style.display = 'block';
             nextPro(objArr[this.index].component);
+            pushHistory_one();
         }
 
         
@@ -175,6 +176,26 @@ function order_of_payment_and_registration() {
 
     var p1 = document.getElementById('order_of_payment_and_registration_p1');
   //  order_application.style.display='none';
+    
+    
+
+
+
+
+
+
+
+
+
+
 
 }
 
+ // 自己做的回退事件
+ function pushHistory_one() {
+    var state = {
+        title: "title",
+        url: "##"
+    };
+    window.history.pushState(state, "title", "#1");
+}
