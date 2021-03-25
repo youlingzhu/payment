@@ -1059,6 +1059,10 @@ function Component_list() {
         div_bottom.setAttribute('class','matation_settlement_rules_bottom');
         div_bottom.innerHTML='1、请提供为“申请商家主体”所属的特殊资质，可授权使用总公司/分公司的特殊资质；<a href="https://kf.qq.com/faq/190610B7baQb190610NN3mQN.html" target="_blank">上传特殊资质指引</a><br>2、请上传2M以内的图片。';
         div.appendChild(div_bottom);
+        var ul=document.createElement('ul');
+        ul.setAttribute('class','categoryList_rules');
+        ul.style.display='none';
+        div.appendChild(ul);
     }
 
     // 结算规则信息方法下面生成的ul;
@@ -1088,7 +1092,7 @@ function Component_list() {
                     {title:'文物经营/文物复制品销售',require:'销售文物，需提供《文物经营许可证》'},
                     {title:'拍卖典当',require:'拍卖：《拍卖经营批准证书》。典当：《典当经营许可证》'},
                     {title:'培训机构',require:'选填，若贵司具备以下资质，建议提供：1、学科类培训，提供办学许可证或相关批文。2、驾校培训，提供有“驾驶员培训”项目的《道路运输经营许可证》'},
-                    {title:'零售批发/生活娱乐/网上商城/其他',require:''},
+                    {title:'零售批发/生活娱乐/网上商城/其他',require:'无需提供特需资质'},
                 ]},
                
                
@@ -1182,11 +1186,13 @@ function Component_list() {
     // 结算规则所属行业下的ul框
     this.qualification_type_ul=function(arr){
          console.log(arr);
-         var div_hangye=document.getElementById('matation_qualification_type');
-         console.log(div_hangye);
-         var ul=document.createElement('ul');
-         ul.setAttribute('class','categoryList_rules');
-         ul.style.display='none';
+         var div_hangye_children=document.getElementById('matation_qualification_type_children');
+         var matation_qualification_type=document.getElementById('matation_qualification_type');
+         var ul=matation_qualification_type.getElementsByTagName('ul')[0];
+         div_hangye_children.onclick=function(){
+             ul.style.display='block';
+         }
+         ul.innerHTML='';
          for(let j=0;j<arr.length;j++){
             var li=document.createElement('li');
             var span=document.createElement('span');
@@ -1198,9 +1204,28 @@ function Component_list() {
             span.innerText=arr[j].title;
             i.innerHTML=arr[j].require;
             ul.appendChild(li);
+            li.onclick=function(){
+                ul.style.display='block';
+                div_hangye_children.style.height=this.offsetHeight+'px';
+                div_hangye_children.children[0].style.display='block';
+                div_hangye_children.children[0].style.fontWeight='bold';
+                div_hangye_children.children[1].style.float='block';
+                div_hangye_children.children[1].style.width='100%';
+                div_hangye_children.style.paddingRight='45px';
+                div_hangye_children.style.paddingLeft='40px';
+                div_hangye_children.children[0].style.paddingLeft='0px';
+                div_hangye_children.children[0].style.float='none';
+                div_hangye_children.children[1].style.float='none';
+                div_hangye_children.children[0].innerHTML=arr[j].title;
+                div_hangye_children.children[1].innerHTML=arr[j].require;
+                ul.style.top=this.offsetHeight+'px';
+                for(var n=0;n<ul.children.length;n++){
+                    ul.children[n].children[0].style.display='none';
+                }
+                this.children[0].style.display='block';
+                ul.style.display='none';
+            }
          }
-
-         div_hangye.appendChild(ul);
     }
     
    
@@ -1575,8 +1600,6 @@ function Component_list() {
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].onchange = function (e) {
                 var file = this.files[0];
-                console.log(file)
-                console.log(file);
                 var sizeImg = file.size;
                 if (sizeImg > 1024 * 1024 * 2) {
                     p[1].style.display = 'block';
@@ -1584,13 +1607,11 @@ function Component_list() {
                 } else {
                     p[0].style.display = 'none';
                 }
-                console.log(e.target.files);
-                // data.value = e.target.files[0];
                 var reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = function (ev) {
                     li.style.display = 'block';
-                    data.value = ev.target.result;
+                    data.value = e.target.files[0];
                     img.src = ev.target.result;
                     aA[1].style.display = 'block';
                     aA[0].style.display = 'none';
@@ -1618,115 +1639,9 @@ function Component_list() {
 
     }
 
-    // 上传多图片验证的公共方法
-    /* 
-    this.multiple_pictures = function (dom, data) {
-        var parentId = document.getElementById(dom);
-        var ul = parentId.getElementsByTagName('ul')[0];
-        var input = parentId.getElementsByTagName('input')[0];
-        var span = parentId.getElementsByTagName('span')[0];
-        var p = parentId.getElementsByTagName('p');
-        p[0].style.display = 'none';
-        p[1].style.display = 'none';
-        p[2].style.display = 'none';
-        p[3].style.display = 'none';
-        ul.innerHTML = '';
-        var arr = [];
-        var arr_result = [];
-        var nums = 0;
-        var arr_li = [];
-        input.onchange = function (e) {
-            span.innerText = '继续上传';
-            var files = e.target.files;
-            var num = 0;
-            for (let i = 0; i < files.length; i++) {
-                var file = e.target.files[i];
-                var sizeImg = file.size;
-
-                if (sizeImg > 1024 * 1024 * 2) {
-                    p[1].style.display = 'block';
-                    return;
-                }
-
-                num += 1;
-                if (data.caption == '小程序截图' || data.caption == '公众号页面截图') {
-                    var len = parseInt(arr.length) + num;
-                    if (len > 5) {
-                        p[2].style.display = 'block';
-                        return;
-                    }
-                }
-                var reader = new FileReader();
-                reader.readAsDataURL(files[i]);
-                reader.onload = function (ev) {
-                    var li = document.createElement('li');
-                    var img = document.createElement('img');
-                    var a = document.createElement('a');
-                    a.setAttribute('class', 'del');
-                    img.src = ev.target.result;
-                    ul.appendChild(li);
-                    li.appendChild(img);
-                    li.appendChild(a);
-                    nums += 1;
-                    var datas = {
-                        name: nums - 1,
-                        data_file: files[i]
-                    }
-                    arr.push(datas);
-                    var datas_result = {
-                        name: nums - 1,
-                        datas: e.target.result
-                    }
-                    arr_result.push(datas_result);
-                    li.setAttribute('index', nums - 1);
-                    console.log(i);
-                    data.value.push(files[i])
-                    p[0].style.display = 'none';
-                    p[1].style.display = 'none';
-                    p[2].style.display = 'none';
-                    p[3].style.display = 'none';
-                    li.onmousemove = function () {
-                        this.children[1].style.display = 'block';
-                    }
-                    li.onmouseout = function () {
-                        this.children[1].style.display = 'none';
-                    }
-                    a.onclick = function () {
-                        var index_name = this.parentNode.getAttribute('index');
-                        this.parentNode.remove();
-                        var arrs = [];
-                        var arr_results = [];
-                        data.value = [];
-                        for (var i = 0; i < arr.length; i++) {
-                            if (arr[i].name != index_name) {
-                                arrs.push(arr[i]);
-                                data.value.push(arr[i].data_file);
-                            }
-                        }
-                        for (var i = 0; i < arr_result.length; i++) {
-                            if (arr_result[i].name != index_name) {
-                                // console.log(index_name);
-                                arr_results.push(arr_result[i]);
-                            }
-                        }
-                        arr = arrs;
-                        arr_result = arr_results;
-                    }
-
-                }
-            }
 
 
-        }
-
-
-    }
-
-*/
-
-
-
-
+    // 多图片上传
     this.multiple_pictures = function (dom, data) {
         var parentId = document.getElementById(dom);
         var ul = parentId.getElementsByTagName('ul')[0];
