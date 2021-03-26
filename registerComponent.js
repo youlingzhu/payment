@@ -1,10 +1,5 @@
-
-
-
-
-
 function Component_list() {
-   
+
     var application_list_one = document.getElementById('application_list_one');
     // 选择经营者类型
     this.subjectType = function (data, componentNextPro) {
@@ -62,13 +57,13 @@ function Component_list() {
                     Information_to_fill_out.style.display = 'block';
                     order_application.style.display = 'none';
                     if (componentNextPro) {
-                        componentNextPro(data.value,i);
+                        componentNextPro(data.value, i);
                     }
-                    
-                  
+
+
                     pushHistory_two();
 
-                
+
                 })
             }
 
@@ -1006,233 +1001,667 @@ function Component_list() {
 
 
     //结算规则 结算规则信息 入驻结算规则ID   matation_title
-    this.settlement_id=function(data){
-        var div=document.createElement('div');
-        div.setAttribute('id','matation_settlement_rules');
+    this.settlement_id = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_settlement_rules');
         application_list_one.appendChild(div);
         div.innerHTML += this.matation_title('结算规则');
-        var div_bottom=document.createElement('div');
-        div_bottom.setAttribute('class','matation_settlement_rules_bottom')
-        div_bottom.innerHTML='请根据实际经营行业选择结算规则，可看 <a href="https://kf.qq.com/faq/190610vmIfei190610AfMzii.html" target="_blank">结算规则指引</a>，若结算规则说明有单笔收款限额，请看 <a href="https://kf.qq.com/faq/201130jyeAFr201130NJVv6z.html" target="_blank">收款限额说明</a>';
-        this.rules_lable(data, 'matation_settlement_rules','matation_settlement_rules_children');
-        this.pay_rule(data,div,'matation_settlement_rules_children');
+        var div_bottom = document.createElement('div');
+        div_bottom.setAttribute('class', 'matation_settlement_rules_bottom')
+        div_bottom.innerHTML = '请根据实际经营行业选择结算规则，可看 <a href="https://kf.qq.com/faq/190610vmIfei190610AfMzii.html" target="_blank">结算规则指引</a>，若结算规则说明有单笔收款限额，请看 <a href="https://kf.qq.com/faq/201130jyeAFr201130NJVv6z.html" target="_blank">收款限额说明</a>';
+        this.rules_lable(data, 'matation_settlement_rules', 'matation_settlement_rules_children');
+        this.pay_rule(data, div, 'matation_settlement_rules_children');
         div.appendChild(div_bottom);
 
     }
-  
+
     //  结算规则方法label和右边部分
-    this.rules_lable=function(data,dom,dom_children){
+    this.rules_lable = function (data, dom, dom_children) {
         var div = document.createElement("div");
         var label = document.createElement("label");
         var p = document.createElement('p');
-        var p_rotate=document.createElement('p');
-        p_rotate.className='rotate_ps';
+        var p_rotate = document.createElement('p');
+        p_rotate.className = 'rotate_ps';
         div.className = 'application_list_one_ul_li_div';
         label.className = "lable_left_rule";
         p.className = "text-errors";
         label.innerText = data.caption;
         var divs = document.createElement("div");
-        divs.setAttribute('class','rule_divs');
-        divs.setAttribute('id',dom_children);
+        divs.setAttribute('class', 'rule_divs');
+        divs.setAttribute('id', dom_children);
         divs.className = "b_public";
-        var span=document.createElement('span');
+        var span = document.createElement('span');
         var i = document.createElement('i');
         divs.appendChild(span);
         divs.appendChild(i);
-        span.innerText='请选择';
-        span.style.paddingLeft='20px';
+        span.innerText = '请选择';
+        span.style.paddingLeft = '20px';
         div.appendChild(label);
         div.appendChild(divs);
         divs.appendChild(p_rotate);
         var organization_code_certificate = document.getElementById(dom);
         organization_code_certificate.appendChild(div);
     }
-    
+
     // 结算规则所属行业
-    this.qualification_type=function(data){
-        var div=document.createElement('div');
-        div.setAttribute('id','matation_qualification_type');
+    this.qualification_type = function (data, componentNextPro) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_qualification_type');
         application_list_one.appendChild(div);
-        this.rules_lable(data, 'matation_qualification_type','matation_qualification_type_children');
-        var div_bottom=document.createElement('div');
-      //  this.qualification_type_ul(data,div)
-        div_bottom.setAttribute('class','matation_settlement_rules_bottom');
-        div_bottom.innerHTML='1、请提供为“申请商家主体”所属的特殊资质，可授权使用总公司/分公司的特殊资质；<a href="https://kf.qq.com/faq/190610B7baQb190610NN3mQN.html" target="_blank">上传特殊资质指引</a><br>2、请上传2M以内的图片。';
+        this.rules_lable(data, 'matation_qualification_type', 'matation_qualification_type_children');
+        var div_bottom = document.createElement('div');
+        this.qualification_type_ul(data);
+        div_bottom.setAttribute('class', 'matation_settlement_rules_bottom');
+        div_bottom.innerHTML = '1、请提供为“申请商家主体”所属的特殊资质，可授权使用总公司/分公司的特殊资质；<a href="https://kf.qq.com/faq/190610B7baQb190610NN3mQN.html" target="_blank">上传特殊资质指引</a><br>2、请上传2M以内的图片。';
         div.appendChild(div_bottom);
-        var ul=document.createElement('ul');
-        ul.setAttribute('class','categoryList_rules');
-        ul.style.display='none';
+        var p=document.createElement('p');
+        p.setAttribute('id','matation_qualification_type_p');
+        p.className='text-errors';
+        div.appendChild(p);
+        p.style.paddingTop='10px';
+        var ul = document.createElement('ul');
+        ul.setAttribute('class', 'categoryList_rules');
+        ul.style.display = 'none';
         div.appendChild(ul);
     }
 
     // 结算规则信息方法下面生成的ul;
-    this.pay_rule=function(data,dom,dom_children){
-        var arrs=[];
-        var arrs_child=[];
-        var that=this;
-        var arr_subject_type=[
-            [    // 企业
-                {hangye_range:'餐饮、零售批发、网上综合商城、交通出行、生活娱乐服务、培训教育机构、民营医疗机构、缴费等业务',rate:'费率0.6%，入账周期T+1',rule_id:'716',
-                arr:[
-                    {title:'餐饮',require:'选填，若贵司具备以下资质，建议提供：餐饮业态，提供《食品经营许可证》或《餐饮服务许可证》'},
-                    {title:'食品生鲜',require:'选填，若贵司具备以下资质，建议提供：食品业态，提供《食品经营许可证》或《食品生产许可证》或供销协议'},
-                    {title:'电信运营商/宽带收费',require:'《电信业务经营许可证》'},
-                    {title:'私立/民营医院/诊所',require:'《医疗机构执业许可证》'},
-                    {title:'保健器械/医疗器械/非处方药品',require:'互联网售药：提供《互联网药品交易服务证》。线下门店卖药：提供《药品经营许可证》。医疗器械：《医疗器械经营企业许可证》'},
-                   
-                    {title:'游艺厅/KTV/网吧',require:'游艺厅/KTV：《娱乐场所许可证》。网吧：《网络文化经营许可证》'},
-                    {title:'机票/机票代理',require:'《航空公司营业执照》或《航空公司机票代理资格证》'},
-                    {title:'宠物医院',require:'《动物诊疗许可证》'},
-                    {title:'旅行社',require:'《旅行社业务经营许可证》'},
-                    {title:'宗教组织',require:'宗教类提供《宗教活动场所登记证》'},
-                   
-                    {title:'房地产/房产中介',require:'房地产开发商提供以下五个资质：《建设用地规划许可证》《建设工程规划许可证》《建筑工程开工许可证》《国有土地使用证》《商品房预售许可证》，房地产中介无需特殊资质'},
-                    {title:'共享服务',require:'需提供资金监管协议。协议要求：1、主体与商业银行签订。2、内容针对交易资金使用和偿付进行监管。3、协议须在有效期内。4、结算账户须与资金监管账户一致'},
-                 
-                    {title:'文物经营/文物复制品销售',require:'销售文物，需提供《文物经营许可证》'},
-                    {title:'拍卖典当',require:'拍卖：《拍卖经营批准证书》。典当：《典当经营许可证》'},
-                    {title:'培训机构',require:'选填，若贵司具备以下资质，建议提供：1、学科类培训，提供办学许可证或相关批文。2、驾校培训，提供有“驾驶员培训”项目的《道路运输经营许可证》'},
-                    {title:'零售批发/生活娱乐/网上商城/其他',require:'无需提供特需资质'},
-                ]},
-               
-               
-               
-                {hangye_range:'保险公司、保险代理公司',rate:'费率0.6%，入账周期T+1',rule_id:'715'},
-                {hangye_range:'众筹业务',rate:'费率0.6%，入账周期T+3',rule_id:'714'},
-                {hangye_range:'财经资讯/荐股业务',rate:'费率0.6%，入账周期T+7，单笔限额3K',rule_id:'713'},
-                {hangye_range:'婚介平台、就业信息平台、话费代理充值等业务',rate:'费率0.6%，入账周期T+7，单笔限额3K',rule_id:'728'},
-                {hangye_range:'在线图书/视频/音乐、游戏、网络直播、门户论坛、网络广告及推广、软件开发业务',rate:'费率1%，入账周期T+7，单笔限额3K',rule_id:'711'},
-                {hangye_range:'加油、物流快递、民办中小学、幼儿园业务',rate:'费率0.3%，入账周期T+1',rule_id:'717'},
-                {hangye_range:'水电煤暖气民生缴费',rate:'费率0.2%，入账周期T+1',rule_id:'730'},
-                {hangye_range:'信用还款业务（不涉及理财）',rate:'费率0.2%，入账周期T+1，禁信用卡',rule_id:'718'},
-                {hangye_range:'民办大学及院校',rate:'费率0%，入账周期T+1',rule_id:'739'}
-            ],
-            
-            
-            
-            
-            [    // 个体户
-                {hangye_range:'餐饮、零售批发、交通出行、生活娱乐服务、培训教育机构、民营医疗机构、代理缴纳话费等业务',rate:'费率0.6%，入账周期T+1','rule_id':'719'},
-                {hangye_range:'话费代理充值业务',rate:'费率0.6%，入账周期T+7，单笔限额3K',rule_id:'720'},
-                {hangye_range:'游戏、网络广告及推广、软件开发',rate:'费率0.6%，入账周期T+7，单笔限额3K',rule_id:'746'},
-                {hangye_range:'加油业务',rate:'费率0.3%，入账周期T+1',rule_id:'721'}
-            ],
-           
-            [   // 党政，机关及事业
-                {hangye_range:'党团费、停车缴费、物业缴费等其他缴费类业务',rate:'费率0.6%，入账周期T+1',rule_id:'725'},
-                {hangye_range:'水电煤暖气民生缴费',rate:'费率0.2%，入账周期T+1',rule_id:'722'},
-                {hangye_range:'交通罚款业务',rate:'费率0.1%，入账周期T+1',rule_id:'723'},
-                {hangye_range:'公立医院、公立院校及指定要求的挂号平台',rate:'费率0%，入账周期T+1',rule_id:'724'}
-             
+    this.pay_rule = function (data, dom, dom_children) {
+        var arrs = [];
+        var arrs_child = [];
+        var that = this;
+        var arr_subject_type = [
+            [ // 企业
+                {
+                    hangye_range: '餐饮、零售批发、网上综合商城、交通出行、生活娱乐服务、培训教育机构、民营医疗机构、缴费等业务',
+                    rate: '费率0.6%，入账周期T+1',
+                    rule_id: '716',
+                    arr: [{
+                            title: '餐饮',
+                            require: '选填，若贵司具备以下资质，建议提供：餐饮业态，提供《食品经营许可证》或《餐饮服务许可证》'
+                        },
+                        {
+                            title: '食品生鲜',
+                            require: '选填，若贵司具备以下资质，建议提供：食品业态，提供《食品经营许可证》或《食品生产许可证》或供销协议'
+                        },
+                        {
+                            title: '电信运营商/宽带收费',
+                            require: '《电信业务经营许可证》'
+                        },
+                        {
+                            title: '私立/民营医院/诊所',
+                            require: '《医疗机构执业许可证》'
+                        },
+                        {
+                            title: '保健器械/医疗器械/非处方药品',
+                            require: '互联网售药：提供《互联网药品交易服务证》。线下门店卖药：提供《药品经营许可证》。医疗器械：《医疗器械经营企业许可证》'
+                        },
+
+                        {
+                            title: '游艺厅/KTV/网吧',
+                            require: '游艺厅/KTV：《娱乐场所许可证》。网吧：《网络文化经营许可证》'
+                        },
+                        {
+                            title: '机票/机票代理',
+                            require: '《航空公司营业执照》或《航空公司机票代理资格证》'
+                        },
+                        {
+                            title: '宠物医院',
+                            require: '《动物诊疗许可证》'
+                        },
+                        {
+                            title: '旅行社',
+                            require: '《旅行社业务经营许可证》'
+                        },
+                        {
+                            title: '宗教组织',
+                            require: '宗教类提供《宗教活动场所登记证》'
+                        },
+
+                        {
+                            title: '房地产/房产中介',
+                            require: '房地产开发商提供以下五个资质：《建设用地规划许可证》《建设工程规划许可证》《建筑工程开工许可证》《国有土地使用证》《商品房预售许可证》，房地产中介无需特殊资质'
+                        },
+                        {
+                            title: '共享服务',
+                            require: '需提供资金监管协议。协议要求：1、主体与商业银行签订。2、内容针对交易资金使用和偿付进行监管。3、协议须在有效期内。4、结算账户须与资金监管账户一致'
+                        },
+
+                        {
+                            title: '文物经营/文物复制品销售',
+                            require: '销售文物，需提供《文物经营许可证》'
+                        },
+                        {
+                            title: '拍卖典当',
+                            require: '拍卖：《拍卖经营批准证书》。典当：《典当经营许可证》'
+                        },
+                        {
+                            title: '培训机构',
+                            require: '选填，若贵司具备以下资质，建议提供：1、学科类培训，提供办学许可证或相关批文。2、驾校培训，提供有“驾驶员培训”项目的《道路运输经营许可证》'
+                        },
+                        {
+                            title: '零售批发/生活娱乐/网上商城/其他',
+                            require: '无需提供特需资质'
+                        },
+                    ]
+                },
+
+
+
+                {
+                    hangye_range: '保险公司、保险代理公司',
+                    rate: '费率0.6%，入账周期T+1',
+                    rule_id: '715',
+                    arr:[
+                        {
+                            title: '保险业务',
+                            require: '保险公司提供《经营保险业务许可证》《保险业务法人等级证书》，其他公司提供相关资质'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '众筹业务',
+                    rate: '费率0.6%，入账周期T+3',
+                    rule_id: '714',
+                    arr:[
+                        {
+                            title: '众筹',
+                            require: '仅限实物类、公益类众筹网站接入申请，暂不支持股权类众筹商户，公益类众筹商户需要提供公募资质'
+                        }
+                       
+                    ]
+                },
+                {
+                    hangye_range: '财经资讯/荐股业务',
+                    rate: '费率0.6%，入账周期T+7，单笔限额3K',
+                    rule_id: '713',
+                    arr:[
+                        {
+                            title: '财经/股票类资讯',
+                            require: '若有具体的荐股行为，需资质《证券投资咨询业务资格证书》'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '婚介平台、就业信息平台、话费代理充值等业务',
+                    rate: '费率0.6%，入账周期T+7，单笔限额3K',
+                    rule_id: '728',
+                    arr:[
+                        {
+                            title: '话费通讯',
+                            require: '提供与运营商间的合作授权收费协议'
+                        },
+                        {
+                            title: '婚介平台/就业信息平台/其他',
+                            require: '无需提供特需资质'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '在线图书/视频/音乐、游戏、网络直播、门户论坛、网络广告及推广、软件开发业务',
+                    rate: '费率1%，入账周期T+7，单笔限额3K',
+                    rule_id: '711',
+                    arr:[
+                        {
+                            title: '在线图书/视频/音乐/网络直播',
+                            require: '《互联网出版许可证》或《网络文化经营许可证》'
+                        },
+                        {
+                            title: '游戏',
+                            require: '棋牌类、捕鱼类游戏提供《网络文化经营许可证》'
+                        },
+                        {
+                            title: '门户论坛/网络广告及推广/软件开发/其他',
+                            require: '无需提供特需资质'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '加油、物流快递、民办中小学、幼儿园业务',
+                    rate: '费率0.3%，入账周期T+1',
+                    rule_id: '717',
+                    arr:[
+                        {
+                            title: '物流/快递',
+                            require: '物流：《道路运输许可证》。快递：《快递业务经营许可证》'
+                        },
+                        {
+                            title: '加油',
+                            require: '《成品油批发经营批准证书》或《成品油仓储经营批准证书》或《成品油零售经营批准证书》，其中一个即可'
+                        },
+                        {
+                            title: '民办中小学及幼儿园',
+                            require: '民办非公立院校需提供《办学许可证》'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '水电煤暖气民生缴费',
+                    rate: '费率0.2%，入账周期T+1',
+                    rule_id: '730',
+                    arr:[
+                        {
+                            title: '公共事业（水电煤气）',
+                            require: '收费授权证明文件（如授权证明书或合同）'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '信用还款业务（不涉及理财）',
+                    rate: '费率0.2%，入账周期T+1，禁信用卡',
+                    rule_id: '718',
+                    arr:[
+                        {
+                            title: '信用还款',
+                            require: '1、银行：银监会颁发的《金融许可证》。2、消费金融：银监会颁发的《金融许可证》。3、互联网小额贷款企业：银监会颁发的互联网小额贷款资质证明。请根据企业类型提供以上三种证件中的一种，即三选一'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '民办大学及院校',
+                    rate: '费率0%，入账周期T+1',
+                    rule_id: '739',
+                    arr:[
+                        {
+                            title: '民办大学及院校',
+                            require: '民办非公立院校需提供《办学许可证》'
+                        }
+                    ]
+                }
             ],
 
-            [    // 其他组织
-                {hangye_range:'民办非企业单位业务、社区服务、咨询、娱乐票务等',rate:'费率0.6%，入账周期T+1',rule_id:'727'},
-                {hangye_range:'民办中小学、幼儿园',rate:'费率0.3%，入账周期T+1',rule_id:'738'},
-                {hangye_range:'民办大学院校及公益基金会',rate:'费率0%，入账周期T+1',rule_id:'726'}
+
+
+
+            [ // 个体户
+                {
+                    hangye_range: '餐饮、零售批发、交通出行、生活娱乐服务、培训教育机构、民营医疗机构、代理缴纳话费等业务',
+                    rate: '费率0.6%，入账周期T+1',
+                    'rule_id': '719',
+                    arr:[
+                        {
+                            title: '餐饮',
+                            require: '选填，若贵司具备以下资质，建议提供：餐饮业态，提供《食品经营许可证》或《餐饮服务许可证》'
+                        },
+                        {
+                            title: '食品生鲜',
+                            require: '选填，若贵司具备以下资质，建议提供： 1、食品业态，提供《食品经营许可证》或《食品生产许可证》或供销协议+合作方资质。2、销售初级农产品，无需特殊资质'
+                        },
+                        {
+                            title: '私立/民营医院/诊所',
+                            require: '《医疗机构执业许可证》'
+                        },
+                        {
+                            title: '保健器械/医疗器械/非处方药品',
+                            require: '互联网售药：提供《互联网药品交易服务证》。线下门店卖药：提供《药品经营许可证》。 医疗器械：《医疗器械经营企业许可证》'
+                        },
+                        {
+                            title: '游艺厅/KTV/网吧',
+                            require: '游艺厅/KTV：《娱乐场所许可证》。网吧：《网络文化经营许可证》'
+                        },
+                        {
+                            title: '机票/机票代理',
+                            require: '《航空公司营业执照》或《航空公司机票代理资格证》'
+                        },
+                        {
+                            title: '宠物医院',
+                            require: '《动物诊疗许可证》'
+                        },
+                        {
+                            title: '培训机构',
+                            require: '选填，若贵司具备以下资质，建议提供： 1、学科类培训，提供办学许可证或相关批文。2、驾校培训，提供有“驾驶员培训”项目的《道路运输经营许可证》'
+                        },
+                        {
+                            title: '零售批发/生活娱乐/其他',
+                            require: '无需提供特需资质'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '话费代理充值业务',
+                    rate: '费率0.6%，入账周期T+7，单笔限额3K',
+                    rule_id: '720',
+                    arr:[
+                        {
+                            title: '话费通讯',
+                            require: '提供与运营商间的合作授权收费协议'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '游戏、网络广告及推广、软件开发',
+                    rate: '费率0.6%，入账周期T+7，单笔限额3K',
+                    rule_id: '746',
+                    arr:[
+                        {
+                            title: '门户论坛/网络广告及推广/软件开发/其他',
+                            require: '无需提供特需资质'
+                        },
+                        {
+                            title: '游戏',
+                            require: '棋牌类、捕鱼类游戏提供《网络文化经营许可证》'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '加油业务',
+                    rate: '费率0.3%，入账周期T+1',
+                    rule_id: '721',
+                    arr:[
+                        {
+                            title: '加油',
+                            require: '《成品油批发经营批准证书》或《成品油仓储经营批准证书》或《成品油零售经营批准证书》，其中一个即可'
+                        }
+                    ]
+                }
+            ],
+
+            [ // 党政，机关及事业
+                {
+                    hangye_range: '党团费、停车缴费、物业缴费等其他缴费类业务',
+                    rate: '费率0.6%，入账周期T+1',
+                    rule_id: '725',
+                    arr:[
+                        {
+                            title: '其他缴费',
+                            require: '收费资质'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '水电煤暖气民生缴费',
+                    rate: '费率0.2%，入账周期T+1',
+                    rule_id: '722',
+                    arr:[
+                        {
+                            title: '公共事业（水电煤气）',
+                            require: '收费授权证明文件（如授权证明书或合同）'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '交通罚款业务',
+                    rate: '费率0.1%，入账周期T+1',
+                    rule_id: '723',
+                    arr:[
+                        {
+                            title: '交通罚款',
+                            require: '收费授权证明文件（如授权证明书或合同）'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '公立医院、公立院校及指定要求的挂号平台',
+                    rate: '费率0%，入账周期T+1',
+                    rule_id: '724',
+                    arr:[
+                        {
+                            title: '公立医院',
+                            require: '《医疗机构执业许可证》'
+                        },
+                        {
+                            title: '公立学校',
+                            require: '无需提供特需资质'
+                        },
+                        {
+                            title: '挂号平台',
+                            require: '卫生局的批文'
+                        },
+                    ]
+                }
+
+            ],
+
+            [ // 其他组织
+                {
+                    hangye_range: '民办非企业单位业务、社区服务、咨询、娱乐票务等',
+                    rate: '费率0.6%，入账周期T+1',
+                    rule_id: '727',
+                    arr:[
+                        {
+                            title: '宗教组织',
+                            require: '宗教类提供《宗教活动场所登记证》'
+                        },
+                        {
+                            title: '机票/机票代理',
+                            require: '《航空公司营业执照》或《航空公司机票代理资格证》'
+                        },
+                        {
+                            title: '私立/民营医院/诊所',
+                            require: '《医疗机构执业许可证》'
+                        },
+                        {
+                            title: '咨询/娱乐票务/其他',
+                            require: '无需提供特需资质'
+                        },
+                    ]
+                },
+                {
+                    hangye_range: '民办中小学、幼儿园',
+                    rate: '费率0.3%，入账周期T+1',
+                    rule_id: '738',
+                    arr:[
+                        {
+                            title: '民办中小学及幼儿园',
+                            require: '民办非公立院校需提供《办学许可证》'
+                        }
+                    ]
+                },
+                {
+                    hangye_range: '民办大学院校及公益基金会',
+                    rate: '费率0%，入账周期T+1',
+                    rule_id: '726',
+                    arr:[
+                        {
+                            title: '民办大学及院校',
+                            require: '民办非公立院校需提供《办学许可证》'
+                        },
+                        {
+                            title: '公益',
+                            require: '《基金会法人登记证书》、法人资料业务范围有“接受捐款”相关字眼或有“慈善组织”标识'
+                        },
+                    ]
+                }
             ]
         ]
 
-        var ul=document.createElement('ul');
-        ul.setAttribute('class','categoryList_rule');
-        var arrs=arr_subject_type[subject_index];
-        ul.style.display='none';
-        var div_b_public=document.getElementById(dom_children);
-        for(let j=0;j<arrs.length;j++){
-            var li=document.createElement('li');
-            var span=document.createElement('span');
-            var i=document.createElement('i');
-            var b=document.createElement('b');
+        var ul = document.createElement('ul');
+        ul.setAttribute('class', 'categoryList_rule');
+        var arrs = arr_subject_type[subject_index];
+        ul.style.display = 'none';
+        var div_b_public = document.getElementById(dom_children);
+        for (let j = 0; j < arrs.length; j++) {
+            var li = document.createElement('li');
+            var span = document.createElement('span');
+            var i = document.createElement('i');
+            var b = document.createElement('b');
             li.appendChild(b);
             li.appendChild(span);
             li.appendChild(i);
-            span.innerText=arrs[j].hangye_range;
-            i.innerHTML=arrs[j].rate;
+            span.innerText = arrs[j].hangye_range;
+            i.innerHTML = arrs[j].rate;
             ul.appendChild(li);
-            li.onclick=function(){
-                data.value=arrs[j].rule_id;
-                div_b_public.children[0].innerHTML=this.children[1].innerText;
-                div_b_public.children[1].innerHTML=this.children[2].innerText;
-                div_b_public.style.height=this.offsetHeight+'px';
-                this.parentNode.style.display='none';
-                var h=getComputedStyle(this.children[2])["paddingTop"];
-                if(j==0){
-                    div_b_public.style.paddingTop='10px';
-                    div_b_public.children[1].style.paddingTop=parseInt(h)+'px';
-                }else if(j==5){
-                    div_b_public.children[1].style.paddingTop='15px';
+            li.onclick = function () {
+                wechartJson[4].subobject[1].value=null;
+                console.log(wechartJson[4].subobject[1]);
+                console.log(wechartJson[4].subobject[1].value);
+                data.value = arrs[j].rule_id;
+                div_b_public.children[0].innerHTML = this.children[1].innerText;
+                div_b_public.children[1].innerHTML = this.children[2].innerText;
+                div_b_public.style.height = this.offsetHeight + 'px';
+                this.parentNode.style.display = 'none';
+                var matation_qualification_type = document.getElementById('matation_qualification_type');
+                var div_hangye_children = document.getElementById('matation_qualification_type_children');
+                var ul_children = matation_qualification_type.getElementsByTagName('ul')[0];
+                var matation_qualification_type_p=document.getElementById('matation_qualification_type_p');
+                matation_qualification_type_p.innerHTML='请选择所属行业';
+                div_hangye_children.children[0].innerHTML = '请选择';
+                div_hangye_children.children[1].innerHTML = '';
+                div_hangye_children.children[0].style.cssText = 'padding-left: 20px;width: 340px;float: left;';
+                div_hangye_children.children[1].style.cssText = 'text-align: right;width: 290px;float: left;';
+                div_hangye_children.style.cssText = 'height:45px';
+                var h = getComputedStyle(this.children[2])["paddingTop"];
+                ul_children.style.display = 'none';
+                if (j == 0) {
+                    div_b_public.style.paddingTop = '10px';
+                    div_b_public.children[1].style.paddingTop = parseInt(h) + 'px';
+                } else if (j == 5) {
+                    div_b_public.children[1].style.paddingTop = '15px';
+                } else {
+                    div_b_public.style.paddingTop = '15px';
+                    div_b_public.children[1].style.paddingTop = '2px';
                 }
-                else{
-                    div_b_public.style.paddingTop='15px';
-                    div_b_public.children[1].style.paddingTop='2px';
+                for (var n = 0; n < ul.children.length; n++) {
+                    ul.children[n].children[0].style.display = 'none';
                 }
-                for(var n=0;n<ul.children.length;n++){
-                    ul.children[n].children[0].style.display='none';
-                }
-                this.children[0].style.display='block';
-                that.qualification_type_ul(arrs[j].arr)
+                this.children[0].style.display = 'block';
+                that.qualification_type_ul(arrs[j].arr);
             }
         }
 
-        div_b_public.onclick=function(){
-            var h=63+parseInt(this.offsetHeight);
-            ul.style.display='block';
-            ul.style.top=h+'px';
+        div_b_public.onclick = function () {
+            var h = 63 + parseInt(this.offsetHeight);
+            ul.style.display = 'block';
+            ul.style.top = h + 'px';
         }
         dom.appendChild(ul);
-
     }
 
     // 结算规则所属行业下的ul框
-    this.qualification_type_ul=function(arr){
-         console.log(arr);
-         var div_hangye_children=document.getElementById('matation_qualification_type_children');
-         var matation_qualification_type=document.getElementById('matation_qualification_type');
-         var ul=matation_qualification_type.getElementsByTagName('ul')[0];
-         div_hangye_children.onclick=function(){
-             ul.style.display='block';
-         }
-         ul.innerHTML='';
-         for(let j=0;j<arr.length;j++){
-            var li=document.createElement('li');
-            var span=document.createElement('span');
-            var i=document.createElement('i');
-            var b=document.createElement('b');
-            li.appendChild(b);
-            li.appendChild(span);
-            li.appendChild(i);
-            span.innerText=arr[j].title;
-            i.innerHTML=arr[j].require;
-            ul.appendChild(li);
-            li.onclick=function(){
-                ul.style.display='block';
-                div_hangye_children.style.height=this.offsetHeight+'px';
-                div_hangye_children.children[0].style.display='block';
-                div_hangye_children.children[0].style.fontWeight='bold';
-                div_hangye_children.children[1].style.float='block';
-                div_hangye_children.children[1].style.width='100%';
-                div_hangye_children.style.paddingRight='45px';
-                div_hangye_children.style.paddingLeft='40px';
-                div_hangye_children.children[0].style.paddingLeft='0px';
-                div_hangye_children.children[0].style.float='none';
-                div_hangye_children.children[1].style.float='none';
-                div_hangye_children.children[0].innerHTML=arr[j].title;
-                div_hangye_children.children[1].innerHTML=arr[j].require;
-                ul.style.top=this.offsetHeight+'px';
-                for(var n=0;n<ul.children.length;n++){
-                    ul.children[n].children[0].style.display='none';
-                }
-                this.children[0].style.display='block';
-                ul.style.display='none';
+    this.qualification_type_ul = function (arr) {
+      //  console.log(wechartJson[4].subobject[1]);
+        if (Array.isArray(arr)) {
+            var matation_qualification_type = document.getElementById('matation_qualification_type');
+            var div_hangye_children = document.getElementById('matation_qualification_type_children');
+            var ul = matation_qualification_type.getElementsByTagName('ul')[0];
+            div_hangye_children.onclick = function () {
+                ul.style.display = 'block';
+                var h = parseInt(this.offsetHeight);
+                ul.style.top=h+'px';
             }
-         }
+            ul.innerHTML = '';
+            for (let j = 0; j < arr.length; j++) {
+                var li = document.createElement('li');
+                var span = document.createElement('span');
+                var i = document.createElement('i');
+                var b = document.createElement('b');
+                li.appendChild(b);
+                li.appendChild(span);
+                li.appendChild(i);
+                span.innerText = arr[j].title;
+                i.innerHTML = arr[j].require;
+                ul.appendChild(li);
+                li.onclick = function () {
+                    wechartJson[4].subobject[1].value = arr[j].title;
+                    console.log(wechartJson[4].subobject[1]);
+                    console.log(wechartJson[4].subobject[1].value);
+                    var matation_qualification_type_p=document.getElementById('matation_qualification_type_p');
+                    matation_qualification_type_p.innerHTML='';
+                    ul.style.display = 'block';
+                    div_hangye_children.style.height = this.offsetHeight + 'px';
+                    div_hangye_children.children[0].style.display = 'block';
+                    div_hangye_children.children[0].style.fontWeight = 'bold';
+                    div_hangye_children.children[1].style.float = 'block';
+                    div_hangye_children.children[1].style.width = '100%';
+                    div_hangye_children.style.paddingRight = '45px';
+                    div_hangye_children.style.paddingLeft = '40px';
+                    div_hangye_children.children[0].style.paddingLeft = '0px';
+                    div_hangye_children.children[0].style.float = 'none';
+                    div_hangye_children.children[1].style.float = 'none';
+                    div_hangye_children.children[0].innerHTML = arr[j].title;
+                    div_hangye_children.children[1].innerHTML = arr[j].require;
+                    ul.style.top = this.offsetHeight + 'px';
+                    for (var n = 0; n < ul.children.length; n++) {
+                        ul.children[n].children[0].style.display = 'none';
+                    }
+                    this.children[0].style.display = 'block';
+                    ul.style.display = 'none';
+                }
+            }
+        }
     }
-    
-   
 
-    
- 
+     // 结算规则 特殊资质图片
+     this.qualifications=function(data){
+        var str = this.create_multiple_pictures('特殊资质图片', '请上传特殊资质图片', '', 'qualifications_pic');
+        application_list_one.appendChild(str);
+        this.multiple_pictures('qualifications_pic', data);
+     }
 
+     // 结算规则 优惠费率活动ID
+     this.activities_id=function(data){
+         var div=document.createElement('div');
+         div.setAttribute('id','discount_rate_id');
+         application_list_one.appendChild(div);
+        this.input_box_id_card(data, 'discount_rate_id');
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        divInnerText.innerHTML = '优惠费率活动的ID值点击查看<a href="https://pay.weixin.qq.com/wiki/doc/apiv3_partner/terms_definition/chapter1_1_3.shtml#part-8" target="_blank">优惠费率活动对照表</a>下的活动费率ID一栏，如，示例值：20191030111cff5b5e<br>';
+        div.appendChild(divInnerText);
+     }
+      
+     // 结算规则 优惠费率活动值
+     this.activities_rate = function(data){
+        var div=document.createElement('div');
+        div.setAttribute('id','activities_rate_id');
+        application_list_one.appendChild(div);
+        this.input_box_id_card(data, 'activities_rate_id');
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        divInnerText.innerHTML = '优惠费率活动值，服务商自定义填写，需在优惠费率活动ID指定费率0.2~0.6范围内，如，示例值：0.6';
+        var div_hr = document.createElement('div');
+        div_hr.setAttribute('class', 'public_hrs');
+        div.appendChild(divInnerText);
+        div.appendChild(div_hr);
+
+     }
+
+
+     // 结算账户 账户类型
+     this.bank_account_type = function(data){
+         var div = document.createElement('div');
+         div.setAttribute('id', 'matation_settlement_bank_account_type');
+         application_list_one.appendChild(div);
+         div.innerHTML += this.matation_title('结算账户');    // 最上面的那title;
+        var div = document.createElement("div");
+        var p = document.createElement('p');
+        var pTwo = document.createElement('p');
+        p.setAttribute('class', 'rotate_p');
+        pTwo.setAttribute('class', 'rotate_p_Two');
+        div.setAttribute('id', 'matation_form_item_bank_account_type');
+        application_list_one.appendChild(div);
+        var str='';
+        if(subject_type=='SUBJECT_TYPE_ENTERPRISE'){   // 企业类型
+            str='你是企业，请务必填写开户名为商户名称的对公银行账户';
+            data.value='BANK_ACCOUNT_TYPE_CORPORATE';
+        }
+        div.innerHTML += this.createTitleTop_no_hr('法定代表人/个体户经营者证件', str);
+       
+        var dom = 'matation_form_item_bank_account_type';
+        this.input_box_id_card_account(data, dom,subject_type);                 // 渲染的是账户类型和右边的框；
+      
+     }
+
+     // 结算账户 开户名称
+     this.account_name=function(data,componentNextPro){
+        var div =document.createElement('div');
+        div.setAttribute('id','matation_form_account_name');
+        application_list_one.appendChild(div);
+        this.input_box_id_card(data, 'matation_form_account_name',componentNextPro);
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        var str='';
+        console.log(subject_type)
+        if(subject_type=='SUBJECT_TYPE_ENTERPRISE'){   // 企业类型
+            str='开户名称必须与营业执照/登记证书的“商户名称”一致';
+            data.value='BANK_ACCOUNT_TYPE_CORPORATE';
+        }else if(subject_type=='SUBJECT_TYPE_INDIVIDUAL'){
+            data.value='SUBJECT_TYPE_INDIVIDUAL';
+            str='1、选择“经营者个人银行卡”时，开户名称必须与“经营者证件姓名”一致。<br />2、选择“对公银行账户”时，开户名称必须与营业执照/登记证书的“商户名称”一致。';
+        }
+        divInnerText.innerHTML = str;
+        div.appendChild(divInnerText);
+     }
 
     // 这个方法主要是针对dom的移除和添加设置公共方法；和input_box；相似。身份证姓名和身份证号码的方法
     this.input_box_id_card = function (data, dom, componentNextPro) { // componentNextPro 是一个函数；
@@ -1268,6 +1697,29 @@ function Component_list() {
             p.style.display = 'none';
         }
     }
+
+    // 对公账户右边信息
+    this.input_box_id_card_account = function (data, dom,subject_type) { // componentNextPro 是一个函数；
+        var div = document.createElement("div");
+        var label = document.createElement("label");
+        var p = document.createElement('p');
+        div.className = 'application_list_one_ul_li_div';
+        label.className = "lable_left";
+        p.className = "text-errors";
+        label.innerText = data.caption;
+        div.appendChild(label);
+       if(subject_type=='SUBJECT_TYPE_ENTERPRISE'){
+            var span = document.createElement("span");
+            span.className = "span_public";
+            div.appendChild(span);
+            span.innerHTML='对公账户';
+            span.style.cssText=' position: absolute;top:5px';
+       }
+        div.appendChild(p);
+        var organization_code_certificate = document.getElementById(dom);
+        organization_code_certificate.appendChild(div);
+    }
+
 
 
     // 生成点击选项公共的方法
@@ -1397,6 +1849,23 @@ function Component_list() {
         return str;
     }
 
+     // 头部的方法 有副标题
+     this.createTitleTop_no_hr = function (str1, str2) {
+        var str = "<div class='form-item_children'>" +
+            "<div class='application_phone' id='application_phone'>" +
+            "<div class='data-hd'>" +
+            "<h4 class='fl ng-binding'>" + str1 + "</h4>" +
+            "</div>" +
+            "<div class='inner ng-scope'>" +
+            "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
+            "<div class='msg-cnt'>" +
+            "<p class='ng-binding'>" + str2 + "</p>" +
+            "</div>" +
+            "</div>" +
+            "</div>" +
+            "</div>";
+        return str;
+    }
 
     // 头部方法，没有副标题
     this.createTitleTopTwo = function (str1) {
@@ -1468,7 +1937,7 @@ function Component_list() {
             '<div class="application_phone_div">' +
             '<a href="javascript:;" class="a-upload"><input type="file" multiple="multiple"  id=""><span>上传</span></a >' +
             // '<a href="javascript:;" style="display:none" class="a-upload"><input type="file" name="" id="">重新上传</a>' +
-            '<div class="upload-tips ng-binding">' + str3 + '</div>' +
+            '<div class="upload-tips ng-binding" id="duozhangtupiande_shangchuan">' + str3 + '</div>' +
             '</div>' +
             '</div>' +
             '<ul class="application_list_one_ul_childer">' +
@@ -1671,13 +2140,13 @@ function Component_list() {
                 }
 
                 num += 1;
-             //   if (data.caption == '小程序截图' || data.caption == '公众号页面截图') {
-                    var len = parseInt(arr.length) + num;
-                    if (len > 5) {
-                        p[2].style.display = 'block';
-                        return;
-                    }
-              //  }
+                //   if (data.caption == '小程序截图' || data.caption == '公众号页面截图') {
+                var len = parseInt(arr.length) + num;
+                if (len > 5) {
+                    p[2].style.display = 'block';
+                    return;
+                }
+                //  }
                 var reader = new FileReader();
                 reader.readAsDataURL(files[i]);
                 reader.onload = function (ev) {
@@ -1701,22 +2170,22 @@ function Component_list() {
                     }
                     arr_result.push(datas_result);
                     li.setAttribute('index', nums - 1);
-                  //  console.log(i);
+                    //  console.log(i);
                     arr_data.push(files[i]);
-                    data.value=arr_data;
-                  //  console.log(data.value);
+                    data.value = arr_data;
+                    //  console.log(data.value);
                     p[0].style.display = 'none';
                     p[1].style.display = 'none';
                     p[2].style.display = 'none';
                     p[3].style.display = 'none';
                     li.onmousemove = function () {
-                       // console.log(a);
+                        // console.log(a);
                         a.style.display = 'block';
                     }
                     li.onmouseout = function () {
                         a.style.display = 'none';
                     }
-                  //  console.log(data.value)
+                    //  console.log(data.value)
                     a.onclick = function () {
                         var index_name = this.parentNode.getAttribute('index');
                         this.parentNode.remove();
@@ -1737,14 +2206,18 @@ function Component_list() {
                         }
                         arr = arrs;
                         arr_result = arr_results;
-                        data.value=arr_data;
-                       // console.log(arr);
-                       // console.log(data.value);
+                        data.value = arr_data;
+                        // console.log(arr);
+                        // console.log(data.value);
+                        p[2].style.display = 'none';
+                        console.log(data.value);
+                        if(data.value.length==0){
+                            p[0].style.display = 'block';
+                        }
                     }
 
                 }
             }
-
 
         }
 
@@ -1838,8 +2311,8 @@ function Component_list() {
 }
 
 
-  // 自己做的回退事件
-  function pushHistory_two() {
+// 自己做的回退事件
+function pushHistory_two() {
     var state = {
         title: "title",
         url: "#"

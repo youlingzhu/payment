@@ -616,7 +616,7 @@ img {
   height: 25px;
   word-spacing:10px;
   vertical-align: middle;
-   padding-top:1px;
+   padding-top:5px;
   /* background-color: red; */
   font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
@@ -626,7 +626,7 @@ img {
   height: 25px;
   word-spacing:10px;
   vertical-align: middle;
-   padding-top:7px;
+   padding-top:10px;
   font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 #applicationParent #registration_Number {
@@ -1087,23 +1087,27 @@ img {
   left: -11px;
   top: 33px;
 }
-#matation_form-item_shenfenzhengTwo .info-hd,#matation_settlement_rules .info-hd{
+#applicationParent #matation_form_item_bank_account_type{
+   padding-top: 15px;
+}
+#matation_form-item_shenfenzhengTwo .info-hd,#matation_settlement_rules .info-hd,#matation_settlement_bank_account_type .info-hd{
      height: 38px;
     line-height: 38px;
     padding: 0 20px;
     background: #fafafa;
     border-bottom: 1px solid #EEE;
+   
 }
 #matation_settlement_rules{
   position: relative;
 }
-#matation_form-item_shenfenzhengTwo .info-hd h2,#matation_settlement_rules .info-hd h2{
+#matation_form-item_shenfenzhengTwo .info-hd h2,#matation_settlement_rules .info-hd h2,#matation_settlement_bank_account_type .info-hd h2{
   line-height: 38px;
 }
-#matation_form-item_shenfenzhengTwo .tips-info,#matation_form-item_shenfenzhengThree .tips-info,
-#matation_form-item_shenfenzhengfour .tips-info,#matation_form_item_xianxia .tips-info,
+#matation_form-item_shenfenzhengTwo .tips-info,#matation_form-item_shenfenzhengThree .tips-info,#matation_form_account_name .tips-info,
+#matation_form-item_shenfenzhengfour .tips-info,#matation_form_item_xianxia .tips-info,#discount_rate_id .tips-info,
 #matation_form_item_div_official_account .tips-info,#div_app_scence .tips-info,#div_app_scence .tips-info,
-#div_applets_scene .tips-info,#div_pc_scence .tips-info,#div_enterprise_wechat .tips-info {
+#div_applets_scene .tips-info,#div_pc_scence .tips-info,#div_enterprise_wechat .tips-info,#activities_rate_id .tips-info {
   padding-top: 16px;
   color: #999;
   margin-left: 138px;
@@ -1200,7 +1204,7 @@ img {
   left: 138px;
   top:105px;
   width: 703px;
-  height:331px;
+  max-height:331px;
   z-index: 999;
   overflow: auto;
   box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
@@ -1239,7 +1243,7 @@ img {
 }
 
 #applicationParent .categoryList_rule li:nth-child(1) i{
-   padding-top: 25px;
+   /* padding-top: 25px; */
 }
 #applicationParent .categoryList_rule li:nth-child(6) i{
   padding-top: 15px;
@@ -1255,7 +1259,7 @@ img {
   text-align: right;
 }
 #applicationParent .matation_settlement_rules_bottom{
-  padding-top: 4px;
+  padding-top: 16px;
   color: #999;
   margin-left: 138px;
 }
@@ -1270,7 +1274,7 @@ img {
   left: 138px;
   top: 45px;
   width: 703px;
-  height: 331px;
+  max-height: 331px;
   z-index: 99;
   overflow: auto;
   box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
@@ -1304,4 +1308,8 @@ img {
   top: 40%;
   left: 0px;
   display: none;
+}
+
+#qualifications_pic ul{
+  margin-top: -25px;
 }

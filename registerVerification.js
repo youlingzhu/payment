@@ -374,7 +374,7 @@ function Validation_Type() {
      }
 
 
-     // 
+     
      // 互联网网站域名 互联网网站域名
      this.domain_type=function(data){
         return returnInfo(data,function(){
@@ -390,8 +390,33 @@ function Validation_Type() {
      }
    
 
-
+     //  结算规则 优惠费率活动ID
+     this.activities_id_type=function(data){
+        return returnInfo(data,function(){
+            var reg=/^[A-Za-z0-9]{10,}$/;      
+            var str = data.value;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue ='格式错误,具体常看优惠费率活动对照表';
+                return strValue;
+            }
+        })
+     }
    
+     // 结算规则 优惠费率活动值
+    this.activities_rate_type=function(data){
+        return returnInfo(data,function(){
+            var reg=/^[0]+(\.[2-6]{1})$/;      
+            var str = data.value;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue ='格式错误,优惠区间在0.2~0.6范围内';
+                return strValue;
+            }
+        })
+    }
 
 
 

@@ -129,7 +129,15 @@
             }).recursive(array);
         }
 
-
+        // 结算账户
+        let SettlementAccount = function(value) {
+            let array = wechartJson[5].subobject;
+            new RecursiveTool(function(response){
+                if(response.generate_component!=null&&typeof response.generate_component == 'function') {
+                    response.generate_component();
+                }
+            }).recursive(array);
+        }
 
 
         window.addEventListener("popstate", function (e) {
