@@ -3,7 +3,6 @@ function Component_list() {
     var application_list_one = document.getElementById('application_list_one');
     // 选择经营者类型
     this.subjectType = function (data, componentNextPro) {
-
         var arr = [{
                 caption: '企业',
                 title: "营业执照上的主体类型一般为有限公司、有限责任公<br />司",
@@ -59,27 +58,25 @@ function Component_list() {
                     if (componentNextPro) {
                         componentNextPro(data.value, i);
                     }
-
-
-                    pushHistory_two();
-
-
+                    pushHistory_two(); // 自己做的回退事件
                 })
             }
-
         }
-
-
-
     }
+
 
     // 营业执照照片
     this.photosOfBusinessLicense = function (data) {
         console.log(subject_type);
         console.log(subject_index);
+        var div_box = document.createElement('div');
+        div_box.setAttribute('id', 'matation_business_pictrue_box');
+        var div_box_dengji = document.createElement('div');
+        div_box_dengji.setAttribute('id', 'matation_business_dengji_box');
         var div = document.createElement("div");
-        div.setAttribute('class', 'form-item');
-        var str = "<div class='public_hr'></div>" +
+        div.className = 'form-item';
+        div.setAttribute('id', 'form-item_jingyingxinxi');
+        var str = "<div class='info-hd'><h2 class='ng-binding'>主体信息</h2></div>" +
             "<div class='form-item_children'>" +
             "<div class='application_phone' id='application_phone'>" +
             "<div class='data-hd'>" +
@@ -104,7 +101,7 @@ function Component_list() {
             "</a>" +
             "<div class='upload-tips ng-binding'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
             "</div>" +
-            "<ul id='application_list_one_ul_childer'>" +
+            "<ul id='application_list_one_ul_childer' class='application_list_one_ul_childer'>" +
             "<li>" +
             "<img src='' />" +
             "<a href='javascript:;'  class='del'>删除</a>" +
@@ -115,33 +112,213 @@ function Component_list() {
             "</div>" +
             "</div>"
         div.innerHTML = str;
-        application_list_one.appendChild(div);
+        application_list_one.appendChild(div_box);
+        application_list_one.appendChild(div_box_dengji);
+        div_box.appendChild(div);
         this.publicImgUupData('yingyezhizhao', data);
-
-
-
-
+        if (subject_type == 'SUBJECT_TYPE_INDIVIDUAL' || subject_type == 'SUBJECT_TYPE_ENTERPRISE') {
+            div_box.style.display = 'block';
+        } else {
+            div_box.style.display = 'none';
+        }
+        if (subject_type == 'SUBJECT_TYPE_INSTITUTIONS' || subject_type == 'SUBJECT_TYPE_OTHERS') {
+            div_box_dengji.style.display = 'block';
+        } else {
+            div_box_dengji.style.display = 'none';
+        }
     }
 
 
 
+
+    // 注册号 
     this.license_number = function (data) {
         this.input_box(data, function (data) {
             console.log(subject_type);
             var a = data.verification_method();
             var organization_code_certificate = document.getElementById('organization_code_certificate');
-            if (a == "" && data.value.length == 15) {
+            if (a == "" && data.value.length == 15 && subject_type != 'SUBJECT_TYPE_INDIVIDUAL') {
                 organization_code_certificate.style.display = "block";
             } else {
                 organization_code_certificate.style.display = "none";
             }
-
         })
+
     }
+
+    // 登记证书 照片
+    this.cert_copy = function (data) {
+        var div = document.createElement("div");
+        div.className = 'form-item';
+        div.setAttribute('id', 'form-item_dengjixinxi');
+        var str = "<div class='info-hd'><h2 class='ng-binding'>主体信息</h2></div>" +
+            "<div class='form-item_children'>" +
+            "<div class='application_phone'>" +
+            "<div class='data-hd'>" +
+            "<h4 class='fl ng-binding'>登记证书</h4>" +
+            "</div>" +
+            "<div class='inner ng-scope'>" +
+            "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
+            "<div class='msg-cnt'>" +
+            "<p class='ng-binding'>请上传相关部门颁发的证书，如：事业单位法人证书、统一社会信用代码证书</p>" +
+            "</div>" +
+            "<div class='application_phone_upData'></div>" +
+            "</div>" +
+            "</div>" +
+            "<div style='width:100%;overflow:hidden'  id='dengjizhengshu_matation'>" +
+            "<label class='labels ng-binding'>" + data.caption + "</label>" +
+            "<div class='application_phone_div'>" +
+            "<a href='javascript:;' class='a-upload'>" +
+            "<input type='file' name='' id=''>上传" +
+            "</a>" +
+            "<a href='javascript:;' class='a-upload'  style='display:none'>" +
+            "<input type='file' name='' id=''>重新上传" +
+            "</a>" +
+            "<div class='upload-tips ng-binding'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
+            "</div>" +
+            "<ul class='application_list_one_ul_childer'>" +
+            "<li style='display:none'>" +
+            "<img src='' />" +
+            "<a href='javascript:;'  class='del'>删除</a>" +
+            "</li>" +
+            "</ul>" +
+            "<p class='text-error' style='display:none'>请填写营业执照照片</p>" +
+            "<p class='text-error' style='display:none'>请上传2M内的彩色图片，格式可为bmp、png、jpeg、jpg或gif</p>" +
+            "</div>" +
+            "</div>"
+        div.innerHTML = str;
+        var matation_business_dengji_box = document.getElementById('matation_business_dengji_box');
+        matation_business_dengji_box.appendChild(div);
+        this.publicImgUupData('dengjizhengshu_matation', data);
+    }
+
+    // 登记证书 类型
+
+    this.cert_type = function (data) {
+        var divs = document.createElement("div");
+        divs.setAttribute('id', 'matation_form_cert_type');
+        var matation_business_dengji_box = document.getElementById('matation_business_dengji_box');
+        matation_business_dengji_box.appendChild(divs);
+
+        var arr = [{
+                title: '事业单位法人证书',
+                type: 'CERTIFICATE_TYPE_2388'
+            },
+            {
+                title: '统一社会信用代码证书',
+                type: 'CERTIFICATE_TYPE_2389'
+            },
+            {
+                title: '有偿服务许可证（军队医院适用）',
+                type: 'CERTIFICATE_TYPE_2390'
+            },
+            {
+                title: '医疗机构执业许可证（军队医院适用）',
+                type: 'CERTIFICATE_TYPE_2391'
+            },
+            {
+                title: '企业营业执照（挂靠企业的党组织适用）',
+                type: 'CERTIFICATE_TYPE_2392'
+            },
+            {
+                title: '组织机构代码证（政府机关适用）',
+                type: 'CERTIFICATE_TYPE_2393'
+            },
+            {
+                title: '社会团体法人登记证书',
+                type: 'CERTIFICATE_TYPE_2394'
+            },
+            {
+                title: '民办非企业单位登记证书',
+                type: 'CERTIFICATE_TYPE_2395'
+            },
+            {
+                title: '基金会法人登记证书',
+                type: 'CERTIFICATE_TYPE_2396'
+            },
+            {
+                title: '慈善组织公开募捐资格证书',
+                type: 'CERTIFICATE_TYPE_2397'
+            },
+            {
+                title: '农民专业合作社法人营业执照',
+                type: 'CERTIFICATE_TYPE_2398'
+            },
+            {
+                title: '宗教活动场所登记证',
+                type: 'CERTIFICATE_TYPE_2399'
+            },
+            {
+                title: '其他证书/批文/证明',
+                type: 'CERTIFICATE_TYPE_2400'
+            }
+        ]
+
+        this.cert_type_ul(data, arr, divs, function (index) {
+            console.log(index);
+            data.value = arr[index].type;
+            console.log(data.value);
+            var common_xuanze_zhengji_span = document.getElementById('common_xuanze_zhengji_span');
+            common_xuanze_zhengji_span.firstChild.nodeValue = arr[index].title;
+
+        });
+
+    }
+
+    // 登记证书 下面的 ul 
+    this.cert_type_ul = function (data, arr, divs, nextPro) {
+        divs.innerHTML += this.xuanze_dengji();
+        divs.innerHTML += this.cert_type_innnerHTML();
+        var common_xuanze_zhengji_span = document.getElementById('common_xuanze_zhengji_span');
+        var common_zhengjian_leixing_type = document.getElementById('common_zhengjian_leixing_type');
+        common_xuanze_zhengji_span.onOff = true;
+        common_zhengjian_leixing_type.style.display = 'none';
+        common_xuanze_zhengji_span.onclick = function () {
+            if (this.onOff) {
+                common_zhengjian_leixing_type.style.display = 'block';
+            } else {
+                common_zhengjian_leixing_type.style.display = 'none';
+            }
+            this.onOff = !this.onOff;
+        }
+
+        var zhengjia_type_list_leixing = document.getElementById('zhengjia_type_list_leixing');
+        var a = zhengjia_type_list_leixing.getElementsByTagName('a');
+        for (let i = 0; i < a.length; i++) {
+            a[i].onclick = function () {
+                nextPro(i);
+                common_xuanze_zhengji_span.onOff = true;
+                common_zhengjian_leixing_type.style.display = 'none';
+            }
+        }
+
+        var dengji_zhengshu_list_close = document.getElementById('dengji_zhengshu_list_close');
+        dengji_zhengshu_list_close.onclick = function () {
+            common_xuanze_zhengji_span.onOff = true;
+            common_zhengjian_leixing_type.style.display = 'none';
+        }
+
+
+    }
+
+    // 是否是受益人证件开始的时间
+    this.period_begin = function (data, componentNextPro) {
+        this.validity_start_time(data, componentNextPro, "datetimepicker9", "matation_business_dengji_box", "证件有效期限", "text_errors_timesix");
+
+    }
+
+
+    // 是否是收益人证件结束的时间
+    this.period_end = function (data, componentNextPro) {
+        this.validity_end_time(data, componentNextPro, 'datetimepicker10', "matation_business_dengji_box", "text_errors_timesix");
+    }
+
+
 
 
     // 组织机构代码证
     this.organization_copy = function (data) {
+        console.log(data, 203)
         var div = document.createElement('div');
         var div = document.createElement("div");
         div.setAttribute('class', 'form-item');
@@ -314,7 +491,8 @@ function Component_list() {
             }
         }
         input.onfocus = function () {
-            p.style.display = 'none';
+            //   p.style.display = 'none';
+            p.innerHTML = '';
         }
     }
 
@@ -385,7 +563,7 @@ function Component_list() {
 
     // 身份证人像面照片
     this.id_card_copy = function (data) {
-        var str = this.createTitleTopAndImg('身份证人像面照片', '请填写身份证人像面照片', 'shenfenzhengzhaopianzhengmian');
+        var str = this.createTitleTopAndImg(data, '身份证人像面照片', '请填写身份证人像面照片', 'shenfenzhengzhaopianzhengmian', '请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）');
         var form_item_shenfenzhengbottom = document.getElementById('form_item_shenfenzhengbottom');
         form_item_shenfenzhengbottom.appendChild(str);
         this.publicImgUupData('shenfenzhengzhaopianzhengmian', data);
@@ -394,7 +572,7 @@ function Component_list() {
 
     // 身份证国徽面照片
     this.id_card_national = function (data) {
-        var str = this.createTitleTopAndImg('身份证国徽面照片', '请填写身份证国徽面照片', 'shenfenzhengzhaopianfanmian');
+        var str = this.createTitleTopAndImg(data, '身份证国徽面照片', '请填写身份证国徽面照片', 'shenfenzhengzhaopianfanmian', '请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）');
         var form_item_shenfenzhengbottom = document.getElementById('form_item_shenfenzhengbottom');
         form_item_shenfenzhengbottom.appendChild(str);
         this.publicImgUupData('shenfenzhengzhaopianfanmian', data);
@@ -439,28 +617,23 @@ function Component_list() {
             type: false,
             types: 'radio_checked'
         }];
-        data.value = true; // 
-        console.log(data);
+        data.value = true;
         this.three_syndromes_components("是否为受益所有人", arr, dom, function (value) {
             data.value = value; // 赋值给经营者/法人是否为受益人这个数据
-            var divParent = document.getElementById('divParent');
-
+            var divParent = document.getElementById('divParent_matation_form');
             if (data.value == true) {
                 divParent.style.display = 'none';
             } else {
                 divParent.style.display = 'block';
             }
-
-
         });
-
     }
 
 
 
     // 其他类型证件证件照片
     this.id_doc_copy = function (data, componentNextPro) {
-        var str = this.createTitleTopAndImg('证件照片', '请填写证件照片', 'qitazhengjianzhaopian');
+        var str = this.createTitleTopAndImg(data, '证件照片', '请填写证件照片', 'qitazhengjianzhaopian', '请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）');
         var form_item_shenfenzhengbottomTwo = document.getElementById('form_item_shenfenzhengbottomTwo');
         form_item_shenfenzhengbottomTwo.appendChild(str);
         this.publicImgUupData('qitazhengjianzhaopian', data);
@@ -486,7 +659,7 @@ function Component_list() {
         var divChildrenOne = document.createElement('div');
         var divChildrenTwo = document.createElement('div');
         var divChildrenThree = document.createElement('div');
-        divParent.setAttribute('id', 'divParent');
+        divParent.setAttribute('id', 'divParent_matation_form');
         divChildrenOne.setAttribute('id', 'divChildrenOne');
         divChildrenTwo.setAttribute('id', 'divChildrenTwo');
         divChildrenThree.setAttribute('id', 'divChildrenThree');
@@ -494,6 +667,9 @@ function Component_list() {
         divParent.appendChild(divChildrenOne);
         divParent.appendChild(divChildrenTwo);
         divParent.appendChild(divChildrenThree);
+        var div_hr = document.createElement('div');
+        div_hr.setAttribute('class', 'public_hrs');
+        divChildrenThree.appendChild(div_hr);
         divChildrenOne.innerHTML += str;
         divParent.style.display = 'none';
         var arr = [{
@@ -548,7 +724,8 @@ function Component_list() {
 
     // 是否是受益人中的身份证正面照片
     this.id_card_copys = function (data) {
-        var str = this.createTitleTopAndImg('身份证人像面照片', '请填写身份证人像面照片', 'shenfenzhengzhaopianzhengmian_one');
+        var str = this.createTitleTopAndImg(data, '身份证人像面照片', '请填写身份证人像面照片', 'shenfenzhengzhaopianzhengmian_one', "");
+        console.log(str);
         var divChildrenTwo = document.getElementById('divChildrenTwo');
         divChildrenTwo.appendChild(str);
         this.publicImgUupData('shenfenzhengzhaopianzhengmian_one', data);
@@ -557,7 +734,7 @@ function Component_list() {
 
     // 是否是受益人中的身份证反面照片
     this.id_card_nationals = function (data) {
-        var str = this.createTitleTopAndImg('身份证国徽面照片', '请上传身份证国徽面照片', 'shenfenzhengzhaopianfanmian_one');
+        var str = this.createTitleTopAndImg(data, '身份证国徽面照片', '请上传身份证国徽面照片', 'shenfenzhengzhaopianfanmian_one', "");
         var divChildrenTwo = document.getElementById('divChildrenTwo');
         divChildrenTwo.appendChild(str);
         this.publicImgUupData('shenfenzhengzhaopianfanmian_one', data);
@@ -565,7 +742,7 @@ function Component_list() {
 
     // 是否是受益人中的证件照片
     this.id_doc_copys = function (data) {
-        var str = this.createTitleTopAndImg('证件照片', '请填写证件照片', 'qitazhengjianzhaopian_one');
+        var str = this.createTitleTopAndImg(data, '证件照片', '请填写证件照片', 'qitazhengjianzhaopian_one', '');
         var divChildrenTwo = document.getElementById('divChildrenTwo');
         divChildrenTwo.appendChild(str);
         this.publicImgUupData('qitazhengjianzhaopian_one', data);
@@ -588,12 +765,13 @@ function Component_list() {
     // 是否是受益人证件开始的时间
     this.id_period_begin = function (data, componentNextPro) {
         this.validity_start_time(data, componentNextPro, "datetimepicker7", "divChildrenTwo", "证件有效期限", "text_errors_timefive");
+
     }
 
 
     // 是否是收益人证件结束的时间
     this.id_period_end = function (data, componentNextPro) {
-        this.validity_end_time(data, componentNextPro, 'datetimepicker8', "divChildrenTwo", "text_errors_timefive")
+        this.validity_end_time(data, componentNextPro, 'datetimepicker8', "divChildrenTwo", "text_errors_timefive");
     }
 
     // 经营信息 商户简称
@@ -956,7 +1134,7 @@ function Component_list() {
 
     // PC 场景 网站授权函 
     this.web_authorisation = function (data) {
-        var str = this.createTitleTopAndImg('网站授权函(选填)', '请填写网站授权函(选填)', 'pcwangzhanshouquanhan', '若备案主体与申请主体不同，请务必上传加盖公章的网站授权函');
+        var str = this.createTitleTopAndImg(data, '网站授权函(选填)', '请填写网站授权函(选填)', 'pcwangzhanshouquanhan', '若备案主体与申请主体不同，请务必上传加盖公章的网站授权函');
         var form_item_shenfenzhengbottomTwo = document.getElementById('div_pc_scence');
         form_item_shenfenzhengbottomTwo.appendChild(str);
         this.publicImgUupData('pcwangzhanshouquanhan', data);
@@ -1054,11 +1232,11 @@ function Component_list() {
         div_bottom.setAttribute('class', 'matation_settlement_rules_bottom');
         div_bottom.innerHTML = '1、请提供为“申请商家主体”所属的特殊资质，可授权使用总公司/分公司的特殊资质；<a href="https://kf.qq.com/faq/190610B7baQb190610NN3mQN.html" target="_blank">上传特殊资质指引</a><br>2、请上传2M以内的图片。';
         div.appendChild(div_bottom);
-        var p=document.createElement('p');
-        p.setAttribute('id','matation_qualification_type_p');
-        p.className='text-errors';
+        var p = document.createElement('p');
+        p.setAttribute('id', 'matation_qualification_type_p');
+        p.className = 'text-errors';
         div.appendChild(p);
-        p.style.paddingTop='10px';
+        p.style.paddingTop = '10px';
         var ul = document.createElement('ul');
         ul.setAttribute('class', 'categoryList_rules');
         ul.style.display = 'none';
@@ -1152,42 +1330,36 @@ function Component_list() {
                     hangye_range: '保险公司、保险代理公司',
                     rate: '费率0.6%，入账周期T+1',
                     rule_id: '715',
-                    arr:[
-                        {
-                            title: '保险业务',
-                            require: '保险公司提供《经营保险业务许可证》《保险业务法人等级证书》，其他公司提供相关资质'
-                        }
-                    ]
+                    arr: [{
+                        title: '保险业务',
+                        require: '保险公司提供《经营保险业务许可证》《保险业务法人等级证书》，其他公司提供相关资质'
+                    }]
                 },
                 {
                     hangye_range: '众筹业务',
                     rate: '费率0.6%，入账周期T+3',
                     rule_id: '714',
-                    arr:[
-                        {
+                    arr: [{
                             title: '众筹',
                             require: '仅限实物类、公益类众筹网站接入申请，暂不支持股权类众筹商户，公益类众筹商户需要提供公募资质'
                         }
-                       
+
                     ]
                 },
                 {
                     hangye_range: '财经资讯/荐股业务',
                     rate: '费率0.6%，入账周期T+7，单笔限额3K',
                     rule_id: '713',
-                    arr:[
-                        {
-                            title: '财经/股票类资讯',
-                            require: '若有具体的荐股行为，需资质《证券投资咨询业务资格证书》'
-                        }
-                    ]
+                    arr: [{
+                        title: '财经/股票类资讯',
+                        require: '若有具体的荐股行为，需资质《证券投资咨询业务资格证书》'
+                    }]
                 },
                 {
                     hangye_range: '婚介平台、就业信息平台、话费代理充值等业务',
                     rate: '费率0.6%，入账周期T+7，单笔限额3K',
                     rule_id: '728',
-                    arr:[
-                        {
+                    arr: [{
                             title: '话费通讯',
                             require: '提供与运营商间的合作授权收费协议'
                         },
@@ -1201,8 +1373,7 @@ function Component_list() {
                     hangye_range: '在线图书/视频/音乐、游戏、网络直播、门户论坛、网络广告及推广、软件开发业务',
                     rate: '费率1%，入账周期T+7，单笔限额3K',
                     rule_id: '711',
-                    arr:[
-                        {
+                    arr: [{
                             title: '在线图书/视频/音乐/网络直播',
                             require: '《互联网出版许可证》或《网络文化经营许可证》'
                         },
@@ -1220,8 +1391,7 @@ function Component_list() {
                     hangye_range: '加油、物流快递、民办中小学、幼儿园业务',
                     rate: '费率0.3%，入账周期T+1',
                     rule_id: '717',
-                    arr:[
-                        {
+                    arr: [{
                             title: '物流/快递',
                             require: '物流：《道路运输许可证》。快递：《快递业务经营许可证》'
                         },
@@ -1239,34 +1409,28 @@ function Component_list() {
                     hangye_range: '水电煤暖气民生缴费',
                     rate: '费率0.2%，入账周期T+1',
                     rule_id: '730',
-                    arr:[
-                        {
-                            title: '公共事业（水电煤气）',
-                            require: '收费授权证明文件（如授权证明书或合同）'
-                        }
-                    ]
+                    arr: [{
+                        title: '公共事业（水电煤气）',
+                        require: '收费授权证明文件（如授权证明书或合同）'
+                    }]
                 },
                 {
                     hangye_range: '信用还款业务（不涉及理财）',
                     rate: '费率0.2%，入账周期T+1，禁信用卡',
                     rule_id: '718',
-                    arr:[
-                        {
-                            title: '信用还款',
-                            require: '1、银行：银监会颁发的《金融许可证》。2、消费金融：银监会颁发的《金融许可证》。3、互联网小额贷款企业：银监会颁发的互联网小额贷款资质证明。请根据企业类型提供以上三种证件中的一种，即三选一'
-                        }
-                    ]
+                    arr: [{
+                        title: '信用还款',
+                        require: '1、银行：银监会颁发的《金融许可证》。2、消费金融：银监会颁发的《金融许可证》。3、互联网小额贷款企业：银监会颁发的互联网小额贷款资质证明。请根据企业类型提供以上三种证件中的一种，即三选一'
+                    }]
                 },
                 {
                     hangye_range: '民办大学及院校',
                     rate: '费率0%，入账周期T+1',
                     rule_id: '739',
-                    arr:[
-                        {
-                            title: '民办大学及院校',
-                            require: '民办非公立院校需提供《办学许可证》'
-                        }
-                    ]
+                    arr: [{
+                        title: '民办大学及院校',
+                        require: '民办非公立院校需提供《办学许可证》'
+                    }]
                 }
             ],
 
@@ -1278,8 +1442,7 @@ function Component_list() {
                     hangye_range: '餐饮、零售批发、交通出行、生活娱乐服务、培训教育机构、民营医疗机构、代理缴纳话费等业务',
                     rate: '费率0.6%，入账周期T+1',
                     'rule_id': '719',
-                    arr:[
-                        {
+                    arr: [{
                             title: '餐饮',
                             require: '选填，若贵司具备以下资质，建议提供：餐饮业态，提供《食品经营许可证》或《餐饮服务许可证》'
                         },
@@ -1321,19 +1484,16 @@ function Component_list() {
                     hangye_range: '话费代理充值业务',
                     rate: '费率0.6%，入账周期T+7，单笔限额3K',
                     rule_id: '720',
-                    arr:[
-                        {
-                            title: '话费通讯',
-                            require: '提供与运营商间的合作授权收费协议'
-                        }
-                    ]
+                    arr: [{
+                        title: '话费通讯',
+                        require: '提供与运营商间的合作授权收费协议'
+                    }]
                 },
                 {
                     hangye_range: '游戏、网络广告及推广、软件开发',
                     rate: '费率0.6%，入账周期T+7，单笔限额3K',
                     rule_id: '746',
-                    arr:[
-                        {
+                    arr: [{
                             title: '门户论坛/网络广告及推广/软件开发/其他',
                             require: '无需提供特需资质'
                         },
@@ -1347,12 +1507,10 @@ function Component_list() {
                     hangye_range: '加油业务',
                     rate: '费率0.3%，入账周期T+1',
                     rule_id: '721',
-                    arr:[
-                        {
-                            title: '加油',
-                            require: '《成品油批发经营批准证书》或《成品油仓储经营批准证书》或《成品油零售经营批准证书》，其中一个即可'
-                        }
-                    ]
+                    arr: [{
+                        title: '加油',
+                        require: '《成品油批发经营批准证书》或《成品油仓储经营批准证书》或《成品油零售经营批准证书》，其中一个即可'
+                    }]
                 }
             ],
 
@@ -1361,41 +1519,34 @@ function Component_list() {
                     hangye_range: '党团费、停车缴费、物业缴费等其他缴费类业务',
                     rate: '费率0.6%，入账周期T+1',
                     rule_id: '725',
-                    arr:[
-                        {
-                            title: '其他缴费',
-                            require: '收费资质'
-                        }
-                    ]
+                    arr: [{
+                        title: '其他缴费',
+                        require: '收费资质'
+                    }]
                 },
                 {
                     hangye_range: '水电煤暖气民生缴费',
                     rate: '费率0.2%，入账周期T+1',
                     rule_id: '722',
-                    arr:[
-                        {
-                            title: '公共事业（水电煤气）',
-                            require: '收费授权证明文件（如授权证明书或合同）'
-                        }
-                    ]
+                    arr: [{
+                        title: '公共事业（水电煤气）',
+                        require: '收费授权证明文件（如授权证明书或合同）'
+                    }]
                 },
                 {
                     hangye_range: '交通罚款业务',
                     rate: '费率0.1%，入账周期T+1',
                     rule_id: '723',
-                    arr:[
-                        {
-                            title: '交通罚款',
-                            require: '收费授权证明文件（如授权证明书或合同）'
-                        }
-                    ]
+                    arr: [{
+                        title: '交通罚款',
+                        require: '收费授权证明文件（如授权证明书或合同）'
+                    }]
                 },
                 {
                     hangye_range: '公立医院、公立院校及指定要求的挂号平台',
                     rate: '费率0%，入账周期T+1',
                     rule_id: '724',
-                    arr:[
-                        {
+                    arr: [{
                             title: '公立医院',
                             require: '《医疗机构执业许可证》'
                         },
@@ -1417,8 +1568,7 @@ function Component_list() {
                     hangye_range: '民办非企业单位业务、社区服务、咨询、娱乐票务等',
                     rate: '费率0.6%，入账周期T+1',
                     rule_id: '727',
-                    arr:[
-                        {
+                    arr: [{
                             title: '宗教组织',
                             require: '宗教类提供《宗教活动场所登记证》'
                         },
@@ -1440,19 +1590,16 @@ function Component_list() {
                     hangye_range: '民办中小学、幼儿园',
                     rate: '费率0.3%，入账周期T+1',
                     rule_id: '738',
-                    arr:[
-                        {
-                            title: '民办中小学及幼儿园',
-                            require: '民办非公立院校需提供《办学许可证》'
-                        }
-                    ]
+                    arr: [{
+                        title: '民办中小学及幼儿园',
+                        require: '民办非公立院校需提供《办学许可证》'
+                    }]
                 },
                 {
                     hangye_range: '民办大学院校及公益基金会',
                     rate: '费率0%，入账周期T+1',
                     rule_id: '726',
-                    arr:[
-                        {
+                    arr: [{
                             title: '民办大学及院校',
                             require: '民办非公立院校需提供《办学许可证》'
                         },
@@ -1482,7 +1629,7 @@ function Component_list() {
             i.innerHTML = arrs[j].rate;
             ul.appendChild(li);
             li.onclick = function () {
-                wechartJson[4].subobject[1].value=null;
+                wechartJson[4].subobject[1].value = null;
                 console.log(wechartJson[4].subobject[1]);
                 console.log(wechartJson[4].subobject[1].value);
                 data.value = arrs[j].rule_id;
@@ -1493,8 +1640,8 @@ function Component_list() {
                 var matation_qualification_type = document.getElementById('matation_qualification_type');
                 var div_hangye_children = document.getElementById('matation_qualification_type_children');
                 var ul_children = matation_qualification_type.getElementsByTagName('ul')[0];
-                var matation_qualification_type_p=document.getElementById('matation_qualification_type_p');
-                matation_qualification_type_p.innerHTML='请选择所属行业';
+                var matation_qualification_type_p = document.getElementById('matation_qualification_type_p');
+                matation_qualification_type_p.innerHTML = '请选择所属行业';
                 div_hangye_children.children[0].innerHTML = '请选择';
                 div_hangye_children.children[1].innerHTML = '';
                 div_hangye_children.children[0].style.cssText = 'padding-left: 20px;width: 340px;float: left;';
@@ -1529,7 +1676,7 @@ function Component_list() {
 
     // 结算规则所属行业下的ul框
     this.qualification_type_ul = function (arr) {
-      //  console.log(wechartJson[4].subobject[1]);
+        //  console.log(wechartJson[4].subobject[1]);
         if (Array.isArray(arr)) {
             var matation_qualification_type = document.getElementById('matation_qualification_type');
             var div_hangye_children = document.getElementById('matation_qualification_type_children');
@@ -1537,7 +1684,7 @@ function Component_list() {
             div_hangye_children.onclick = function () {
                 ul.style.display = 'block';
                 var h = parseInt(this.offsetHeight);
-                ul.style.top=h+'px';
+                ul.style.top = h + 'px';
             }
             ul.innerHTML = '';
             for (let j = 0; j < arr.length; j++) {
@@ -1555,8 +1702,8 @@ function Component_list() {
                     wechartJson[4].subobject[1].value = arr[j].title;
                     console.log(wechartJson[4].subobject[1]);
                     console.log(wechartJson[4].subobject[1].value);
-                    var matation_qualification_type_p=document.getElementById('matation_qualification_type_p');
-                    matation_qualification_type_p.innerHTML='';
+                    var matation_qualification_type_p = document.getElementById('matation_qualification_type_p');
+                    matation_qualification_type_p.innerHTML = '';
                     ul.style.display = 'block';
                     div_hangye_children.style.height = this.offsetHeight + 'px';
                     div_hangye_children.children[0].style.display = 'block';
@@ -1581,29 +1728,29 @@ function Component_list() {
         }
     }
 
-     // 结算规则 特殊资质图片
-     this.qualifications=function(data){
+    // 结算规则 特殊资质图片
+    this.qualifications = function (data) {
         var str = this.create_multiple_pictures('特殊资质图片', '请上传特殊资质图片', '', 'qualifications_pic');
         application_list_one.appendChild(str);
         this.multiple_pictures('qualifications_pic', data);
-     }
+    }
 
-     // 结算规则 优惠费率活动ID
-     this.activities_id=function(data){
-         var div=document.createElement('div');
-         div.setAttribute('id','discount_rate_id');
-         application_list_one.appendChild(div);
+    // 结算规则 优惠费率活动ID
+    this.activities_id = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'discount_rate_id');
+        application_list_one.appendChild(div);
         this.input_box_id_card(data, 'discount_rate_id');
         var divInnerText = document.createElement('div');
         divInnerText.setAttribute('class', 'tips-info');
         divInnerText.innerHTML = '优惠费率活动的ID值点击查看<a href="https://pay.weixin.qq.com/wiki/doc/apiv3_partner/terms_definition/chapter1_1_3.shtml#part-8" target="_blank">优惠费率活动对照表</a>下的活动费率ID一栏，如，示例值：20191030111cff5b5e<br>';
         div.appendChild(divInnerText);
-     }
-      
-     // 结算规则 优惠费率活动值
-     this.activities_rate = function(data){
-        var div=document.createElement('div');
-        div.setAttribute('id','activities_rate_id');
+    }
+
+    // 结算规则 优惠费率活动值
+    this.activities_rate = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'activities_rate_id');
         application_list_one.appendChild(div);
         this.input_box_id_card(data, 'activities_rate_id');
         var divInnerText = document.createElement('div');
@@ -1613,16 +1760,15 @@ function Component_list() {
         div_hr.setAttribute('class', 'public_hrs');
         div.appendChild(divInnerText);
         div.appendChild(div_hr);
+    }
 
-     }
 
-
-     // 结算账户 账户类型
-     this.bank_account_type = function(data){
-         var div = document.createElement('div');
-         div.setAttribute('id', 'matation_settlement_bank_account_type');
-         application_list_one.appendChild(div);
-         div.innerHTML += this.matation_title('结算账户');    // 最上面的那title;
+    // 结算账户 账户类型
+    this.bank_account_type = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_settlement_bank_account_type');
+        application_list_one.appendChild(div);
+        div.innerHTML += this.matation_title('结算账户'); // 最上面的那title;
         var div = document.createElement("div");
         var p = document.createElement('p');
         var pTwo = document.createElement('p');
@@ -1630,38 +1776,279 @@ function Component_list() {
         pTwo.setAttribute('class', 'rotate_p_Two');
         div.setAttribute('id', 'matation_form_item_bank_account_type');
         application_list_one.appendChild(div);
-        var str='';
-        if(subject_type=='SUBJECT_TYPE_ENTERPRISE'){   // 企业类型
-            str='你是企业，请务必填写开户名为商户名称的对公银行账户';
-            data.value='BANK_ACCOUNT_TYPE_CORPORATE';
-        }
-        div.innerHTML += this.createTitleTop_no_hr('法定代表人/个体户经营者证件', str);
-       
+        var str = '';
         var dom = 'matation_form_item_bank_account_type';
-        this.input_box_id_card_account(data, dom,subject_type);                 // 渲染的是账户类型和右边的框；
-      
-     }
+        if (subject_type == 'SUBJECT_TYPE_ENTERPRISE') { // 企业类型
+            str = '你是企业，请务必填写开户名为商户名称的对公银行账户';
+            data.value = 'BANK_ACCOUNT_TYPE_CORPORATE';
+            div.innerHTML += this.createTitleTop_no_hr('法定代表人/个体户经营者证件', str);
+            this.input_box_id_card_account(data, dom, subject_type); // 渲染的是账户类型和右边的框；
+        }
+        if (subject_type == 'SUBJECT_TYPE_INSTITUTIONS') { // 党政机关类型
+            str = '你是党政、机关及事业单位，请务必填写开户名为商户名称的对公银行账户';
+            data.value = 'BANK_ACCOUNT_TYPE_CORPORATE';
+            div.innerHTML += this.createTitleTop_no_hr('法定代表人/个体户经营者证件', str);
+            this.input_box_id_card_account(data, dom, subject_type); // 渲染的是账户类型和右边的框；
+        }
+        if (subject_type == 'SUBJECT_TYPE_OTHERS') { // 其他组织类型
+            str = '你是其他组织，请务必填写开户名为商户名称的对公银行账户';
+            data.value = 'BANK_ACCOUNT_TYPE_CORPORATE';
+            div.innerHTML += this.createTitleTop_no_hr('法定代表人/个体户经营者证件', str,);
+            this.input_box_id_card_account(data, dom, subject_type); // 渲染的是账户类型和右边的框；
+        }
+        if (subject_type == 'SUBJECT_TYPE_INDIVIDUAL') { // 个人类型
+            str = '你选择的是法人账户，请务必填写开户名为法人的银行账户';
+            div.innerHTML += this.createTitleTop_no_hr('法定代表人/个体户经营者证件', str,"geren_leixing_xuanze");
+            data.value = 'BANK_ACCOUNT_TYPE_PERSONAL';
+            var dom = document.getElementById('matation_form_item_bank_account_type');
+            var arr = [{
+                name: '法人账户',
+                type: true
+            }, {
+                name: '对公账户',
+                type: false
+            }];
 
-     // 结算账户 开户名称
-     this.account_name=function(data,componentNextPro){
-        var div =document.createElement('div');
-        div.setAttribute('id','matation_form_account_name');
+            var onOff = true;
+            var _this=this;
+            this.three_syndromes_components("账户类型", arr, dom, function (value) {
+                console.log(value);
+                var geren_leixing_xuanze=document.getElementById('geren_leixing_xuanze');
+                if(value==false){     // 对公
+                   
+                    data.value = 'BANK_ACCOUNT_TYPE_CORPORATE';
+                    geren_leixing_xuanze.innerHTML='你选择的是对公账户，请务必填写开户名为商户名称的银行账户';
+                }else{               // 法人账户
+                    
+                    data.value = 'BANK_ACCOUNT_TYPE_PERSONAL';
+                    geren_leixing_xuanze.innerHTML='你选择的是法人账户，请务必填写开户名为法人的银行账户';
+                }
+                console.log(data.value)
+
+
+            },'zhanghu_leixing_faren');
+        }
+
+
+
+
+
+
+    }
+
+    // 结算账户 开户名称
+    this.account_name = function (data, componentNextPro) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_form_account_name');
         application_list_one.appendChild(div);
-        this.input_box_id_card(data, 'matation_form_account_name',componentNextPro);
+        this.input_box_id_card(data, 'matation_form_account_name', componentNextPro);
         var divInnerText = document.createElement('div');
         divInnerText.setAttribute('class', 'tips-info');
-        var str='';
-        console.log(subject_type)
-        if(subject_type=='SUBJECT_TYPE_ENTERPRISE'){   // 企业类型
-            str='开户名称必须与营业执照/登记证书的“商户名称”一致';
-            data.value='BANK_ACCOUNT_TYPE_CORPORATE';
-        }else if(subject_type=='SUBJECT_TYPE_INDIVIDUAL'){
-            data.value='SUBJECT_TYPE_INDIVIDUAL';
-            str='1、选择“经营者个人银行卡”时，开户名称必须与“经营者证件姓名”一致。<br />2、选择“对公银行账户”时，开户名称必须与营业执照/登记证书的“商户名称”一致。';
+        var str = '';
+        if (subject_type == 'SUBJECT_TYPE_ENTERPRISE') { // 企业类型
+            str = '开户名称必须与营业执照/登记证书的“商户名称”一致';
+            data.value = 'BANK_ACCOUNT_TYPE_CORPORATE';
+        } else if (subject_type == 'SUBJECT_TYPE_INDIVIDUAL') {
+            data.value = 'SUBJECT_TYPE_INDIVIDUAL';
+            str = '1、选择“经营者个人银行卡”时，开户名称必须与“经营者证件姓名”一致。<br />2、选择“对公银行账户”时，开户名称必须与营业执照/登记证书的“商户名称”一致。';
         }
         divInnerText.innerHTML = str;
         div.appendChild(divInnerText);
-     }
+    }
+
+    // 结算账户 开户银行
+    this.account_bank = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_form_account_bank');
+        application_list_one.appendChild(div);
+        this.banks_public_fn(data, 'matation_form_account_bank');
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        div.appendChild(divInnerText);
+        divInnerText.innerHTML = '城市商业银行、农村商业银行、信用合作联社及其他银行,请选择“其他银行”';
+        var yinghang_normal_bank_list = document.getElementById('yinghang_normal_bank_list');
+        var a = yinghang_normal_bank_list.getElementsByTagName('a');
+        for (var i = 0; i < a.length; i++) {
+            a[i].onclick = function () {
+                var common_banks_account_bank_span = document.getElementById('common_banks_account_bank_span');
+                var common_banks_account_bank_span_two = document.getElementById('common_banks_account_bank_span_two');
+                var common_banks_account_bank = document.getElementById('common_banks_account_bank');
+                if (this.children[1].innerHTML != '其他银行') {
+                    data.value = this.children[1].innerHTML;
+                    common_banks_account_bank_span.firstChild.nodeValue = data.value;
+                    common_banks_account_bank_span_two.style.display = 'none';
+                    common_banks_account_bank.style.display = 'none';
+                    common_banks_account_bank_span.onOff = true;
+                } else {
+                    common_banks_account_bank_span.firstChild.nodeValue = this.children[1].innerHTML;
+                    common_banks_account_bank_span_two.style.display = 'inline-block';
+                    common_banks_account_bank.style.display = 'none';
+                    common_banks_account_bank_span.onOff = true;
+                }
+            }
+        }
+    }
+
+
+    // 开户银行下面具体的银行
+    this.banks_str_innerHtml = function (data, nextProx) {
+        var str = '<div id="common_banks_account_bank">' +
+            '<div class="bankpicker-list">' +
+            '<div class="section-box">' +
+            '<div class="section-tab">' +
+            '<ul id="pinyinList" class="clr clear_float">' +
+            '<li class="pinyinLi noHideBank selected" pinyingroup="normal">' +
+            '<a href="javascript:;" class="noHideBank_a">常见银行</a>' +
+            '<span></span>' +
+            '</li>' +
+            '</ul>' +
+            '</div>' +
+            '<div class="section-cnt noHideBank">' +
+            '<div class="bank-comm clr noHideBank" id="yinghang_normal_bank_list">' +
+            '<a bankid="102" bankname="中国工商银行" cft_bank_code="1002" bank_property="7" class="" title="中国工商银行" href="javascript:;"><span class="bank-logo-s bank-s-icbc"></span><span>中国工商银行</span></a>' +
+            '<a bankid="103" bankname="中国农业银行" cft_bank_code="1005" bank_property="7" class="" title="中国农业银行" href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>中国农业银行</span></a>' +
+            '<a bankid="104" bankname="中国银行" cft_bank_code="1026" bank_property="7" class="" title="中国银行" href="javascript:;"><span class="bank-logo-s bank-s-boc"></span><span>中国银行</span></a>' +
+            '<a bankid="105" bankname="中国建设银行" cft_bank_code="1003" bank_property="7" class="" title="中国建设银行" href="javascript:;"><span class="bank-logo-s bank-s-ccb"></span><span>中国建设银行</span></a>' +
+            '<a bankid="301" bankname="交通银行" cft_bank_code="1020" bank_property="7" class="" title="交通银行" href="javascript:;"><span class="bank-logo-s bank-s-comm"></span><span>交通银行</span></a>' +
+            '<a bankid="302" bankname="中信银行" cft_bank_code="1021" bank_property="7" class="" title="中信银行" href="javascript:;"><span class="bank-logo-s bank-s-citic"></span><span>中信银行</span></a>' +
+            '<a bankid="303" bankname="中国光大银行" cft_bank_code="1022" bank_property="7" class="" title="中国光大银行" href="javascript:;"><span class="bank-logo-s bank-s-ceb"></span><span>中国光大银行</span></a>' +
+            '<a bankid="304" bankname="华夏银行" cft_bank_code="1025" bank_property="5" class="" title="华夏银行" href="javascript:;"><span class="bank-logo-s bank-s-hxb"></span><span>华夏银行</span></a>' +
+            '<a bankid="305" bankname="中国民生银行" cft_bank_code="1006" bank_property="7" class="" title="中国民生银行" href="javascript:;"><span class="bank-logo-s bank-s-cmbc"></span><span>中国民生银行</span></a>' +
+            '<a bankid="306" bankname="广发银行" cft_bank_code="1027" bank_property="5" class="" title="广发银行" href="javascript:;"><span class="bank-logo-s bank-s-gdb"></span><span>广发银行</span></a>' +
+            '<a bankid="307" bankname="平安银行" cft_bank_code="1010" bank_property="7" class="" title="平安银行" href="javascript:;"><span class="bank-logo-s bank-s-pab"></span><span>平安银行</span></a>' +
+            '<a bankid="308" bankname="招商银行" cft_bank_code="1001" bank_property="7" class="" title="招商银行" href="javascript:;"><span class="bank-logo-s bank-s-cmb"></span><span>招商银行</span></a>' +
+            '<a bankid="309" bankname="兴业银行" cft_bank_code="1009" bank_property="7" class="" title="兴业银行" href="javascript:;"><span class="bank-logo-s bank-s-cib"></span><span>兴业银行</span></a>' +
+            '<a bankid="310" bankname="上海浦东发展银行" cft_bank_code="1004" bank_property="7" class="" title="上海浦东发展银行" href="javascript:;"><span class="bank-logo-s bank-s-spdb"></span><span>上海浦东发展银行</span></a>' +
+            '<a bankid="325" bankname="上海银行" cft_bank_code="1024" bank_property="5" class="" title="上海银行" href="javascript:;"><span class="bank-logo-s bank-s-bosh"></span><span>上海银行</span></a>' +
+            '<a bankid="403" bankname="中国邮政储蓄银行" cft_bank_code="1066" bank_property="7" class="" title="中国邮政储蓄银行" href="javascript:;"><span class="bank-logo-s bank-s-psbc"></span><span>中国邮政储蓄银行</span></a>' +
+            '<a bankid="501" bankname="汇丰银行（中国）" cft_bank_code="1099" bank_property="4" class="" title="汇丰银行（中国）" href="javascript:;"><span class="bank-logo-s bank-s-hsbc"></span><span>汇丰银行（中国）</span></a>' +
+            '<a bankid="3130001" bankname="北京银行" cft_bank_code="4836" bank_property="7" class="" title="北京银行" href="javascript:;"><span class="bank-logo-s bank-s-bob"></span><span>北京银行</span></a>' +
+            '<a bankid="3130007" bankname="宁波银行" cft_bank_code="1056" bank_property="7" class="" title="宁波银行" href="javascript:;"><span class="bank-logo-s bank-s-nbcb"></span><span>宁波银行</span></a>' +
+            ' <a bankid="0" bankname="其他银行" cft_bank_code="0" bank_property="0" class="green" title="其他银行" href="javascript:;"><span class="bank-logo-s bank-s-rcb"></span><span>其他银行</span></a>' +
+            '</div>' +
+            '<div id="pinyinBankList"> </div>' +
+            '<div class="bank-tips noHideBank">城市商业银行、农村商业银行、信用合作联社及其他银行，请选择“其他银行”</div>' +
+            '</div>' +
+            '<a class="ico-cls" href="javascript:;" title="关闭" id="yinghang_normal_bank_list_close"></a>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        return str;
+    }
+
+    // 登记证书 证书类型
+    this.cert_type_innnerHTML = function () {
+        var str = '<div id="common_zhengjian_leixing_type">' +
+            '<div class="bankpicker-list">' +
+            '<div class="section-box">' +
+            '<div class="section-tab">' +
+            '<ul id="pinyinLists" class="clr clear_float">' +
+            '<li class="pinyinLi noHideBank selected" pinyingroup="normal">' +
+            '<a href="javascript:;" class="noHideBank_a">证件类型</a>' +
+            '<span></span>' +
+            '</li>' +
+            '</ul>' +
+            '</div>' +
+            '<div class="section-cnt noHideBank">' +
+            '<div class="bank-comm clr noHideBank" id="zhengjia_type_list_leixing">' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-icbc"></span><span>事业单位法人证书</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>统一社会信用代码证书</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>有偿服务许可证（军队医院适用）</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>医疗机构执业许可证（军队医院适用）</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>企业营业执照（挂靠企业的党组织适用）</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>组织机构代码证（政府机关适用）</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>社会团体法人登记证书</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>民办非企业单位登记证书</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>基金会法人登记证书</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>慈善组织公开募捐资格证书</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>农民专业合作社法人营业执照</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>宗教活动场所登记证</span></a>' +
+            '<a href="javascript:;"><span class="bank-logo-s bank-s-abc"></span><span>其他证书/批文/证明</span></a>' +
+            '</div>' +
+            '<div class="bank-tips noHideBank"></div>' +
+            '</div>' +
+            '<a class="ico-cls" href="javascript:;"  id="dengji_zhengshu_list_close" title="关闭"></a>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        return str;
+    }
+
+    // 开户银行省市编号
+    this.bank_address_code = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_form_bank_address_code');
+        application_list_one.appendChild(div);
+        this.input_box_id_card(data, 'matation_form_bank_address_code');
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        var str = '至少精确到市，详细参见<a href="https://pay.weixin.qq.com/wiki/doc/apiv3_partner/terms_definition/chapter1_1_3.shtml#part-5" target="_blank">省市区编号对照表</a>。<span class="green">示例值：110000 </span>';
+        divInnerText.innerHTML = str;
+        div.appendChild(divInnerText);
+    }
+
+    // 开户银行 开户银行联行号 
+    this.bank_branch_id = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_form_bank_branch_id');
+        application_list_one.appendChild(div);
+        this.input_box_id_card(data, 'matation_form_bank_branch_id');
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        var str = '1、开户银行全称（含支行）和开户银行联行号二选一填写。<br />2、开户银行联行号，详细参见<a href="https://pay.weixin.qq.com/wiki/doc/apiv3_partner/terms_definition/chapter1_1_3.shtml#part-6" target="_blank">开户银行全称（含支行）对照表</a>。示例值：402713354941';
+        divInnerText.innerHTML = str;
+        div.appendChild(divInnerText);
+    }
+
+    // 开户银行 开户银行全称（含支行)
+    this.bank_name = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_form_bank_name');
+        application_list_one.appendChild(div);
+        this.input_box_id_card(data, 'matation_form_bank_name');
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        var str = ' 1、需填写银行全称，如"深圳农村商业银行XXX支行"，开户银行全称，详细参见<a href="https://pay.weixin.qq.com/wiki/doc/apiv3_partner/terms_definition/chapter1_1_3.shtml#part-6" target="_blank">开户银行全称（含支行）对照表</a>。<br><span class="green">示例值：施秉县农村信用合作联社城关信用社 </span>';
+        divInnerText.innerHTML = str;
+        div.appendChild(divInnerText);
+    }
+
+    // 开户银行 银行账户
+    this.account_number = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_form_account_number');
+        application_list_one.appendChild(div);
+        this.input_box_id_card_yinghao_number(data, 'matation_form_account_number');
+        var divInnerText = document.createElement('span');
+        divInnerText.setAttribute('class', 'tips-info');
+        var str = '<a href="https://kf.qq.com/faq/140225MveaUz150819mYFjuE.html" target="_blank">常用银行账号位数参考</a>';
+        divInnerText.innerHTML = str;
+        div.appendChild(divInnerText);
+        var inputs = div.getElementsByTagName('input')[0];
+        var span = document.createElement('span');
+        div.appendChild(span);
+        span.setAttribute('class', 'matation_span');
+        span.style.display = 'none';
+        inputs.oninput = function () {
+            var str_input = this.value;
+            if (str_input.length > 0) {
+                span.style.display = 'block';
+            }
+            var len = parseInt(this.value.length / 4) + 1;
+            var arr = [];
+            for (var i = 0; i < len; i++) {
+                arr.push(str_input.slice(i * 4, (i + 1) * 4));
+            }
+            var str_arr = arr.join(' ');
+            console.log(str_arr);
+            span.innerHTML = str_arr;
+        }
+        var div_hr = document.createElement('div');
+        div_hr.setAttribute('class', 'public_hrs');
+        div.appendChild(divInnerText);
+        div.appendChild(div_hr);
+
+    }
 
     // 这个方法主要是针对dom的移除和添加设置公共方法；和input_box；相似。身份证姓名和身份证号码的方法
     this.input_box_id_card = function (data, dom, componentNextPro) { // componentNextPro 是一个函数；
@@ -1681,9 +2068,9 @@ function Component_list() {
         organization_code_certificate.appendChild(div);
         input.onblur = function () {
             data.value = input.value ? input.value : "";
-            console.log(data);
-            console.log(data.value);
+            //  console.log(data)
             var a = data.verification_method();
+
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
@@ -1698,8 +2085,52 @@ function Component_list() {
         }
     }
 
+    // 开户银行 银行账号 
+    this.input_box_id_card_yinghao_number = function (data, dom, componentNextPro) { // componentNextPro 是一个函数；
+        var div = document.createElement("div");
+        var label = document.createElement("label");
+        var p = document.createElement('p');
+        div.className = 'application_list_one_ul_li_div';
+        label.className = "lable_left";
+        p.className = "text-errors";
+        label.innerText = data.caption;
+        var input = document.createElement("input");
+        input.className = "input_public";
+        div.appendChild(label);
+        div.appendChild(input);
+        div.appendChild(p);
+        var organization_code_certificate = document.getElementById(dom);
+        console.log(organization_code_certificate)
+        organization_code_certificate.appendChild(div);
+        input.onblur = function () {
+            data.value = input.value ? input.value : "";
+            var span = organization_code_certificate.getElementsByTagName('span')[0];
+            span.style.display = 'none';
+            var a = data.verification_method();
+            if (a) {
+                p.style.display = 'block';
+                p.innerHTML = a;
+            }
+
+            if (componentNextPro) {
+                componentNextPro(data);
+            }
+
+        }
+        input.onfocus = function () {
+            p.style.display = 'none';
+            var span = organization_code_certificate.getElementsByTagName('span')[0];
+            if (data.value.length > 0) {
+                span.style.display = 'block';
+            }
+
+        }
+    }
+
+
+
     // 对公账户右边信息
-    this.input_box_id_card_account = function (data, dom,subject_type) { // componentNextPro 是一个函数；
+    this.input_box_id_card_account = function (data, dom, subject_type) { // componentNextPro 是一个函数；
         var div = document.createElement("div");
         var label = document.createElement("label");
         var p = document.createElement('p');
@@ -1708,17 +2139,134 @@ function Component_list() {
         p.className = "text-errors";
         label.innerText = data.caption;
         div.appendChild(label);
-       if(subject_type=='SUBJECT_TYPE_ENTERPRISE'){
+        if (subject_type != 'SUBJECT_TYPE_INDIVIDUAL') {
             var span = document.createElement("span");
             span.className = "span_public";
             div.appendChild(span);
-            span.innerHTML='对公账户';
-            span.style.cssText=' position: absolute;top:5px';
-       }
+            span.innerHTML = '对公账户';
+            span.style.cssText = ' position: absolute;top:-3px';
+        }
         div.appendChild(p);
         var organization_code_certificate = document.getElementById(dom);
         organization_code_certificate.appendChild(div);
     }
+
+
+    // 超级管理员信息
+    this.contact_name = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_settlement_contact_name');
+        application_list_one.appendChild(div);
+        div.innerHTML += this.matation_title('超级管理员'); // 最上面的那title;
+        var div = document.createElement("div");
+        var p = document.createElement('p');
+        var pTwo = document.createElement('p');
+        p.setAttribute('class', 'rotate_p');
+        pTwo.setAttribute('class', 'rotate_p_Two');
+        div.setAttribute('id', 'matation_form_contact_name');
+        application_list_one.appendChild(div);
+        var str = "超级管理员信息<span style='color:#999;font-size:12px'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;超级管理员将接收开户信息及日常重要管理信息，并可进行商户号的日常重要管理及资金操作，请确定超级管理为商户法定代表人或负责人再进行操作。</span>";
+        div.innerHTML += this.createTitleTop_no_tubiao(str);
+        this.input_box_id_card(data, 'matation_form_contact_name');
+        var input = div.getElementsByTagName('input')[0];
+        input.style.width = '300px';
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        var str = '超级管理员姓名与微信实名信息需一致。';
+        divInnerText.innerHTML = str;
+        div.appendChild(divInnerText);
+
+        //  超级管理员资料类型选择
+        var dom = document.getElementById('matation_form_contact_name');
+        var arr = [{
+            name: '证件号码',
+            type: true
+        }, {
+            name: '微信openid',
+            type: false
+        }];
+
+        var onOff = true;
+
+        this.three_syndromes_components("超级管理员资料  类型", arr, dom, function (value) {
+            onOff = value;
+            var matation_form_contact_id_number = document.getElementById('matation_form_contact_id_number');
+            var matation_form_contact_openid = document.getElementById('matation_form_contact_openid');
+            if (onOff == true) {
+                matation_form_contact_id_number.style.display = 'block';
+                matation_form_contact_openid.style.display = 'none';
+            } else {
+                matation_form_contact_id_number.style.display = 'none';
+                matation_form_contact_openid.style.display = 'block';
+            }
+
+
+        });
+
+
+
+
+
+    }
+
+
+    // 超级管理员 身份证件号码 
+    this.contact_id_number = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_form_contact_id_number');
+        application_list_one.appendChild(div);
+        this.input_box_id_card(data, 'matation_form_contact_id_number');
+        var divInnerTexts = document.createElement('div');
+        divInnerTexts.setAttribute('class', 'tips-info');
+        var str = '请填写超级管理员的证件号码，可传身份证，来往内地通行证、护照等证件号码。';
+        divInnerTexts.innerHTML = str;
+        div.appendChild(divInnerTexts);
+    }
+
+    // 超级管理员微信openid
+    this.openid = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_form_contact_openid');
+        application_list_one.appendChild(div);
+        this.input_box_id_card(data, 'matation_form_contact_openid');
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        var str = '微信号要与该微信openid一致。';
+        divInnerText.innerHTML = str;
+        div.appendChild(divInnerText);
+        div.style.display = "none";
+    }
+
+    // 超级管理员联系手机
+    this.mobile_phone = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_form_mobile_phone');
+        application_list_one.appendChild(div);
+        this.input_box_id_card(data, 'matation_form_mobile_phone');
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        var str = '用于接收微信支付的重要管理信息及日常操作验证码。';
+        divInnerText.innerHTML = str;
+        div.appendChild(divInnerText);
+    }
+
+    // 超级管理员联系邮箱
+    this.contact_email = function (data) {
+        var div = document.createElement('div');
+        div.setAttribute('id', 'matation_form_contact_email');
+        application_list_one.appendChild(div);
+        this.input_box_id_card(data, 'matation_form_contact_email');
+        var divInnerText = document.createElement('div');
+        divInnerText.setAttribute('class', 'tips-info');
+        var str = '用于接收微信支付的开户邮件及日常业务通知。';
+        divInnerText.innerHTML = str;
+        div.appendChild(divInnerText);
+        var div_hr = document.createElement('div');
+        div_hr.setAttribute('class', 'public_hrs');
+        div.appendChild(divInnerText);
+        div.appendChild(div_hr);
+    }
+
 
 
 
@@ -1800,16 +2348,60 @@ function Component_list() {
         dom.appendChild(ul);
         ul.innerHTML += '<i class="ico-msg-s ask" id="ico-msg-s_ask"></i>';
         var str2 = '<div class="popup pop-left pos-top ng-hide" id="popup_ask" style="display:none">' +
-            '<div class="inner">' +
+            '<div class="inner" id="popup_ask_childrens_aks">' +
             '<p class="ng-binding ng-scope">根据国家相关法律法规，您需要提供公司受益所有人信息。受益所有人需符合至少以下条件之一：1. 直接或者间接拥有超过25%公司股权或者表决权的自然人；2. 通过人事、财务等其他方式对公司进行控制的自然人；3. 公司的高级管理人员，包括公司的经理、副经理、财务负责人，上市公司董事会秘书和公司章程规定的其他人员</p>' +
             '</div>' +
-            '<i class="arrow arrow-out"></i>' +
-            '<i class="arrow arrow-in"></i>' +
+            '<p class="rotate_p"></p><p class="rotate_p_Two"></p>' +
             '</div>'
         ul.innerHTML += str2;
         var ico_msg_s_ask = document.getElementById('ico-msg-s_ask');
+        if(subject_type=='SUBJECT_TYPE_INDIVIDUAL'){
+            ico_msg_s_ask.style.display='none';
+        }else{
+            ico_msg_s_ask.style.display='block';
+        }
+        caption = caption.replace(/\s+/g, '');
+        if (caption == '超级管理员资料类型') {
+            ico_msg_s_ask.style.display = 'none';
+            var divInnerTexts = document.createElement('div');
+            divInnerTexts.setAttribute('class', 'tips-info');
+            var str = '证件号码和微信openid二选一必填。';
+            divInnerTexts.innerHTML = str;
+            ul.appendChild(divInnerTexts);
+            divInnerTexts.style.paddingTop = 0;
+            divInnerTexts.style.marginTop = '-15px';
+        }
+
+        if (caption == '是否为受益所有人') {
+            var div_hr = document.createElement('div');
+            div_hr.setAttribute('class', 'public_hrs');
+            dom.appendChild(div_hr);
+        }
+
+
         var popup_ask = document.getElementById('popup_ask');
+        var popup_ask_p = popup_ask.getElementsByTagName('p');
+        console.log(popup_ask_p);
         ico_msg_s_ask.onmousemove = function () {
+            var rectObject_top = this.getBoundingClientRect().bottom;
+            var windowH = window.innerHeight;
+            console.log(windowH)
+            console.log(rectObject_top)
+            console.log(popup_ask.offsetHeight)
+            if (windowH - rectObject_top < popup_ask.offsetHeight) {
+                console.log(1)
+                console.log(popup_ask_p[1])
+                popup_ask.style.top = '-180px';
+                popup_ask.style.position = 'absolute';
+                popup_ask_p[1].style.top = '195px';
+                popup_ask_p[2].style.top = '184px';
+            } else {
+                console.log(2)
+                popup_ask.style.position = 'absolute';
+                popup_ask.style.top = '-18px';
+                popup_ask_p[1].style.top = '35px';
+                popup_ask_p[2].style.top = '23px';
+            }
             popup_ask.style.display = 'block';
         }
         ico_msg_s_ask.onmouseout = function () {
@@ -1828,13 +2420,149 @@ function Component_list() {
 
     }
 
+    // 开户银行专有的方法
+    this.banks_public_fn = function (data, dom) {
+        var div = document.createElement("div");
+        var label = document.createElement("label");
+        var p = document.createElement('p');
+        div.className = 'application_list_one_ul_li_div';
+        label.className = "lable_left";
+        p.className = "text-errors";
+        p.setAttribute('id', 'common_banks_account_bank_p');
+        label.innerText = data.caption;
+        var spans = document.createElement("span");
+        var spans_two = document.createElement("input");
+        spans.innerText = '请选择';
+        spans.className = "span_public";
+        spans_two.className = "span_public";
+        spans.setAttribute('id', 'common_banks_account_bank_span');
+        spans_two.setAttribute('id', 'common_banks_account_bank_span_two');
+        spans_two.placeholder = '请输入开户银行名称';
+        spans_two.style.display = 'none';
+        var i = document.createElement('i');
+        i.className = 'triangle_banks';
+        var i_two = document.createElement('i');
+        i_two.className = 'triangle_banks';
+        spans.appendChild(i);
+        spans_two.appendChild(i_two);
+        div.appendChild(label);
+        div.appendChild(spans);
+        div.appendChild(spans_two);
+        div.appendChild(p);
+        var organization_code_certificate = document.getElementById(dom);
+        organization_code_certificate.appendChild(div);
+        div.innerHTML += this.banks_str_innerHtml(data);
+        var common_banks_account_bank = document.getElementById('common_banks_account_bank');
+        common_banks_account_bank.style.display = 'none';
+        var common_banks_account_bank_span = document.getElementById('common_banks_account_bank_span');
+        var common_banks_account_bank_span_two = document.getElementById('common_banks_account_bank_span_two');
+        var common_banks_account_bank_p = document.getElementById('common_banks_account_bank_p');
+        common_banks_account_bank_span.onOff = true;
+        yinghang_normal_bank_list_close = document.getElementById('yinghang_normal_bank_list_close');
+        yinghang_normal_bank_list_close.onclick = function () {
+            common_banks_account_bank.style.display = 'none';
+            common_banks_account_bank_span.onOff = true;
+        }
+        common_banks_account_bank_span.onclick = function () {
+            if (this.onOff) {
+                common_banks_account_bank.style.display = 'block';
+            } else {
+                common_banks_account_bank.style.display = 'none';
+            }
+            this.onOff = !this.onOff;
+        }
+
+        common_banks_account_bank_span_two.onblur = function () {
+            data.value = common_banks_account_bank_span_two.value;
+            let a = data.verification_method();
+            if (a) {
+                common_banks_account_bank_p.style.display = 'block';
+                common_banks_account_bank_p.innerHTML = a;
+            }
+        }
+
+        common_banks_account_bank_span_two.onfocus = function () {
+            common_banks_account_bank_p.style.display = 'none';
+        }
+
+
+    }
+
+
+    // 登记证书 选择证件类型专有方法
+    this.zhengshu_public_fn = function (data, dom) {
+        var div = document.createElement("div");
+        var label = document.createElement("label");
+        var p = document.createElement('p');
+        div.className = 'application_list_one_ul_li_div';
+        label.className = "lable_left";
+        p.className = "text-errors";
+        p.setAttribute('id', 'common_banks_account_bank_p');
+        label.innerText = data.caption;
+        var spans = document.createElement("span");
+        var spans_two = document.createElement("input");
+        spans.innerText = '请选择';
+        spans.className = "span_public";
+        spans_two.className = "span_public";
+        spans.setAttribute('id', 'common_banks_account_bank_span');
+        spans_two.setAttribute('id', 'common_banks_account_bank_span_two');
+        spans_two.placeholder = '请输入开户银行名称';
+        spans_two.style.display = 'none';
+        var i = document.createElement('i');
+        i.className = 'triangle_banks';
+        var i_two = document.createElement('i');
+        i_two.className = 'triangle_banks';
+        spans.appendChild(i);
+        spans_two.appendChild(i_two);
+        div.appendChild(label);
+        div.appendChild(spans);
+        div.appendChild(spans_two);
+        div.appendChild(p);
+        var organization_code_certificate = document.getElementById(dom);
+        organization_code_certificate.appendChild(div);
+        div.innerHTML += this.banks_str_innerHtml(data);
+        var common_banks_account_bank = document.getElementById('common_banks_account_bank');
+        common_banks_account_bank.style.display = 'none';
+        var common_banks_account_bank_span = document.getElementById('common_banks_account_bank_span');
+        var common_banks_account_bank_span_two = document.getElementById('common_banks_account_bank_span_two');
+        var common_banks_account_bank_p = document.getElementById('common_banks_account_bank_p');
+        common_banks_account_bank_span.onOff = true;
+        yinghang_normal_bank_list_close = document.getElementById('yinghang_normal_bank_list_close');
+        yinghang_normal_bank_list_close.onclick = function () {
+            common_banks_account_bank.style.display = 'none';
+            common_banks_account_bank_span.onOff = true;
+        }
+        common_banks_account_bank_span.onclick = function () {
+            if (this.onOff) {
+                common_banks_account_bank.style.display = 'block';
+            } else {
+                common_banks_account_bank.style.display = 'none';
+            }
+            this.onOff = !this.onOff;
+        }
+
+        common_banks_account_bank_span_two.onblur = function () {
+            data.value = common_banks_account_bank_span_two.value;
+            let a = data.verification_method();
+            if (a) {
+                common_banks_account_bank_p.style.display = 'block';
+                common_banks_account_bank_p.innerHTML = a;
+            }
+        }
+
+        common_banks_account_bank_span_two.onfocus = function () {
+            common_banks_account_bank_p.style.display = 'none';
+        }
+
+
+    }
 
 
     // 头部的方法 有副标题
     this.createTitleTop = function (str1, str2) {
         var str = "<div class='public_hr'></div>" +
             "<div class='form-item_children'>" +
-            "<div class='application_phone' id='application_phone'>" +
+            "<div class='application_phone'>" +
             "<div class='data-hd'>" +
             "<h4 class='fl ng-binding'>" + str1 + "</h4>" +
             "</div>" +
@@ -1849,8 +2577,21 @@ function Component_list() {
         return str;
     }
 
-     // 头部的方法 有副标题
-     this.createTitleTop_no_hr = function (str1, str2) {
+    // 头部的方法 没有那个图标
+    this.createTitleTop_no_tubiao = function (str) {
+        var str = "<div class='form-item_children'>" +
+            "<div class='application_phone' id='application_phone'>" +
+            "<div class='data-hd'>" +
+            "<h4 class='fl ng-binding'>" + str + "</h4>" +
+            "</div>" +
+            "</div>" +
+            "</div>";
+        return str;
+    }
+
+
+    // 头部的方法 有副标题
+    this.createTitleTop_no_hr = function (str1, str2,ids) {
         var str = "<div class='form-item_children'>" +
             "<div class='application_phone' id='application_phone'>" +
             "<div class='data-hd'>" +
@@ -1859,7 +2600,7 @@ function Component_list() {
             "<div class='inner ng-scope'>" +
             "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
             "<div class='msg-cnt'>" +
-            "<p class='ng-binding'>" + str2 + "</p>" +
+            "<p class='ng-binding' id=\""+ids+"\">" + str2 + "</p>" +
             "</div>" +
             "</div>" +
             "</div>" +
@@ -1869,9 +2610,8 @@ function Component_list() {
 
     // 头部方法，没有副标题
     this.createTitleTopTwo = function (str1) {
-        var str = "<div class='public_hr'></div>" +
-            "<div class='form-item_children'>" +
-            "<div class='application_phone' id='application_phone'>" +
+        var str = "<div class='form-item_children'>" +
+            "<div class='application_phone'>" +
             "<div class='data-hd'>" +
             "<h4 class='fl ng-binding'>" + str1 + "</h4>" +
             "</div>" +
@@ -1887,7 +2627,7 @@ function Component_list() {
     // 只有一个副标题的公共方法
     this.createSubtitle = function (str1) {
         var str = "<div class='form-item_children'>" +
-            "<div class='application_phone' id='application_phone'>" +
+            "<div class='application_phone'>" +
             "<div class='inner ng-scope'>" +
             "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
             "<div class='msg-cnt'>" +
@@ -1901,10 +2641,12 @@ function Component_list() {
 
 
 
+
     // 生成单张上传图片信息的方法
-    this.createTitleTopAndImg = function (str1, str2, domID, str3) {
+    this.createTitleTopAndImg = function (data, str1, str2, domID, str3) {
         var div = document.createElement("div");
-        str3 = str3 ? str3 : '请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）';
+        // console.log(str_three,data.caption)
+        // var  str3 = str_three ? str_three : '请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）';
         div.setAttribute('class', 'common_header_method');
         div.setAttribute('id', domID);
         var str = '<div class="createTitleTopAndImg_top">' +
@@ -1974,6 +2716,7 @@ function Component_list() {
             "<i class='col-sm_time_i'>至</i>";
         div.innerHTML = str;
         var organization_code_certificate = document.getElementById(idParent);
+        console.log(organization_code_certificate)
         organization_code_certificate.appendChild(div);
         $('#' + idChildren).datetimepicker({
             format: 'YYYY-MM-DD',
@@ -2050,8 +2793,10 @@ function Component_list() {
             }
         }
         input.onfocus = function () {
-            p2.style.display = 'none';
+            //  p2.style.display = 'none';
+            p2.innerHTML = '';
         }
+
     }
 
     // 上传单张图片验证的公共方法
@@ -2211,7 +2956,7 @@ function Component_list() {
                         // console.log(data.value);
                         p[2].style.display = 'none';
                         console.log(data.value);
-                        if(data.value.length==0){
+                        if (data.value.length == 0) {
                             p[0].style.display = 'block';
                         }
                     }
@@ -2241,13 +2986,14 @@ function Component_list() {
         label.innerText = data.caption;
         var input = document.createElement("input");
         input.className = "input_public";
+        var matation_business_pictrue_box = document.getElementById('matation_business_pictrue_box');
         div.appendChild(label);
         div.appendChild(input);
         div.appendChild(p);
-        application_list_one.appendChild(div);
+        matation_business_pictrue_box.appendChild(div);
         input.onblur = function () {
             data.value = input.value ? input.value : "";
-            var a = data.verification_method();
+            var a = data.verification_method(); // 前面赋值了，后面调用函数；
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
@@ -2262,6 +3008,79 @@ function Component_list() {
             p.style.display = 'none';
         }
 
+        if (data.caption == "注册号") {
+            var divs = document.createElement('div');
+            divs.setAttribute('class', 'upload-tips')
+            divs.innerHTML = '请依据营业执照，填写15位注册号或18位的统一社会信用代码';
+            div.appendChild(divs);
+        }
+
+        if (data.caption == '商户名称' && subject_type == 'SUBJECT_TYPE_INDIVIDUAL') {
+            var divs = document.createElement('div');
+            divs.setAttribute('class', 'upload-tips')
+            divs.innerHTML = '若营业执照上名称为空或为“无字号”，请填写“个体户+经营者姓名”，如“个体户张三”';
+            div.appendChild(divs);
+        }
+    }
+
+
+    this.input_box_dengji = function (data, componentNextPro) { // componentNextPro 是一个函数；
+        var div = document.createElement("div");
+        var label = document.createElement("label");
+        var p = document.createElement('p');
+        div.className = 'application_list_one_ul_li_div';
+        label.className = "lable_left";
+        p.className = "text-errors";
+        label.innerText = data.caption;
+        var input = document.createElement("input");
+        input.className = "input_public";
+        var matation_business_pictrue_box = document.getElementById('matation_business_dengji_box');
+        div.appendChild(label);
+        div.appendChild(input);
+        div.appendChild(p);
+        matation_business_pictrue_box.appendChild(div);
+        input.onblur = function () {
+            data.value = input.value ? input.value : "";
+            var a = data.verification_method(); // 前面赋值了，后面调用函数；
+            if (a) {
+                p.style.display = 'block';
+                p.innerHTML = a;
+            }
+
+            if (componentNextPro) {
+                componentNextPro(data);
+            }
+        }
+
+        input.onfocus = function () {
+            p.style.display = 'none';
+        }
+
+        if (data.caption == "证书号") {
+            var divs = document.createElement('div');
+            divs.setAttribute('class', 'upload-tips')
+            divs.innerHTML = '请依据登记证书，填写证书号码';
+            div.appendChild(divs);
+        }
+
+        if (data.caption == '注册地址') {
+            var divs = document.createElement('div');
+            divs.setAttribute('class', 'upload-tips')
+            divs.innerHTML = '请依据营业执照/登记证书，填写注册地址';
+            div.appendChild(divs);
+        }
+        if (data.caption == '商户名称') {
+            var divs = document.createElement('div');
+            divs.setAttribute('class', 'upload-tips')
+            divs.innerHTML = '请依据登记证书，填写商户名称';
+            div.appendChild(divs);
+        }
+        if (data.caption == '法人姓名') {
+            var divs = document.createElement('div');
+            divs.setAttribute('class', 'upload-tips')
+            divs.innerHTML = '请依据营业执照/登记证书，填写法定代表人姓名';
+            div.appendChild(divs);
+        }
     }
 
     // 生成分类标题如主体信息，经营信息等
@@ -2308,6 +3127,13 @@ function Component_list() {
     }
 
 
+    // 选择登记证书 方法
+    this.xuanze_dengji = function () {
+        var str = '<label class="lable_left">登记证书类型</label><span class="span_public" id="common_xuanze_zhengji_span">请选择<i class="triangle_banks"></i></span>'
+        return str;
+    }
+
+
 }
 
 
@@ -2317,5 +3143,5 @@ function pushHistory_two() {
         title: "title",
         url: "#"
     };
-    window.history.pushState(state, "title", "#");
+    window.history.pushState(state, "title", "#two");
 }

@@ -8,14 +8,13 @@ body {
   background-color: #ffffff;
 }
 
-@media screen and (max-width: 1600px){
-   
-    #order_of_payment_and_registration_p_last{
-        width: 50px;
-    }
-    #order_of_payment_and_registration ul li .middle .middle_solid h3 {
-        width: 80px!important;
-    }
+@media screen and (max-width: 1600px) {
+  #order_of_payment_and_registration_p_last {
+    width: 50px;
+  }
+  #order_of_payment_and_registration ul li .middle .middle_solid h3 {
+    width: 80px !important;
+  }
 }
 
 body,
@@ -42,11 +41,11 @@ img {
   vertical-align: -middle;
   margin-bottom: 5px;
 }
-.information_fill img {
+#applicationParent .information_fill img {
   vertical-align: middle;
   margin-bottom: 5px;
 }
-.information_fill span {
+#applicationParent .information_fill span {
   font-family: Microsoft YaHei;
   font-style: normal;
   font-weight: bold;
@@ -93,16 +92,16 @@ img {
   color: rgba(55, 63, 74, 0.6);
   margin-right: 36px;
 }
-#Information_to_fill_out .content_top ul li img{
-    vertical-align: middle;
-    margin-left: 10px;
-    cursor: pointer;
+#Information_to_fill_out .content_top ul li img {
+  vertical-align: middle;
+  margin-left: 10px;
+  cursor: pointer;
 }
 #Information_to_fill_out #required_information {
   padding-left: 30px;
   margin-top: 23px;
 }
-#Information_to_fill_out #required_information h6 {
+#Information_to_fill_out #required_information h6,#Information_to_fill_out #optional_information h6 {
   font-weight: bold;
   font-size: 14px;
   color: #373f4a;
@@ -156,7 +155,7 @@ img {
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
-  line-height: 21px;
+  line-height: 20px;
   color: rgba(55, 63, 74, 0.8);
   width: 370px;
 }
@@ -186,7 +185,7 @@ img {
 
 #optional_information {
   padding-left: 30px;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 #optional_information h6 {
   font-weight: bold;
@@ -229,9 +228,9 @@ img {
 #order_of_payment_and_registration ul li .middle {
   float: left;
 }
-#order_of_payment_and_registration ul li .left{
-    margin-right: 10px;
-    margin-top:3px
+#order_of_payment_and_registration ul li .left {
+  margin-right: 10px;
+  margin-top: 3px;
 }
 #order_of_payment_and_registration ul li .middle .middle_solid h5 {
   font-family: OPPOSans;
@@ -240,11 +239,9 @@ img {
   font-size: 20px;
   float: left;
 }
-#order_of_payment_and_registration ul li .middle .middle_solid{
-    overflow: hidden;
+#order_of_payment_and_registration ul li .middle .middle_solid {
+  overflow: hidden;
 }
-
-
 
 #order_of_payment_and_registration ul li .middle .middle_solid h3 {
   width: 180px;
@@ -408,7 +405,9 @@ img {
   display: inline-block;
   background: url(../img/sprite.png) no-repeat;
 }
-
+#applicationParent #form-item_jingyingxinxi .application_phone{
+  margin-bottom: 30px;
+}
 .application_phone .msg-ico {
   float: left;
   margin-top: -1px;
@@ -416,14 +415,14 @@ img {
 .application_phone .ng-scope {
   overflow: hidden;
 }
-#application_phone_upData {
+#applicationParent .application_phone_upData {
   margin-top: 30px;
 }
 
-.application_phone .ico-msg-s.info {
+#applicationParent .application_phone .ico-msg-s.info {
   background-position: -60px -122px;
 }
-.application_phone .ico-msg-s {
+#applicationParent .application_phone .ico-msg-s {
   width: 18px;
   height: 18px;
   vertical-align: middle;
@@ -453,7 +452,8 @@ img {
   padding-top: 9px;
   width: 138px;
   position: relative;
-  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 .form-item .element {
   margin-left: 138px;
@@ -498,42 +498,56 @@ img {
   color: #999;
 }
 
-#applicationParent .clear_float:after{
-  display:block;clear:both;content:"";visibility:hidden;height:0
+#applicationParent .clear_float:after {
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0;
 }
-#applicationParent .clear_float{
-  zoom:1;
+#applicationParent .clear_float {
+  zoom: 1;
 }
 #application_list_one_ul:after {
-  display:block;clear:both;content:"";visibility:hidden;height:0
-   
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0;
 }
-
-.application_list_one_ul_li_div{
+#matation_form_contact_name .application_list_one_ul_li_div{
+  margin-top: 0px;
+}
+.application_list_one_ul_li_div {
   position: relative;
   margin-top: 23px;
 }
 
-#application_list_one_ul{
-  zoom:1;
+#application_list_one_ul {
+  zoom: 1;
 }
-#application_list_one_ul_childer,.application_list_one_ul_childer{
+#application_list_one_ul_childer,
+.application_list_one_ul_childer {
   padding-left: 138px;
   overflow: hidden;
 }
-#application_list_one_ul_childer li,.application_list_one_ul_childer li {
+#application_list_one_ul_childer li,
+.application_list_one_ul_childer li {
   float: left;
   margin: 10px 15px 0 0;
   position: relative;
 }
 
-#application_list_one_ul_childer li img,.application_list_one_ul_childer li img {
+#application_list_one_ul_childer li img,
+.application_list_one_ul_childer li img {
   width: 64px;
   height: 64px;
   border-radius: 4px;
 }
 
-#application_list_one_ul_childer li .del,.application_list_one_ul_childer li .del,#application_list_one ul .del {
+#application_list_one_ul_childer li .del,
+.application_list_one_ul_childer li .del,
+#application_list_one ul .del {
   width: 18px;
   height: 18px;
   background: url(../img/sprite.png) no-repeat;
@@ -586,15 +600,12 @@ img {
   cursor: pointer;
 }
 
-
-
 #applicationParent .application_phone_div .text-error {
   padding-top: 8px;
   color: #f15451;
   margin-left: 0px;
 }
 #applicationParent .text-error {
-  
   color: #f15451;
   margin-left: 138px;
 }
@@ -607,27 +618,29 @@ img {
   padding-top: 15px;
   padding-bottom: 10px;
   color: #999;
-   margin-left: 138px; 
+  margin-left: 138px;
 }
 
 #applicationParent .lable_left {
   display: inline-block;
   width: 138px;
   height: 25px;
-  word-spacing:10px;
+  word-spacing: 25px;
   vertical-align: middle;
-   padding-top:5px;
+  padding-top: 4px;
   /* background-color: red; */
-  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 #applicationParent .lable_left_rule {
   float: left;
   width: 138px;
   height: 25px;
-  word-spacing:10px;
+  word-spacing: 10px;
   vertical-align: middle;
-   padding-top:10px;
-  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  padding-top: 10px;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 #applicationParent #registration_Number {
   margin-top: 25px;
@@ -638,7 +651,8 @@ img {
   float: left;
 }
 
-#applicationParent .input_public,#applicationParent .b_public {
+#applicationParent .input_public,
+#applicationParent .b_public {
   height: 38px;
   width: 503px;
   line-height: 38px;
@@ -646,15 +660,39 @@ img {
   outline: 0;
   padding: 8px 10px;
   margin-bottom: 7px;
-  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   cursor: pointer;
 }
-#applicationParent .b_public{
-   height: 44px;
-   width: 703px;
-   float: left;
-   padding: 10px 47px 10px 24px;
-   position: relative;
+
+#applicationParent .span_public {
+  height: 38px;
+  width: 300px;
+  line-height: 38px;
+  /* border: 1px solid #e0e0e0; */
+  outline: 0;
+  padding: 8px 10px;
+  margin-bottom: 7px;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  margin-right: 10px;
+}
+
+#matation_form_account_bank .lable_left {
+  vertical-align: middle;
+  margin-bottom: 10px;
+}
+
+#applicationParent .b_public {
+  height: 44px;
+  width: 703px;
+  float: left;
+  padding: 10px 47px 10px 24px;
+  position: relative;
 }
 
 .applicationParent_public {
@@ -675,70 +713,69 @@ img {
   background-position: -66px -166px;
 }
 
-
-.three_syndromes_lable_left{
+.three_syndromes_lable_left {
   width: 138px;
 }
-.labelone_three_syndromes{
-   margin-right: 20px;
+.labelone_three_syndromes {
+  margin-right: 20px;
 }
 
-
-
-.labeltwo_three_syndromes span:hover,.labelone_three_syndromes span:hover {
-   border: 1px rgb(0, 190, 80) solid;
+.labeltwo_three_syndromes span:hover,
+.labelone_three_syndromes span:hover {
+  border: 1px rgb(0, 190, 80) solid;
 }
 
-.labelone_three_syndromes i{
-   margin-left: 26px;
-   display: inline-block;
-
+.labelone_three_syndromes i {
+  margin-left: 26px;
+  display: inline-block;
 }
-.labeltwo_three_syndromes i{
-   margin-left: 26px;
-   display: inline-block;
+.labeltwo_three_syndromes i {
+  margin-left: 26px;
+  display: inline-block;
 }
-.three_zhengOne .application_list_one_ul_li_div{
+.three_zhengOne .application_list_one_ul_li_div {
   margin-top: 23px;
   overflow: hidden;
 }
-.three_zhengOne p{
+.three_zhengOne p {
   width: 100%;
   margin-left: 138px;
   color: #999;
 }
-#organization_code_certificate,#form_item_shenfenzhengbottom{
-   padding-bottom: 30px!important; 
-   overflow: hidden; 
+#organization_code_certificate,
+#form_item_shenfenzhengbottom {
+  padding-bottom: 30px !important;
+  /* overflow: hidden; */
 }
 
-#applicationParent .public_hr{
-    height: 1px;
-    margin: 30px 15px;
-    background: #EEE;
-    overflow: hidden;
+#applicationParent .public_hr {
+  height: 1px;
+  margin: 30px 15px;
+  background: #eee;
+  overflow: hidden;
 }
 
-.application_list_one_ul_li_div .col-sm-6 .form-group{
+.application_list_one_ul_li_div .col-sm-6 .form-group {
   width: 140px;
 }
 
-@media (min-width: 768px){
-.col-sm-6 {
+@media (min-width: 768px) {
+  .col-sm-6 {
     width: auto;
-}
+  }
 }
 
-.col-sm-6{
+.col-sm-6 {
   padding-left: 0px;
   position: relative;
 }
 
-.col-sm-6 .lable_left{
+.col-sm-6 .lable_left {
   padding-top: 6px;
 }
 
-#organization_code_certificate .col-sm-6 .form-group,.organization_code_certificate .col-sm-6 .form-group{
+#organization_code_certificate .col-sm-6 .form-group,
+.organization_code_certificate .col-sm-6 .form-group {
   /* float: left; */
   width: 160px;
 }
@@ -748,59 +785,72 @@ img {
 #datetimepicker2_input{
   width: 100px;
 } */
-#datetimepicker1 i{
+#datetimepicker1 i {
   display: block;
-   float: left; 
+  float: left;
   margin-bottom: 6px;
   margin-left: 10px;
-} 
+}
 
-.application_list_one_ul_li_div .col-sm-6 .form-group #datetimepicker1{
+.application_list_one_ul_li_div .col-sm-6 .form-group #datetimepicker1 {
   width: 165px;
 }
-.application_list_one_ul_li_div .col-sm-6 .form-group #datetimepicker2{
+.application_list_one_ul_li_div .col-sm-6 .form-group #datetimepicker2 {
   margin-left: 20px;
   width: 140px;
 }
-.term_of_validity{
+.term_of_validity {
   float: left;
 }
 
-@media (min-width: 768px){
-  .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5,  .col-sm-7, .col-sm-8, .col-sm-9 {
-    float: none; 
-}
+@media (min-width: 768px) {
+  .col-sm-1,
+  .col-sm-10,
+  .col-sm-11,
+  .col-sm-12,
+  .col-sm-2,
+  .col-sm-3,
+  .col-sm-4,
+  .col-sm-5,
+  .col-sm-7,
+  .col-sm-8,
+  .col-sm-9 {
+    float: none;
+  }
 }
 
-.application_list_one_ul_li_divs{
+.application_list_one_ul_li_divs {
   float: left;
   padding-top: 22px;
 }
-.lable_lefts_time{
+.lable_lefts_time {
   float: left;
-  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   width: 138px;
   padding-top: 6px;
 }
-.col-sm_time,.col-sm_time_i{
+.col-sm_time,
+.col-sm_time_i {
   float: left;
 }
-.col-sm_time_i{
+.col-sm_time_i {
   margin-top: 5px;
   margin-right: 13px;
 }
- 
-.text-errors_timeone,.text-errors_timetwo{
+
+.text-errors_timeone,
+.text-errors_timetwo {
   clear: both;
   margin-left: 138px;
   color: #f15451;
-  margin-top: 4px!important;
+  margin-top: 4px !important;
 }
 .form-group {
   margin-bottom: 9px;
 }
 
-.form-item_shenfenzheng{
+.form-item_shenfenzheng {
   /* overflow: hidden; */
 }
 .form-item_shenfenzheng ul {
@@ -808,24 +858,25 @@ img {
   margin-top: 40px;
   width: 80%;
 }
-.form-item_shenfenzheng ul .lable_left{
-   float: left;
-   height: 50px;
+.form-item_shenfenzheng ul .lable_left {
+  float: left;
+  height: 50px;
 }
-.form-item_shenfenzheng ul li .labelone_three_syndromes{
-  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+.form-item_shenfenzheng ul li .labelone_three_syndromes {
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   line-height: 20px;
 }
-.msg-cnt{
+.msg-cnt {
   padding-left: 25px;
 }
-.bootstrap-datetimepicker-widget{
+.bootstrap-datetimepicker-widget {
   z-index: 9999999999999999;
   position: absolute;
   left: 10px;
-  top:10px;
+  top: 10px;
 }
-.label_three_syndromes_li{
+.label_three_syndromes_li {
   overflow: hidden;
   float: left;
 }
@@ -848,7 +899,7 @@ img {
   display: none;
 }
 
-.labelone_three_syndromes .radioSelect:checked~span {
+.labelone_three_syndromes .radioSelect:checked ~ span {
   box-shadow: 0 0 0 6px rgb(0 190 80);
   width: 8px;
   height: 8px;
@@ -867,20 +918,23 @@ img {
   left: 0px;
   top: 0px;
 }
-.labels_public_shenfen{
+.labels_public_shenfen {
   width: 138px;
   float: left;
   height: 50px;
-  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    word-spacing: 25px;
 }
 #applicationParent .createTitleTopAndImg_top .labels {
   float: left;
   padding-top: 9px;
   width: 138px;
   position: relative;
-  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
-#applicationParent .common_header_method{
+#applicationParent .common_header_method {
   margin-top: 25px;
 }
 
@@ -888,54 +942,57 @@ img {
   width: 160px;
 }
 
-#applicationParent input{
- border:1px solid #e0e0e0;
- box-shadow: 0 0 0 0;
+#applicationParent input {
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 0 0 0;
 }
-#form_item_shenfenzhengbottom{
-  
+#form_item_shenfenzhengbottom {
 }
-#form_item_shenfenzhengbottomTwo{
- 
+#form_item_shenfenzhengbottomTwo {
   padding-bottom: 30px;
 }
-#applicationParent .publick_checked_list{
-   padding-top: 10px;
-   font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-   width: 100%;
-   position: relative;
+#applicationParent .publick_checked_list {
+  padding-top: 10px;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  width: 100%;
+  position: relative;
 }
 
-#applicationParent .publick_checked_list i{
-  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-
+#applicationParent .publick_checked_list i {
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 
-#applicationParent .divs_public_shenfen:after,#applicationParent .publick_checked_list:after{
-  display:block;clear:both;content:"";visibility:hidden;height:0;
+#applicationParent .divs_public_shenfen:after,
+#applicationParent .publick_checked_list:after {
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0;
 }
 
-#applicationParent .divs_public_shenfen{
-  zoom:1;
+#applicationParent .divs_public_shenfen {
+  zoom: 1;
   /* width: 315px;
   float: left; */
 }
 
-#applicationParent .publick_checked_list{
-  zoom:1;
+#applicationParent .publick_checked_list {
+  zoom: 1;
 }
-#applicationParent .divs_public_shenfen li{
+#applicationParent .divs_public_shenfen li {
   overflow: hidden;
   float: left;
 }
 
-
 #applicationParent .publick_checked_list .ico-msg-s.ask {
   background-position: -80px -122px;
   left: 453px;
-  top:12px;
+  top: 12px;
   position: absolute;
-} 
+}
 #applicationParent .publick_checked_list .ico-msg-s {
   width: 18px;
   height: 18px;
@@ -944,15 +1001,15 @@ img {
   background: url(../img/sprite.png) no-repeat;
 }
 
-#applicationParent .pop-left{
+#applicationParent .pop-left {
   position: absolute;
   left: 480px;
-  top:-20px;
+  top: -28px;
   width: 292px;
   color: #333;
   position: absolute;
   z-index: 99;
-  border: 1px solid #EEE;
+  border: 1px solid #eee;
   zoom: 1;
   line-height: 1.6;
   text-align: left;
@@ -961,7 +1018,6 @@ img {
   border-radius: 4px;
   box-shadow: 0 1px 4px -1px rgb(0 0 0 / 8%);
 }
-
 
 #applicationParent .popup .inner {
   padding: 20px;
@@ -973,7 +1029,7 @@ img {
 }
 #applicationParent .popup.pop-left .arrow-out {
   left: 0;
-  border-right-color: #E0E0E0;
+  border-right-color: #e0e0e0;
 }
 #applicationParent .popup.pop-left .arrow {
   border-color: transparent #ffffff transparent transparent;
@@ -984,30 +1040,35 @@ img {
 }
 #applicationParent .popup.pop-left .arrow-out {
   left: 0;
-  border-right-color: #E0E0E0;
+  border-right-color: #e0e0e0;
 }
 
 #applicationParent ul li .labelone_three_syndromes {
-  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   line-height: 20px;
 }
-
 
 #matation_form-item_shenfenzheng .info-hd {
   height: 38px;
   line-height: 38px;
   padding: 0 20px;
   background: #fafafa;
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid #eee;
 }
 
-#applicationParent h1,#applicationParent h2,#applicationParent h3,#applicationParent h4,#applicationParent h5,#applicationParent h6 {
+#applicationParent #order_of_payment_and_registration h1,
+#applicationParent #order_of_payment_and_registration h2,
+#applicationParent #order_of_payment_and_registration h3,
+#applicationParent #order_of_payment_and_registration h4,
+#applicationParent #order_of_payment_and_registration h5,
+#applicationParent #order_of_payment_and_registration h6 {
   font-size: 100%;
   font-weight: 400;
-  /* line-height: 38px; */
+  line-height: 38px;
 }
 
-#applicationParent  .ico-msg-s {
+#applicationParent .ico-msg-s {
   width: 18px;
   height: 18px;
   vertical-align: middle;
@@ -1015,63 +1076,66 @@ img {
   background: url(../img/sprite.png) no-repeat; */
 }
 
-#matation_form-item_shenfenzhengTwo,#matation_form-item_shenfenzhengThree {
+#matation_form-item_shenfenzhengTwo,
+#matation_form-item_shenfenzhengThree {
   position: relative;
 }
 
-
-#matation_form-item_shenfenzhengTwo .ico-msg-s{
+#matation_form-item_shenfenzhengTwo .ico-msg-s {
   background-position: -80px -122px;
   left: 655px;
-  top:70px;
+  top: 70px;
   position: absolute;
   cursor: pointer;
 }
-#matation_form-item_shenfenzhengThree .ico-msg-s{
+#matation_form-item_shenfenzhengThree .ico-msg-s {
   background-position: -80px -122px;
   position: absolute;
   left: 655px;
-  top:10px;
+  top: 10px;
   cursor: pointer;
 }
 
-#matation_form-item_shenfenzhengTwo .matation_jingying_img,#matation_form-item_shenfenzhengThree .matation_jingying_img{
+#matation_form-item_shenfenzhengTwo .matation_jingying_img,
+#matation_form-item_shenfenzhengThree .matation_jingying_img {
   width: 292px;
   padding: 20px;
   height: 490px;
   left: 683px;
-  top:30px;
+  top: 30px;
   position: absolute;
-  border: 1px solid #EEE;
-    zoom: 1;
-    line-height: 1.6;
-    text-align: left;
-    font-weight: 400;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: 0 1px 4px -1px rgb(0 0 0 / 8%);
+  border: 1px solid #eee;
+  zoom: 1;
+  line-height: 1.6;
+  text-align: left;
+  font-weight: 400;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px -1px rgb(0 0 0 / 8%);
 }
-#matation_form-item_shenfenzhengThree .matation_jingying_img{
+#matation_form-item_shenfenzhengThree .matation_jingying_img {
   top: -30px;
 }
 
-#matation_form-item_shenfenzhengTwo img,#matation_form-item_shenfenzhengThree img{
+#matation_form-item_shenfenzhengTwo img,
+#matation_form-item_shenfenzhengThree img {
   width: 100%;
 }
 
-#matation_form-item_shenfenzhengTwo .imgs,#matation_form-item_shenfenzhengThree .imgs{
-   width: 10px;
-   height: 18px;
-   display: inline-block;
-   position: absolute;
-   left: -10px;
-   top: 40px;
+#matation_form-item_shenfenzhengTwo .imgs,
+#matation_form-item_shenfenzhengThree .imgs {
+  width: 10px;
+  height: 18px;
+  display: inline-block;
+  position: absolute;
+  left: -10px;
+  top: 40px;
 }
 #applicationParent .rotate_p {
   width: 10px;
-  height: 10px; 
-  border-left: 1px solid #EEE;
-  border-bottom: 1px solid #EEE; 
+  height: 10px;
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #eee;
   transform: rotate(45deg);
   position: absolute;
   left: -6px;
@@ -1080,49 +1144,82 @@ img {
 }
 #applicationParent .rotate_p_Two {
   width: 15px;
-  height: 12px; 
-  background:#ffffff;
+  height: 12px;
+  background: #ffffff;
   margin: 10px;
   position: absolute;
   left: -11px;
   top: 33px;
 }
-#applicationParent #matation_form_item_bank_account_type{
-   padding-top: 15px;
+#applicationParent #matation_form_item_bank_account_type,#applicationParent #matation_form_contact_name {
+  padding-top: 15px;
 }
-#matation_form-item_shenfenzhengTwo .info-hd,#matation_settlement_rules .info-hd,#matation_settlement_bank_account_type .info-hd{
-     height: 38px;
-    line-height: 38px;
-    padding: 0 20px;
-    background: #fafafa;
-    border-bottom: 1px solid #EEE;
-   
+#matation_form-item_shenfenzhengTwo .info-hd,
+#matation_settlement_rules .info-hd,
+#matation_settlement_contact_name .info-hd,
+#applicationParent #form-item_jingyingxinxi .info-hd,
+#applicationParent #form-item_dengjixinxi .info-hd,#applicationParent #form-item_dengjixinxi .info-hd,
+#matation_settlement_bank_account_type .info-hd {
+  height: 38px;
+  line-height: 38px;
+  padding: 0 20px;
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
 }
-#matation_settlement_rules{
+#matation_settlement_rules {
   position: relative;
 }
-#matation_form-item_shenfenzhengTwo .info-hd h2,#matation_settlement_rules .info-hd h2,#matation_settlement_bank_account_type .info-hd h2{
+#matation_form-item_shenfenzhengTwo .info-hd h2,
+#matation_settlement_rules .info-hd h2,
+#matation_settlement_contact_name .info-hd h2,
+#matation_settlement_bank_account_type .info-hd h2 {
   line-height: 38px;
+  padding-top: 10px;
+  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
-#matation_form-item_shenfenzhengTwo .tips-info,#matation_form-item_shenfenzhengThree .tips-info,#matation_form_account_name .tips-info,
-#matation_form-item_shenfenzhengfour .tips-info,#matation_form_item_xianxia .tips-info,#discount_rate_id .tips-info,
-#matation_form_item_div_official_account .tips-info,#div_app_scence .tips-info,#div_app_scence .tips-info,
-#div_applets_scene .tips-info,#div_pc_scence .tips-info,#div_enterprise_wechat .tips-info,#activities_rate_id .tips-info {
+#applicationParent #form-item_dengjixinxi .info-hd h2,#applicationParent #form-item_jingyingxinxi .info-hd h2{
+  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  padding-top: 10px;
+}
+#applicationParent #form-item_dengjixinxi .info-hd,#applicationParent #form-item_jingyingxinxi .info-hd{
+  margin-bottom: 10px;
+}
+#matation_form-item_shenfenzhengTwo .tips-info,
+#matation_form-item_shenfenzhengThree .tips-info,
+#matation_form_account_name .tips-info,
+#matation_form-item_shenfenzhengfour .tips-info,
+#matation_form_item_xianxia .tips-info,
+#discount_rate_id .tips-info,
+#matation_form_account_bank .tips-info,
+#matation_form_item_div_official_account .tips-info,
+#div_app_scence .tips-info,
+#div_app_scence .tips-info,
+#matation_form_bank_address_code .tips-info,
+#div_applets_scene .tips-info,
+#div_pc_scence .tips-info,#matation_form_contact_name .tips-info,
+#div_enterprise_wechat .tips-info,
+#activities_rate_id .tips-info,
+#matation_form_bank_branch_id .tips-info,
+#matation_form_contact_id_number .tips-info,
+#matation_form_contact_openid .tips-info,
+#matation_form_mobile_phone .tips-info,
+#matation_form_contact_email .tips-info,
+#matation_form_bank_name .tips-info {
   padding-top: 16px;
   color: #999;
   margin-left: 138px;
 }
-#applicationParent input[type='checkbox'] {
+#applicationParent input[type="checkbox"] {
   cursor: pointer;
   position: relative;
   width: 16px;
   height: 16px;
-  font-size:14px;
+  font-size: 14px;
   visibility: hidden;
   margin-top: 5px;
 }
 
-#applicationParent input[type='checkbox']::after {
+#applicationParent input[type="checkbox"]::after {
   position: absolute;
   top: 0;
   border: 1px solid #e0e0e0;
@@ -1133,53 +1230,58 @@ img {
   visibility: visible;
   padding-left: 0px;
   text-align: center;
-  content: ' ';
+  content: " ";
 }
 
-#applicationParent input[type='checkbox']:checked::after {
-  content: '✓';
+#applicationParent input[type="checkbox"]:checked::after {
+  content: "✓";
   font-size: 14px;
   font-weight: bold;
   background-color: #33d883;
   line-height: 16px;
 }
-#matation_form-item_shenfenzhengfour{
+#matation_form-item_shenfenzhengfour {
   margin-top: 30px;
 }
 #matation_form-item_shenfenzhengfour .checkbox_i {
-   margin-left: 16px;
-   display: inline-block;
-   color: #333;
-   margin-top: 2px;
+  margin-left: 16px;
+  display: inline-block;
+  color: #333;
+  margin-top: 2px;
 }
-#matation_form-item_shenfenzhengfour ul{
-   margin-bottom: -32px; 
+#matation_form-item_shenfenzhengfour ul {
+  margin-bottom: -32px;
 }
-#matation_form-item_shenfenzhengfour ul li{
+#matation_form-item_shenfenzhengfour ul li {
   margin-left: 14px;
 }
-#matation_form-item_shenfenzhengfour ul label{
+#matation_form-item_shenfenzhengfour ul label {
   padding-top: 4px;
 }
-#matation_form-item_shenfenzhengfour ul li input,#matation_form-item_shenfenzhengfour ul li i{
+#matation_form-item_shenfenzhengfour ul li input,
+#matation_form-item_shenfenzhengfour ul li i {
   float: left;
   vertical-align: middle;
 }
 #applicationParent .public_hrs {
   height: 1px;
   margin: 30px 0px;
-  background: #EEE;
+  background: #eee;
   overflow: hidden;
 }
 
-#matation_form_item_xianxia,#matation_form_item_div_official_account,#div_applets_scene,#div_app_scence,
-#div_pc_scence,#div_enterprise_wechat{
+#matation_form_item_xianxia,
+#matation_form_item_div_official_account,
+#div_applets_scene,
+#div_app_scence,
+#div_pc_scence,
+#div_enterprise_wechat {
   padding-top: 20px;
 }
 
-#applicationParent .application_list_one_ul_childer a{
-   display: none;
-   cursor: pointer;
+#applicationParent .application_list_one_ul_childer a {
+  display: none;
+  cursor: pointer;
 }
 
 #applicationParent .rotate_ps {
@@ -1188,37 +1290,38 @@ img {
   /* border-left: 1px solid #EEE;
   border-bottom: 1px solid #EEE; */
   border-left: 1px solid #e0e0e0;
-  border-bottom:1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
   transform: rotate(-45deg);
   position: absolute;
   right: 22px;
   top: 40%;
 }
 
-#applicationParent #matation_settlement_rules .application_list_one_ul_li_div,#matation_qualification_type .application_list_one_ul_li_div{
+#applicationParent #matation_settlement_rules .application_list_one_ul_li_div,
+#matation_qualification_type .application_list_one_ul_li_div {
   overflow: hidden;
 }
 
-#applicationParent .categoryList_rule{
+#applicationParent .categoryList_rule {
   position: absolute;
   left: 138px;
-  top:105px;
+  top: 105px;
   width: 703px;
-  max-height:331px;
+  max-height: 331px;
   z-index: 999;
   overflow: auto;
   box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
   background-color: #fff;
 }
 
-#applicationParent .categoryList_rule li{
+#applicationParent .categoryList_rule li {
   padding: 15px 0px;
   margin: 0 15px;
   border-bottom: 1px solid #e7eaf0;
   position: relative;
   overflow: hidden;
 }
-#applicationParent .categoryList_rule li b{
+#applicationParent .categoryList_rule li b {
   width: 21px;
   height: 21px;
   position: absolute;
@@ -1228,46 +1331,46 @@ img {
   display: none;
 }
 
-#applicationParent .categoryList_rule li span,#applicationParent .categoryList_rule li i{
+#applicationParent .categoryList_rule li span,
+#applicationParent .categoryList_rule li i {
   float: left;
 }
-#applicationParent .categoryList_rule li span{
+#applicationParent .categoryList_rule li span {
   width: 340px;
   padding-left: 30px;
 }
-#applicationParent .categoryList_rule li i{
+#applicationParent .categoryList_rule li i {
   width: 305px;
   text-align: right;
   height: 100%;
   line-height: 100%;
 }
 
-#applicationParent .categoryList_rule li:nth-child(1) i{
-   /* padding-top: 25px; */
+#applicationParent .categoryList_rule li:nth-child(1) i {
+  /* padding-top: 25px; */
 }
-#applicationParent .categoryList_rule li:nth-child(6) i{
+#applicationParent .categoryList_rule li:nth-child(6) i {
   padding-top: 15px;
 }
 
-#applicationParent .b_public span{
+#applicationParent .b_public span {
   width: 340px;
   float: left;
 }
-#applicationParent .b_public i{
+#applicationParent .b_public i {
   width: 290px;
   float: left;
   text-align: right;
 }
-#applicationParent .matation_settlement_rules_bottom{
+#applicationParent .matation_settlement_rules_bottom {
   padding-top: 16px;
   color: #999;
   margin-left: 138px;
 }
 
-#applicationParent #matation_qualification_type{
+#applicationParent #matation_qualification_type {
   position: relative;
 }
-
 
 #applicationParent #matation_qualification_type .categoryList_rules {
   position: absolute;
@@ -1291,16 +1394,16 @@ img {
 }
 
 #applicationParent #matation_qualification_type .categoryList_rules li span,
-#applicationParent #matation_qualification_type .categoryList_rules li i{
-   display: block;
-   font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-
+#applicationParent #matation_qualification_type .categoryList_rules li i {
+  display: block;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
-#applicationParent #matation_qualification_type .categoryList_rules li span{
+#applicationParent #matation_qualification_type .categoryList_rules li span {
   font-weight: bold;
 }
 
-#applicationParent #matation_qualification_type .categoryList_rules b{
+#applicationParent #matation_qualification_type .categoryList_rules b {
   width: 21px;
   height: 21px;
   position: absolute;
@@ -1310,6 +1413,435 @@ img {
   display: none;
 }
 
-#qualifications_pic ul{
+#qualifications_pic ul {
   margin-top: -25px;
+}
+
+#applicationParent #common_banks_account_bank a {
+  text-decoration: none;
+  vertical-align: middle;
+}
+/* 银行图标（小） */
+
+#applicationParent #common_banks_account_bank .bank-logo-s {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("../img/bank_logo_s.png") no-repeat;
+}
+
+#applicationParent #common_banks_account_bank .bank-s-cmb {
+  background-position: 0 0;
+}
+/* 招商银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-abc {
+  background-position: 0 -20px;
+}
+/* 中国农业银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-boc {
+  background-position: 0 -40px;
+}
+/* 中国银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-ccb {
+  background-position: 0 -60px;
+}
+/* 中国建设银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-comm {
+  background-position: 0 -80px;
+}
+/* 交通银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-citic {
+  background-position: 0 -100px;
+}
+/* 中信银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-ceb {
+  background-position: 0 -120px;
+}
+/* 中国光大银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-hxb {
+  background-position: 0 -140px;
+}
+/* 华夏银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-cmbc {
+  background-position: 0 -160px;
+}
+/* 中国民生银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-gdb {
+  background-position: 0 -180px;
+}
+/* 广发银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-pab {
+  background-position: 0 -200px;
+}
+/* 平安银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-cmb {
+  background-position: 0 -220px;
+}
+/* 招商银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-cib {
+  background-position: 0 -240px;
+}
+/* 兴业银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-spdb {
+  background-position: 0 -260px;
+}
+/* 上海浦东发展银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-bosh {
+  background-position: 0 -280px;
+}
+/* 上海银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-psbc {
+  background-position: 0 -300px;
+}
+/* 中国邮政储蓄银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-hsbc {
+  background-position: 0 -320px;
+}
+/* 汇丰银行（中国） */
+
+#applicationParent #common_banks_account_bank .bank-s-rcb {
+  background-position: 0 -340px;
+}
+/* 城市及农村商业银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-bob {
+  background-position: 0 -360px;
+}
+/* 北京银行 */
+
+#applicationParent #common_banks_account_bank .bank-s-nbcb {
+  background-position: 0 -380px;
+}
+/* 宁波银行 */
+/*  |xGv00|76d3dfd6222fa7563173c7cc62a66514 */
+
+#applicationParent #common_banks_account_bank .ico-cls,#applicationParent #common_zhengjian_leixing_type .ico-cls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 15px;
+  height: 15px;
+  line-height: 999em;
+  overflow: hidden;
+  background: url("../img/ico_cls.png") no-repeat;
+}
+
+#applicationParent #common_banks_account_bank {
+  width: 785px;
+  padding: 20px;
+  border: 1px solid #e7eaf0;
+  background: #fff;
+  margin-left: 138px;
+  position: absolute;
+  top: 37px;
+  z-index: 999;
+}
+
+#applicationParent #common_banks_account_bank #pinyinList {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 30px;
+}
+
+#applicationParent #common_banks_account_bank #pinyinList li {
+  float: left;
+  border: 1px solid #eee;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin: 0 -1px -1px 0;
+  border-bottom: 1px solid #ffffff;
+  position: relative;
+}
+
+#applicationParent #common_banks_account_bank #pinyinList li span {
+  width: 100px;
+  height: 4px;
+  background: #ffffff;
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+}
+
+#applicationParent #common_banks_account_bank .bankpicker-menu .bank-tips {
+  margin-left: 6px;
+  color: #8d8d8d;
+}
+
+#applicationParent #common_banks_account_bank .clear_float:after,#applicationParent .clear_float:after{
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0;
+}
+
+#applicationParent #common_banks_account_bank .clear_float,#applicationParent .clear_float {
+  zoom: 1;
+}
+
+#applicationParent #common_banks_account_bank .noHideBank {
+  display: block;
+  margin-top: -1px;
+  border-bottom: 1px solid #fff;
+}
+
+#applicationParent #common_banks_account_bank #yinghang_normal_bank_list a,
+#applicationParent #common_zhengjian_leixing_type #zhengjia_type_list_leixing a
+{
+  float: left;
+  display: block;
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  margin: 0 5px 10px 0;
+  zoom: 1;
+  color: #333333;
+  border: 1px solid #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#applicationParent #common_zhengjian_leixing_type #zhengjia_type_list_leixing a{
+  width: 300px;
+}
+#applicationParent #common_banks_account_bank .noHideBank {
+  width: 100%;
+  clear: both;
+  margin-left: 6px;
+  color: #8d8d8d;
+}
+
+#applicationParent #common_banks_account_bank .bank-logo-s {
+  vertical-align: middle;
+}
+
+#applicationParent
+  #common_banks_account_bank
+  #yinghang_normal_bank_list
+  a:hover,#applicationParent #common_zhengjian_leixing_type #zhengjia_type_list_leixing a:hover {
+  border: 1px solid #00c250;
+}
+
+#applicationParent #common_banks_account_bank .noHideBank {
+  border-bottom-color: #fff;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+#applicationParent #common_banks_account_bank .noHideBank_a {
+  color: #00c250;
+  font: 14px/1.6 "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+#applicationParent #matation_form_account_bank {
+  position: relative;
+}
+#applicationParent .span_public_yinghang {
+  width: 300px;
+  height: 40px;
+  border-color: #e0e0e0;
+  display: inline-block;
+}
+
+#applicationParent #matation_form_account_name {
+  margin-top: 30px;
+}
+
+#applicationParent .triangle_banks {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #c6c6c6;
+  position: absolute;
+  right: 10px;
+  top: 45%;
+}
+
+#applicationParent #matation_form_account_number {
+  position: relative;
+}
+
+#applicationParent #matation_form_account_number .input_public {
+  width: 300px;
+}
+
+#applicationParent #matation_form_account_number span {
+  position: absolute;
+  left: 445px;
+  top: 10px;
+}
+
+#applicationParent #matation_form_account_number .matation_span {
+  position: absolute;
+  top: -40px;
+  left: 138px;
+  width: 300px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  padding-left: 10px;
+  white-space: nowrap;
+  font-size: 20px;
+  overflow: hidden;
+  z-index: 999;
+}
+
+#applicationParent #matation_form_contact_name .publick_checked_list{
+  margin-top: 20px;
+}
+
+#applicationParent #common_zhengjian_leixing_type a {
+  text-decoration: none;
+  vertical-align: middle;
+}
+#applicationParent #common_zhengjian_leixing_type {
+  width: 738px;
+  padding: 20px;
+  border: 1px solid #e7eaf0;
+  background: #fff;
+  margin-left: 10px;
+  position: absolute;
+  z-index: 999;
+  left: 128px;
+  top: 37px;
+}
+#applicationParent #common_zhengjian_leixing_type {
+  width: 738px;
+  padding: 20px;
+  border: 1px solid #e7eaf0;
+  background: #fff;
+  margin-left: 10px;
+  position: absolute;
+  z-index: 999;
+  left: 128px;
+  top: 47px;
+}
+
+#applicationParent #common_zhengjian_leixing_type #pinyinLists {
+  border-bottom: 1px solid #EEE;
+  margin-bottom: 30px;
+}
+
+#applicationParent #common_zhengjian_leixing_type #pinyinLists li {
+  float: left;
+  border: 1px solid #EEE;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin: 0 -1px -1px 0;
+  border-bottom: 1px solid #ffffff;
+  position: relative;
+}
+
+#applicationParent #common_zhengjian_leixing_type #pinyinLists li span {
+  width: 100px;
+  height: 4px;
+  background: #FFFFFF;
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+}
+
+#applicationParent #common_zhengjian_leixing_type .bankpicker-menu .bank-tips {
+  margin-left: 6px;
+  color: #8d8d8d;
+}
+
+#applicationParent #common_zhengjian_leixing_type .clear_float:after {
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0
+}
+
+#applicationParent #common_zhengjian_leixing_type .clear_float {
+  zoom: 1;
+}
+
+#applicationParent #common_zhengjian_leixing_type .noHideBank {
+  display: block;
+  margin-top: -1px;
+  border-bottom: 1px solid #fff;
+}
+
+#applicationParent #common_zhengjian_leixing_type #zhengjia_type_list a {
+  float: left;
+  display: block;
+  width: 340px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  margin: 0 5px 10px 0;
+  zoom: 1;
+  color: #333333;
+  border: 1px solid #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#applicationParent #common_zhengjian_leixing_type .noHideBank {
+  width: 100%;
+  clear: both;
+  margin-left: 6px;
+    color: #8d8d8d;
+}
+
+#applicationParent #common_zhengjian_leixing_type .bank-logo-s {
+  vertical-align: middle;
+  
+}
+
+#applicationParent #common_zhengjian_leixing_type #zhengjia_type_list a:hover {
+  border: 1px solid #00c250;
+}
+
+#applicationParent #common_zhengjian_leixing_type .noHideBank {
+  border-bottom-color: #fff;
+  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+
+}
+
+#applicationParent #common_zhengjian_leixing_type .noHideBank_a{
+  color:#00c250;
+  font: 14px/1.6 "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+
+#applicationParent #matation_form_cert_type{
+  position: relative;
+}
+
+#applicationParent #common_xuanze_zhengji_span{
+   margin-top: 10px;
+   border: 1px solid #e0e0e0;
+}
+
+#applicationParent #common_banks_account_bank_span{
+  border: 1px solid #e0e0e0;
+}
+#applicationParent #matation_form_item_bank_account_type .publick_checked_list{
+  padding-top: 30px;
+  margin-bottom: -20px;
 }

@@ -122,11 +122,11 @@ function order_of_payment_and_registration() {
         },
         {
             title: "结算账户",
-            content: "请填与商家提现收款的银行账户信息",
+            content: "请填写商家提现收款的银行账户信息",
         },
         {
             title: "超级管理员",
-            content: "请填与商家的超级管理员信息，超级管理员需在开户后进行签约，并接收日常重要管理信息和进行资金操作，请确定其为商户法定代表人或负责人",
+            content: "请填写商家的超级管理员信息，超级管理员需在开户后进行签约，并接收日常重要管理信息和进行资金操作，请确定其为商户法定代表人或负责人",
         }
     ];
 
@@ -177,17 +177,6 @@ function order_of_payment_and_registration() {
     var p1 = document.getElementById('order_of_payment_and_registration_p1');
   //  order_application.style.display='none';
     
-    
-
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -195,7 +184,7 @@ function order_of_payment_and_registration() {
  function pushHistory_one() {
     var state = {
         title: "title",
-        url: "##"
+        url: "#"
     };
-    window.history.pushState(state, "title", "#1");
+    window.history.pushState(state, "title", "#one");
 }

@@ -100,10 +100,11 @@
                     return item;
                 }
             });
-            console.log(array);
+           // console.log(array);
             new RecursiveTool(function (response) {
                 if (response.generate_component != null && typeof response.generate_component ==
                     'function') {
+                       // console.log(response)
                     response.generate_component();
                 }
             }).recursive(array);
@@ -138,11 +139,30 @@
                 }
             }).recursive(array);
         }
+        
+         // 超级管理员
+         let SuperAdmin = function(value) {
+            let array = wechartJson[1].subobject;
+            new RecursiveTool(function(response){
+                if(response.generate_component!=null&&typeof response.generate_component == 'function') {
+                    response.generate_component();
+                }
+            }).recursive(array);
+        }
 
 
         window.addEventListener("popstate", function (e) {
             console.log("我监听到了浏览器的返回按钮事件啦"); //根据自己的需求实现自己的功能  
-            window.location.href = 'http://127.0.0.1:5500/index.html#';
+           // window.location.href = 'http://127.0.0.1:5500/index.html#';
+           console.log(location.hash);
+           var Information_to_fill_out = document.getElementById('Information_to_fill_out');
+           var order_application = document.getElementById('order_application');
+           if(location.hash=='#two'){
+             Information_to_fill_out.style.display='block';
+             order_application.style.display='none';
+           }else if(location.hash=='#one'){
+                
+           }
         }, false);
    
    

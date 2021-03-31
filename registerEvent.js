@@ -14,6 +14,7 @@ function Register(data, nextPro) {
         for (let x in validation_list) {
             if (x == res.verification_type) {
                 res.verification_method = function (componentNextPro) {
+                 //  console.log(validation_list[x](res, componentNextPro ? componentNextPro : null));
                     return validation_list[x](res, componentNextPro ? componentNextPro : null);
                 }
             }

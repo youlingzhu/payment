@@ -12,7 +12,6 @@ function returnInfo(data, nextPro) {
 function Validation_Type() {
 
 
-
     // 注册号验证
     this.license_number_type = function (data) {
         var b = returnInfo(data, function(){
@@ -131,7 +130,7 @@ function Validation_Type() {
     }
 
 
-
+   
     // 身份证号码验证
     this.id_card_number_type=function(data){
         return returnInfo(data, function(){
@@ -202,15 +201,17 @@ function Validation_Type() {
     }
     
 
-    // 港澳台护照证件姓名验证 // 受益人姓名 
+    // 港澳台护照证件号码验证
     this.id_doc_number_type=function(data){
         return returnInfo(data, function(){
-            var str = data.value.trim();
-            console.log(str);
-            if (str.length>0) {
+            var reg = /^[A-Za-z0-9]{7,11}$/;
+            var str = data.value;
+            var strValue = null;
+            if (reg.test(str)) {
                 return "";
-            }else if(str.length == 0){
-                return "请填写证件持有人姓名";
+            } else {
+                strValue = '格式不正确，请输入7到11位的证件号码';
+                return strValue;
             }
         })
     }
@@ -418,12 +419,194 @@ function Validation_Type() {
         })
     }
 
+    // 结算账户 开户银行
+    this.account_bank_type=function(data){
+        return returnInfo(data,function(){
+            var reg=/^[\u4e00-\u9fa5]{3,}$/;
+            var str = data.value;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue ='请输入正确的银行名称';
+                return strValue;
+            }
+        })
+    }
 
+     // 开户银行银联号
+    this.bank_branch_id_type = function(data){
+        return returnInfo(data,function(){
+            var reg=/^\d{12}$/;
+            var str=data.value;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue ='请输入正确的银联号';
+                return strValue;
+            }
+        })
+    }
+
+    // 开户银行 银行账号
+    this.account_number_type=function(data){
+        return returnInfo(data,function(){
+            var reg=/^\d{8,30}$/;
+            var str=data.value;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue ='请输入正确的银行卡号';
+                return strValue;
+            }
+        })
+    }
+
+  //  var reg = /^[A-Za-z0-9]{7,11}$/;
+  //  var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+
+    // 超级管理员 姓名
+    this.contact_name_type=function(data){
+        return returnInfo(data, function(){
+            var reg = /^[\u4e00-\u9fa5]{2,4}$/;
+            var str = data.value;
+            var strValue = null;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue = '请填写正确格式的管理员姓名';
+                return strValue;
+            }
+        }) 
+    }
+
+    // 超级管理员 证件号码
+    this.contact_id_number_type = function(data){
+        return returnInfo(data, function(){
+            var reg = /^[A-Za-z0-9]{7,11}$/;
+            var reg1=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+            var str = data.value;
+            var strValue = null;
+            if (reg.test(str)||reg1.test(str)) {
+                return "";
+            } else {
+                strValue = '请填写正确格式的证件号码';
+                return strValue;
+            }
+        }) 
+    }
+
+    // 超级管理员 微信openid
+    this.openid_type=function(data){
+        return returnInfo(data, function(){
+            var str = data.value;
+            var strValue = null;
+            if (str.length>0) {
+                return "";
+            } else {
+                strValue = '请填写正确格式的微信openid';
+                return strValue;
+            }
+        }) 
+    }
+
+     // 超级管理员 手机号码
+    this.mobile_phone_type = function(data){
+        return returnInfo(data, function(){
+            var reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+            var str = data.value;
+            var strValue = null;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue = '请填写正确格式的手机号码';
+                return strValue;
+            }
+        }) 
+    }
+
+      // 超级管理员 手机号码
+      this.contact_email_type = function(data){
+        return returnInfo(data, function(){
+            var reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+            var str = data.value;
+            var strValue = null;
+            if (reg.test(str)) {
+                return "";
+            } else {
+                strValue = '请填写正确格式的邮箱地址';
+                return strValue;
+            }
+        }) 
+    }
+
+    // 登记证书 证书号
+    this.cert_number_type=function(data){
+        return returnInfo(data, function(){
+            var reg = /^[A-Za-z0-9]{8,12}$/;
+            var reg2 = /^[A-Za-z0-9]{15}$/;
+            var reg3 = /^[A-Za-z0-9]{18}$/;
+            var str = data.value;
+            var strValue = null;
+            if (reg.test(str)||reg2.test(str)||reg3.test(str)) {
+                return "";
+            } else {
+                strValue = '格式不正确，请正确填写登记证书上的证书号';
+                return strValue;
+            }
+        }) 
+    }
+
+    // 注册地址
+    this.company_address_type=function(data){
+        return returnInfo(data, function(){
+            var str = data.value;
+            var strValue = null;
+            if (str.length>0) {
+                return "";
+            } else {
+                strValue = '请填写正确的注册地址';
+                return strValue;
+            }
+        }) 
+    }
+    
+    // 登记证书 法人姓名
+    this.legal_person_type = function(data){
+        return returnInfo(data, function(){
+            var str = data.value;
+            var strValue = null;
+            if (str.length>0) {
+                return "";
+            } else {
+                strValue = '请填写正确的法人姓名';
+                return strValue;
+            }
+        }) 
+    }
+
+    // 登记证书 有效期结束时间
+    this.period_end=function(data){
+        var datetimepicker3=document.getElementById('datetimepicker9');
+        var datetimepicker3_input=datetimepicker3.getElementsByTagName('input')[0];
+        var values=dateToTimestamp(datetimepicker3_input.value);
+        return returnInfo(data, function(){
+            var reg = /\d{4}-\d{2}-\d{2}/;
+            var str = data.value;
+            var strValue = null;
+            if ((dateToTimestamp(str)-values)<5184000000) {
+                strValue = '请提供有效期在60天以上的证件，并如实填写有效期';
+                return strValue;
+            } else if(reg.test(str)){
+                return "";
+            }
+            else {
+                strValue = '请填写正确的日期格式';
+                return strValue;
+            }
+        })
+    }
 
 }
-
-
-
 
 
 
