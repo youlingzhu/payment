@@ -212,6 +212,7 @@ img {
   text-align: center;
   font-size: 14px;
   margin-top: 20px;
+  cursor: pointer;
 }
 
 #order_of_payment_and_registration ul {
@@ -559,11 +560,17 @@ img {
   background-position: -105px -166px;
   display: none;
 }
+#matation_settlement_rules .info-hd{
+  position: relative;
+  
+}
 
 #applicationParent .form-item_children {
   overflow: hidden;
 }
-
+#applicationParent #zuzhijigou_matation_form{
+  padding-top: 20px;
+}
 #applicationParent .application_phone_div .a-upload {
   padding: 4px 10px;
   height: 20px;
@@ -987,7 +994,7 @@ img {
   float: left;
 }
 
-#applicationParent .publick_checked_list .ico-msg-s.ask {
+#applicationParent .publick_checked_list .ico-msg-s {
   background-position: -80px -122px;
   left: 453px;
   top: 12px;
@@ -999,15 +1006,14 @@ img {
   vertical-align: middle;
   float: left;
   background: url(../img/sprite.png) no-repeat;
+  background-position: -80px -122px
 }
 
 #applicationParent .pop-left {
   position: absolute;
   left: 480px;
-  top: -28px;
   width: 292px;
   color: #333;
-  position: absolute;
   z-index: 99;
   border: 1px solid #eee;
   zoom: 1;
@@ -1844,4 +1850,28 @@ img {
 #applicationParent #matation_form_item_bank_account_type .publick_checked_list{
   padding-top: 30px;
   margin-bottom: -20px;
+}
+
+#applicationParent .matation_form_div_prev{
+  margin: 40px 0 0;
+  overflow: hidden;
+}
+#applicationParent .matation_form_div_prev .list li{
+   width: 130px;
+   height: 40px;
+   background-color:#f3f3f3;
+   border-radius: 4px;
+   cursor: pointer;
+   line-height: 40px;
+   float: left;
+   margin-right:30px;
+   text-align: center;
+   color:#333;
+}
+#applicationParent .matation_form_div_prev .list li:nth-child(3){
+   width: 160px;
+   height: 40px;
+   background-color:#33ce73;
+   border-radius: 4px;
+   color: white;
 }

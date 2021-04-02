@@ -26,7 +26,7 @@ function required_information(nextPro) {
         '<p>根据实际审核情况，额外要求商家提供指定的补充资料</p>' +
         '</div>' +
         '<div class="bottom">' +
-        '<p>预览</p>' +
+        '<p id="preview_all_information">预览</p>' +
         '</div>' +
         '</div>';
 
@@ -95,10 +95,55 @@ function required_information(nextPro) {
             Information_to_fill_out.style.display = 'none';
             order_application.style.display = 'block';
             nextPro(objArr[this.index].component);
-            pushHistory_one();
+            //pushHistory_one();
         }
 
         
+    }
+
+    var preview_all_information=document.getElementById('preview_all_information');
+    preview_all_information.onclick=function(){
+        subject_boolean=true;   // 这个是预览
+        application_list_one.innerHTML='';
+        new RecursiveTool(function(response){
+            if(response.generate_component!=null&&typeof response.generate_component == 'function') {
+               if(response.caption != "主体类型"){
+                 response.generate_component();
+               }
+            }
+        }).recursive(wechartJson);
+        var authorized_application=document.getElementById('authorized_application');
+        console.log(authorized_application);
+        var Information_to_fill_out=document.getElementById('Information_to_fill_out');
+        var order_application=document.getElementById('order_application');
+        authorized_application.style.display='none';
+        Information_to_fill_out.style.display='none';
+        order_application.style.display='block';
+        application_list_one.style.display='block';
+       
+        getClassName_dom(application_list_one,'upload-tips');
+        getClassName_dom(application_list_one,'tips-info');
+        getClassName_dom(application_list_one,'ico-msg-s');
+        getClassName_dom(application_list_one,'input-group-addon');
+        getClassName_dom(application_list_one,'matation_settlement_rules_bottom');
+       
+        var divPrev=document.createElement('div');
+        divPrev.className='matation_form_div_prev';
+        divPrev.setAttribute('id','matation_form_div_pren_box');
+        divPrev.innerHTML+=prev_next();
+        application_list_one.appendChild(divPrev);
+         var li=divPrev.getElementsByTagName('li');
+         li[0].onclick=function(){
+            subject_boolean=false; 
+            SuperAdmin();
+         }
+         li[2].onclick=function(){
+             // ajax 请求 ;
+             console.log('向后台发起请求')
+         }
+
+       //  console.log(wechartJson[2].subobject[1].subobject[0]);
+         
     }
 
 
@@ -187,4 +232,23 @@ function order_of_payment_and_registration() {
         url: "#"
     };
     window.history.pushState(state, "title", "#one");
+}
+
+function prev_next(){
+    var str='<ul class="list"><li>返回</li><li>保存草稿</li><li>保存并下一步</li></ul>';
+    return str;
+}
+
+// 
+function getClassName_dom(parents,dom_class){
+    var dom=parents.getElementsByTagName('*');
+    var dom_arr=[];
+    for(var i=0;i<dom.length;i++){
+        if(dom[i].className==dom_class){
+            dom_arr.push(dom[i]);
+        }
+    }
+    for(var i=0;i<dom_arr.length;i++){
+        dom_arr[i].style.display='none';
+    }
 }

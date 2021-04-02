@@ -384,7 +384,8 @@
                             verification_method: null,
                             encryption_type: null,
                             encryption_method: null,
-                            is_it_required: true
+                            is_it_required: true,
+                            checked_value:null
                         },
                         {
                             key_name: "id_card_info",
@@ -1191,7 +1192,8 @@
                     verification_method: null,
                     encryption_type: null,
                     encryption_method: null,
-                    is_it_required: true
+                    is_it_required: true,
+                    other_banks:null
                 },
                 {
                     key_name: "bank_address_code",

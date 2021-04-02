@@ -26,7 +26,8 @@ function Component_list() {
         ]
 
         var div = document.createElement("div");
-        div.setAttribute('class', 'authorized_application');
+        div.setAttribute('id', 'authorized_application');
+        div.className = 'authorized_application';
         var h3 = document.createElement('h3');
         var ul = document.createElement('ul');
         ul.setAttribute('class', 'authorized_ul');
@@ -58,7 +59,7 @@ function Component_list() {
                     if (componentNextPro) {
                         componentNextPro(data.value, i);
                     }
-                    pushHistory_two(); // 自己做的回退事件
+                    pushHistory_two(); // 自己做的回退事件;
                 })
             }
         }
@@ -69,6 +70,7 @@ function Component_list() {
     this.photosOfBusinessLicense = function (data) {
         console.log(subject_type);
         console.log(subject_index);
+        console.log(subject_boolean);
         var div_box = document.createElement('div');
         div_box.setAttribute('id', 'matation_business_pictrue_box');
         var div_box_dengji = document.createElement('div');
@@ -76,7 +78,7 @@ function Component_list() {
         var div = document.createElement("div");
         div.className = 'form-item';
         div.setAttribute('id', 'form-item_jingyingxinxi');
-        var str = "<div class='info-hd'><h2 class='ng-binding'>主体信息</h2></div>" +
+        var str = "<div class='info-hd'><h2>主体信息</h2></div>" +
             "<div class='form-item_children'>" +
             "<div class='application_phone' id='application_phone'>" +
             "<div class='data-hd'>" +
@@ -94,12 +96,12 @@ function Component_list() {
             "<label class='labels ng-binding'>" + data.caption + "</label>" +
             "<div class='application_phone_div'>" +
             "<a href='javascript:;' class='a-upload'>" +
-            "<input type='file' name='' id=''>上传" +
+            "<input type='file' name='' class='input_updata' id=''><span>上传</span>" +
             "</a>" +
-            "<a href='javascript:;' class='a-upload'  style='display:none'>" +
-            "<input type='file' name='' id=''>重新上传" +
-            "</a>" +
-            "<div class='upload-tips ng-binding'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
+            // "<a href='javascript:;' class='a-upload'  style='display:none'>" +
+            // "<input type='file' name='' class='input_updata' id=''>重新上传" +
+            // "</a>" +
+            "<div class='upload-tips'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
             "</div>" +
             "<ul id='application_list_one_ul_childer' class='application_list_one_ul_childer'>" +
             "<li>" +
@@ -169,12 +171,12 @@ function Component_list() {
             "<label class='labels ng-binding'>" + data.caption + "</label>" +
             "<div class='application_phone_div'>" +
             "<a href='javascript:;' class='a-upload'>" +
-            "<input type='file' name='' id=''>上传" +
+            "<input type='file' class='input_updata' name='' id=''><span>上传</span>" +
             "</a>" +
-            "<a href='javascript:;' class='a-upload'  style='display:none'>" +
-            "<input type='file' name='' id=''>重新上传" +
-            "</a>" +
-            "<div class='upload-tips ng-binding'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
+            // "<a href='javascript:;' class='a-upload'  style='display:none'>" +
+            // "<input type='file' name='' class='input_updata' id=''>重新上传" +
+            // "</a>" +
+            "<div class='upload-tips'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
             "</div>" +
             "<ul class='application_list_one_ul_childer'>" +
             "<li style='display:none'>" +
@@ -339,16 +341,16 @@ function Component_list() {
             "<div id='application_phone_upData'></div>" +
             "</div>" +
             "</div>" +
-            "<div style='width:100%;overflow:hidden' id='zuzhijigou'>" +
+            "<div style='width:100%;overflow:hidden' id='zuzhijigou_matation_form'>" +
             "<label class='labels ng-binding'>" + data.caption + "</label>" +
             "<div class='application_phone_div'>" +
             "<a href='javascript:;' class='a-upload'>" +
-            "<input type='file' name='' id=''>上传" +
+            "<input type='file'  class='input_updata' name='' id=''><span>上传</span>" +
             "</a>" +
-            "<a href='javascript:;' class='a-upload' style='display:none'>" +
-            "<input type='file' name='' id=''>重新上传" +
-            "</a>" +
-            "<div class='upload-tips ng-binding'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
+            // "<a href='javascript:;' class='a-upload' style='display:none'>" +
+            // "<input type='file' name=''  class='input_updata' id=''>重新上传" +
+            // "</a>" +
+            "<div class='upload-tips'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
             "</div>" +
             "<ul id='application_list_one_ul_childer'>" +
             "<li>" +
@@ -364,7 +366,7 @@ function Component_list() {
         application_list_one.appendChild(div);
         var organization_code_certificate = document.getElementById('organization_code_certificate');
         organization_code_certificate.style.display = 'none';
-        this.publicImgUupData('zuzhijigou', data);
+        this.publicImgUupData('zuzhijigou_matation_form', data);
 
     }
 
@@ -384,13 +386,38 @@ function Component_list() {
         div.appendChild(p);
         var organization_code_certificate = document.getElementById('organization_code_certificate');
         organization_code_certificate.appendChild(div);
+
+
+        if (subject_boolean == true) {
+            input.value = data.value;
+            input.disabled = true;
+            input.border = 'none';
+            input.style.cssText = "background:#ffffff;border:1px solid transparent";
+            div.style.paddingLeft = '30px';
+        } else {
+            if (data.value) {
+                input.value = data.value;
+                input.disabled = false;
+                input.style.cssText = "background:#ffffff;border:1px solid #e0e0e0";
+            }
+        }
+
         input.onblur = function () {
             data.value = input.value ? input.value : "";
             var a = data.verification_method();
+
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
+                p.setAttribute("isNext", "nextStep");
+                return;
+            } else {
+                if (p.hasAttribute('isNext')) {
+                    p.removeAttribute("isNext");
+                }
+
             }
+
             if (componentNextPro) {
                 componentNextPro(data);
             }
@@ -482,10 +509,19 @@ function Component_list() {
             console.log(input.value)
             var a = data.verification_method();
 
+
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
+                p.setAttribute("isNext", "nextStep");
+                return;
+            } else {
+                if (p.hasAttribute('isNext')) {
+                    p.removeAttribute("isNext");
+                }
+
             }
+
             if (componentNextPro) {
                 componentNextPro(data);
             }
@@ -536,7 +572,7 @@ function Component_list() {
         ];
 
 
-        this.three_syndromes_component("证件类型", arr, div, function (value) {
+        this.three_syndromes_component(data, "证件类型", arr, div, function (value) {
 
             var form_item_shenfenzhengbottom = document.getElementById('form_item_shenfenzhengbottom');
             var form_item_shenfenzhengbottomTwo = document.getElementById('form_item_shenfenzhengbottomTwo');
@@ -554,11 +590,16 @@ function Component_list() {
                 form_item_shenfenzhengbottom.style.display = "none";
                 form_item_shenfenzhengbottomTwo.style.display = "block";
             }
+
+
+
+
+
         });
         application_list_one.appendChild(div);
         application_list_one.appendChild(divs);
         application_list_one.appendChild(divTwo);
-        div.querySelectorAll("input")[0].click();
+        //  div.querySelectorAll("input")[0].click();
     }
 
     // 身份证人像面照片
@@ -617,8 +658,13 @@ function Component_list() {
             type: false,
             types: 'radio_checked'
         }];
-        data.value = true;
-        this.three_syndromes_components("是否为受益所有人", arr, dom, function (value) {
+
+
+        if (data.value === null || data.value === '') {
+            data.value = true; // 默认值
+        }
+
+        this.three_syndromes_components(data, "是否为受益所有人", arr, dom, function (value) {
             data.value = value; // 赋值给经营者/法人是否为受益人这个数据
             var divParent = document.getElementById('divParent_matation_form');
             if (data.value == true) {
@@ -626,7 +672,21 @@ function Component_list() {
             } else {
                 divParent.style.display = 'block';
             }
-        });
+        }, 'matation_form_is_shouyiren');
+
+        if (subject_boolean) {
+            var matation_form_is_shouyiren = document.getElementById('matation_form_is_shouyiren');
+            var div = matation_form_is_shouyiren.children[1];
+            if (data.value) {
+                div.innerHTML = '是';
+            } else {
+                div.innerHTML = '否';
+            }
+        }
+
+
+
+
     }
 
 
@@ -659,6 +719,10 @@ function Component_list() {
         var divChildrenOne = document.createElement('div');
         var divChildrenTwo = document.createElement('div');
         var divChildrenThree = document.createElement('div');
+        var divPrev = document.createElement('div');
+        divPrev.className = 'matation_form_div_prev';
+        divPrev.setAttribute('id', 'matation_form_div_pren_one');
+        divPrev.innerHTML += this.prev_next();
         divParent.setAttribute('id', 'divParent_matation_form');
         divChildrenOne.setAttribute('id', 'divChildrenOne');
         divChildrenTwo.setAttribute('id', 'divChildrenTwo');
@@ -667,6 +731,7 @@ function Component_list() {
         divParent.appendChild(divChildrenOne);
         divParent.appendChild(divChildrenTwo);
         divParent.appendChild(divChildrenThree);
+        application_list_one.appendChild(divPrev);
         var div_hr = document.createElement('div');
         div_hr.setAttribute('class', 'public_hrs');
         divChildrenThree.appendChild(div_hr);
@@ -693,7 +758,7 @@ function Component_list() {
 
         data.value = 'IDENTIFICATION_TYPE_IDCARD'; // 默认是身份证;
 
-        this.three_syndromes_component("证件类型", arr, divChildrenOne, function (values) {
+        this.three_syndromes_component(data, "证件类型", arr, divChildrenOne, function (values) {
             data.value = values; // 赋值给经营者/法人是否为受益人这个数据
             var shenfenzhengzhaopianzhengmian_one = document.getElementById('shenfenzhengzhaopianzhengmian_one');
             var shenfenzhengzhaopianfanmian_one = document.getElementById('shenfenzhengzhaopianfanmian_one');
@@ -718,6 +783,57 @@ function Component_list() {
             }
 
         });
+
+
+
+        //  保存并下一步
+        var li = divPrev.getElementsByTagName('li');
+        var _this = this;
+        li[0].onclick = function () {
+            subject_boolean = false;
+            window.history.back();
+        }
+        li[2].onclick = function () {
+            subject_boolean = false;
+            var input_text = _this.getClassName_dom(application_list_one, 'input_public'); // 表单 注册号等
+            var input_time = _this.getClassName_dom(application_list_one, 'form-control'); // 表单 时间表单
+            var input_file = _this.getClassName_dom(application_list_one, 'input_updata'); // 上传图片的表单
+            var input = [...input_text, ...input_time];
+            for (var i = 0; i < input.length; i++) {
+                input[i].onblur();
+            }
+            for (var i = 0; i < input_file.length; i++) {
+                input_file[i].onchange();
+            }
+
+            var p_common = _this.getClassName_dom(application_list_one, 'text-errors');
+            var p_pic = _this.getClassName_dom(application_list_one, 'text-error');
+            var p = [...p_common, ...p_pic];
+
+
+            var arr = [];
+
+            new Promise(function (resolve) {
+
+                for (var i = 0; i < p.length; i++) {
+                    if (p[i].hasAttribute('isnext')) {
+                        arr.push(p[i]);
+                    }
+                }
+                resolve(arr)
+            }).then((arr) => {
+                if (arr.length > 0) {
+                    return;
+                } else {
+                    ManagementInformation();
+                }
+            })
+        }
+
+        if (subject_boolean == true) {
+            divPrev.style.display = 'none';
+        }
+
 
     }
 
@@ -870,6 +986,12 @@ function Component_list() {
         application_list_one.appendChild(divone);
         application_list_one.appendChild(divTwo);
 
+        var divPrev = document.createElement('div');
+        divPrev.className = 'matation_form_div_prev';
+        divPrev.setAttribute('id', 'matation_form_div_pren_two');
+        divPrev.innerHTML += this.prev_next();
+        application_list_one.appendChild(divPrev);
+
         var divxianxia = document.createElement('div');
         divxianxia.setAttribute('id', "matation_form_item_xianxia");
         divTwo.appendChild(divxianxia);
@@ -893,6 +1015,9 @@ function Component_list() {
         var div_enterprise_wechat = document.createElement('div');
         div_enterprise_wechat.setAttribute('id', "div_enterprise_wechat");
         divTwo.appendChild(div_enterprise_wechat);
+
+
+
 
         var arr = [{
                 name: '线下场所',
@@ -935,7 +1060,7 @@ function Component_list() {
         arrDom.push(div_enterprise_wechat);
         var array = [];
 
-        this.checkbox_public('经营场景', arr, divone, function (values, is_checked) {
+        this.checkbox_public(data, '经营场景', arr, divone, function (values, is_checked) {
             var arrayDom = [];
             divTwo.innerHTML = '';
             if (is_checked) {
@@ -956,6 +1081,23 @@ function Component_list() {
             }
 
         })
+
+        //  保存并下一步
+        var li = divPrev.getElementsByTagName('li');
+        li[0].onclick = function () {
+            subject_boolean = false;
+            SubjectInformation();
+        }
+        li[2].onclick = function () {
+            subject_boolean = false;
+            Settlementrules();
+        }
+
+        if (subject_boolean == true) {
+            divPrev.style.display = 'none';
+        }
+
+
     }
 
     // 线下场景 门店名称
@@ -1184,6 +1326,14 @@ function Component_list() {
         div.setAttribute('id', 'matation_settlement_rules');
         application_list_one.appendChild(div);
         div.innerHTML += this.matation_title('结算规则');
+
+        var h2 = div.getElementsByTagName('h2')[0];
+        console.log(h2)
+        if (subject_boolean) {
+            h2.style.position = 'absolute';
+            h2.style.top = '-22px';
+            div.style.paddingTop = '30px';
+        }
         var div_bottom = document.createElement('div');
         div_bottom.setAttribute('class', 'matation_settlement_rules_bottom')
         div_bottom.innerHTML = '请根据实际经营行业选择结算规则，可看 <a href="https://kf.qq.com/faq/190610vmIfei190610AfMzii.html" target="_blank">结算规则指引</a>，若结算规则说明有单笔收款限额，请看 <a href="https://kf.qq.com/faq/201130jyeAFr201130NJVv6z.html" target="_blank">收款限额说明</a>';
@@ -1201,6 +1351,9 @@ function Component_list() {
         var p_rotate = document.createElement('p');
         p_rotate.className = 'rotate_ps';
         div.className = 'application_list_one_ul_li_div';
+        if (subject_boolean) {
+            div.style.paddingLeft = '30px';
+        }
         label.className = "lable_left_rule";
         p.className = "text-errors";
         label.innerText = data.caption;
@@ -1671,7 +1824,11 @@ function Component_list() {
             ul.style.display = 'block';
             ul.style.top = h + 'px';
         }
-        dom.appendChild(ul);
+
+        if (subject_boolean == false) {
+            dom.appendChild(ul);
+        }
+
     }
 
     // 结算规则所属行业下的ul框
@@ -1760,6 +1917,25 @@ function Component_list() {
         div_hr.setAttribute('class', 'public_hrs');
         div.appendChild(divInnerText);
         div.appendChild(div_hr);
+        var divPrev = document.createElement('div');
+        divPrev.className = 'matation_form_div_prev';
+        divPrev.setAttribute('id', 'matation_form_div_pren_three');
+        divPrev.innerHTML += this.prev_next();
+        application_list_one.appendChild(divPrev);
+        //  保存并下一步
+        var li = divPrev.getElementsByTagName('li');
+        li[0].onclick = function () {
+            subject_boolean = false;
+            ManagementInformation();
+        }
+        li[2].onclick = function () {
+            subject_boolean = false;
+            SettlementAccount();
+        }
+
+        if (subject_boolean == true) {
+            divPrev.style.display = 'none';
+        }
     }
 
 
@@ -1777,6 +1953,7 @@ function Component_list() {
         div.setAttribute('id', 'matation_form_item_bank_account_type');
         application_list_one.appendChild(div);
         var str = '';
+
         var dom = 'matation_form_item_bank_account_type';
         if (subject_type == 'SUBJECT_TYPE_ENTERPRISE') { // 企业类型
             str = '你是企业，请务必填写开户名为商户名称的对公银行账户';
@@ -1793,12 +1970,12 @@ function Component_list() {
         if (subject_type == 'SUBJECT_TYPE_OTHERS') { // 其他组织类型
             str = '你是其他组织，请务必填写开户名为商户名称的对公银行账户';
             data.value = 'BANK_ACCOUNT_TYPE_CORPORATE';
-            div.innerHTML += this.createTitleTop_no_hr('法定代表人/个体户经营者证件', str,);
+            div.innerHTML += this.createTitleTop_no_hr('法定代表人/个体户经营者证件', str, );
             this.input_box_id_card_account(data, dom, subject_type); // 渲染的是账户类型和右边的框；
         }
         if (subject_type == 'SUBJECT_TYPE_INDIVIDUAL') { // 个人类型
             str = '你选择的是法人账户，请务必填写开户名为法人的银行账户';
-            div.innerHTML += this.createTitleTop_no_hr('法定代表人/个体户经营者证件', str,"geren_leixing_xuanze");
+            div.innerHTML += this.createTitleTop_no_hr('法定代表人/个体户经营者证件', str, "geren_leixing_xuanze");
             data.value = 'BANK_ACCOUNT_TYPE_PERSONAL';
             var dom = document.getElementById('matation_form_item_bank_account_type');
             var arr = [{
@@ -1810,23 +1987,18 @@ function Component_list() {
             }];
 
             var onOff = true;
-            var _this=this;
-            this.three_syndromes_components("账户类型", arr, dom, function (value) {
-                console.log(value);
-                var geren_leixing_xuanze=document.getElementById('geren_leixing_xuanze');
-                if(value==false){     // 对公
-                   
+            var _this = this;
+            this.three_syndromes_components(data, "账户类型", arr, dom, function (value) {
+                var geren_leixing_xuanze = document.getElementById('geren_leixing_xuanze');
+                if (value == false) { // 对公
                     data.value = 'BANK_ACCOUNT_TYPE_CORPORATE';
-                    geren_leixing_xuanze.innerHTML='你选择的是对公账户，请务必填写开户名为商户名称的银行账户';
-                }else{               // 法人账户
-                    
+                    geren_leixing_xuanze.innerHTML = '你选择的是对公账户，请务必填写开户名为商户名称的银行账户';
+                } else { // 法人账户
                     data.value = 'BANK_ACCOUNT_TYPE_PERSONAL';
-                    geren_leixing_xuanze.innerHTML='你选择的是法人账户，请务必填写开户名为法人的银行账户';
+                    geren_leixing_xuanze.innerHTML = '你选择的是法人账户，请务必填写开户名为法人的银行账户';
                 }
-                console.log(data.value)
 
-
-            },'zhanghu_leixing_faren');
+            }, 'matation_form_zhanghuleixing');
         }
 
 
@@ -1847,13 +2019,16 @@ function Component_list() {
         var str = '';
         if (subject_type == 'SUBJECT_TYPE_ENTERPRISE') { // 企业类型
             str = '开户名称必须与营业执照/登记证书的“商户名称”一致';
-            data.value = 'BANK_ACCOUNT_TYPE_CORPORATE';
         } else if (subject_type == 'SUBJECT_TYPE_INDIVIDUAL') {
-            data.value = 'SUBJECT_TYPE_INDIVIDUAL';
             str = '1、选择“经营者个人银行卡”时，开户名称必须与“经营者证件姓名”一致。<br />2、选择“对公银行账户”时，开户名称必须与营业执照/登记证书的“商户名称”一致。';
         }
-        divInnerText.innerHTML = str;
-        div.appendChild(divInnerText);
+
+
+        if (subject_boolean == false) {
+            div.appendChild(divInnerText);
+        }
+
+
     }
 
     // 结算账户 开户银行
@@ -1864,7 +2039,10 @@ function Component_list() {
         this.banks_public_fn(data, 'matation_form_account_bank');
         var divInnerText = document.createElement('div');
         divInnerText.setAttribute('class', 'tips-info');
-        div.appendChild(divInnerText);
+
+        if (subject_boolean == false) {
+            div.appendChild(divInnerText);
+        }
         divInnerText.innerHTML = '城市商业银行、农村商业银行、信用合作联社及其他银行,请选择“其他银行”';
         var yinghang_normal_bank_list = document.getElementById('yinghang_normal_bank_list');
         var a = yinghang_normal_bank_list.getElementsByTagName('a');
@@ -1879,14 +2057,31 @@ function Component_list() {
                     common_banks_account_bank_span_two.style.display = 'none';
                     common_banks_account_bank.style.display = 'none';
                     common_banks_account_bank_span.onOff = true;
+                    data.other_banks = false;
                 } else {
                     common_banks_account_bank_span.firstChild.nodeValue = this.children[1].innerHTML;
                     common_banks_account_bank_span_two.style.display = 'inline-block';
                     common_banks_account_bank.style.display = 'none';
                     common_banks_account_bank_span.onOff = true;
+                    data.other_banks = true;
                 }
             }
         }
+        var common_banks_account_bank_span = document.getElementById('common_banks_account_bank_span');
+        var common_banks_account_bank_span_two = document.getElementById('common_banks_account_bank_span_two');
+        if (subject_boolean) {
+            common_banks_account_bank_span.firstChild.nodeValue = data.value;
+        }
+        if (subject_boolean && data.other_banks) {
+            common_banks_account_bank_span.firstChild.nodeValue = '其他银行';
+            common_banks_account_bank_span_two.style.display = 'inline-block';
+            common_banks_account_bank_span_two.disabled = true;
+            common_banks_account_bank_span_two.value = data.value;
+            common_banks_account_bank_span_two.border = 'none';
+            common_banks_account_bank_span_two.style.cssText = "background:#ffffff;border:1px solid transparent";
+        }
+
+
     }
 
 
@@ -2025,6 +2220,7 @@ function Component_list() {
         divInnerText.innerHTML = str;
         div.appendChild(divInnerText);
         var inputs = div.getElementsByTagName('input')[0];
+
         var span = document.createElement('span');
         div.appendChild(span);
         span.setAttribute('class', 'matation_span');
@@ -2047,6 +2243,30 @@ function Component_list() {
         div_hr.setAttribute('class', 'public_hrs');
         div.appendChild(divInnerText);
         div.appendChild(div_hr);
+        var divPrev = document.createElement('div');
+        divPrev.className = 'matation_form_div_prev';
+        divPrev.setAttribute('id', 'matation_form_div_pren_four');
+        divPrev.innerHTML += this.prev_next();
+        application_list_one.appendChild(divPrev);
+        //  保存并下一步
+        var li = divPrev.getElementsByTagName('li');
+        li[0].onclick = function () {
+            subject_boolean = false;
+            Settlementrules();
+        }
+        li[2].onclick = function () {
+            subject_boolean = false;
+            SuperAdmin();
+        }
+        if (subject_boolean == true) {
+            divPrev.style.display = 'none';
+        }
+
+
+
+
+
+
 
     }
 
@@ -2066,6 +2286,23 @@ function Component_list() {
         div.appendChild(p);
         var organization_code_certificate = document.getElementById(dom);
         organization_code_certificate.appendChild(div);
+
+        if (subject_boolean == true) {
+            input.value = data.value;
+            input.disabled = true;
+            input.border = 'none';
+            input.style.cssText = "background:#ffffff;border:1px solid transparent";
+            div.style.paddingLeft = '30px';
+        } else {
+            if (data.value) {
+                input.value = data.value;
+                input.disabled = false;
+                input.style.cssText = "background:#ffffff;border:1px solid #e0e0e0";
+            }
+        }
+
+
+
         input.onblur = function () {
             data.value = input.value ? input.value : "";
             //  console.log(data)
@@ -2074,6 +2311,13 @@ function Component_list() {
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
+                p.setAttribute("isNext", "nextStep");
+                return;
+            } else {
+                if (p.hasAttribute('isNext')) {
+                    p.removeAttribute("isNext");
+                }
+
             }
 
             if (componentNextPro) {
@@ -2102,14 +2346,38 @@ function Component_list() {
         var organization_code_certificate = document.getElementById(dom);
         console.log(organization_code_certificate)
         organization_code_certificate.appendChild(div);
+
+        if (subject_boolean == true) {
+            input.value = data.value;
+            input.disabled = true;
+            input.border = 'none';
+            input.style.cssText = "background:#ffffff;border:1px solid transparent";
+            div.style.paddingLeft = '30px';
+        } else {
+            if (data.value) {
+                input.value = data.value;
+                input.disabled = false;
+                input.style.cssText = "background:#ffffff;border:1px solid #e0e0e0";
+            }
+        }
+
+
         input.onblur = function () {
             data.value = input.value ? input.value : "";
             var span = organization_code_certificate.getElementsByTagName('span')[0];
             span.style.display = 'none';
             var a = data.verification_method();
+
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
+                p.setAttribute("isNext", "nextStep");
+                return;
+            } else {
+                if (p.hasAttribute('isNext')) {
+                    p.removeAttribute("isNext");
+                }
+
             }
 
             if (componentNextPro) {
@@ -2135,6 +2403,9 @@ function Component_list() {
         var label = document.createElement("label");
         var p = document.createElement('p');
         div.className = 'application_list_one_ul_li_div';
+        if (subject_boolean) {
+            div.style.paddingLeft = '30px';
+        }
         label.className = "lable_left";
         p.className = "text-errors";
         label.innerText = data.caption;
@@ -2165,7 +2436,15 @@ function Component_list() {
         pTwo.setAttribute('class', 'rotate_p_Two');
         div.setAttribute('id', 'matation_form_contact_name');
         application_list_one.appendChild(div);
-        var str = "超级管理员信息<span style='color:#999;font-size:12px'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;超级管理员将接收开户信息及日常重要管理信息，并可进行商户号的日常重要管理及资金操作，请确定超级管理为商户法定代表人或负责人再进行操作。</span>";
+        var str = null;
+        if (subject_boolean == false) {
+            var str = "超级管理员信息<span style='color:#999;font-size:12px'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;超级管理员将接收开户信息及日常重要管理信息，并可进行商户号的日常重要管理及资金操作，请确定超级管理为商户法定代表人或负责人再进行操作。</span>";
+
+        } else {
+            var str = "超级管理员信息";
+        }
+
+
         div.innerHTML += this.createTitleTop_no_tubiao(str);
         this.input_box_id_card(data, 'matation_form_contact_name');
         var input = div.getElementsByTagName('input')[0];
@@ -2188,7 +2467,7 @@ function Component_list() {
 
         var onOff = true;
 
-        this.three_syndromes_components("超级管理员资料  类型", arr, dom, function (value) {
+        this.three_syndromes_components(data, "超级管理员资料  类型", arr, dom, function (value) {
             onOff = value;
             var matation_form_contact_id_number = document.getElementById('matation_form_contact_id_number');
             var matation_form_contact_openid = document.getElementById('matation_form_contact_openid');
@@ -2200,8 +2479,7 @@ function Component_list() {
                 matation_form_contact_openid.style.display = 'block';
             }
 
-
-        });
+        }, 'matation_form_chaoji_guanli');
 
 
 
@@ -2265,13 +2543,31 @@ function Component_list() {
         div_hr.setAttribute('class', 'public_hrs');
         div.appendChild(divInnerText);
         div.appendChild(div_hr);
+        var divPrev = document.createElement('div');
+        divPrev.className = 'matation_form_div_prev';
+        divPrev.setAttribute('id', 'matation_form_div_pren_five');
+        divPrev.innerHTML += this.prev_next();
+        application_list_one.appendChild(divPrev);
+        var li = divPrev.getElementsByTagName('li');
+        var preview_all_information = document.getElementById('preview_all_information');
+        li[0].onclick = function () {
+            subject_boolean = false;
+            SettlementAccount();
+        }
+        li[2].onclick = function () {
+            preview_all_information.click()
+        }
+        if (subject_boolean == true) {
+            divPrev.style.display = 'none';
+        }
+
     }
 
 
 
 
     // 生成点击选项公共的方法
-    this.three_syndromes_component = (caption, arr, dom, nextPro) => {
+    this.three_syndromes_component = (data, caption, arr, dom, nextPro) => {
         let ul = document.createElement("ul");
         let labelCaption = document.createElement("label");
         var div = document.createElement('div');
@@ -2300,30 +2596,46 @@ function Component_list() {
                 '</li>';
         }
 
-        div.innerHTML += str;
-        dom.appendChild(ul);
-        var inputs = ul.getElementsByTagName('input');
-        inputs[0].checked = true;
-        for (let i = 0; i < inputs.length; i++) {
-            inputs[i].onchange = function () {
-                nextPro(arr[i].type)
+        if (subject_boolean) {
+            console.log(subject_boolean)
+            // div.innerHTML = data.value;
+        } else {
+            div.innerHTML = str;
+            var inputs = ul.getElementsByTagName('input');
+            inputs[0].checked = true;
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].onchange = function () {
+                    nextPro(arr[i].type)
+                }
             }
+
         }
+
+        if (subject_boolean) {
+            ul.style.paddingLeft = '30px';
+        }
+
+
+        dom.appendChild(ul);
 
     }
 
 
     // 生成复选框选项的公共方法
-    this.three_syndromes_components = (caption, arr, dom, nextPro) => {
+    this.three_syndromes_components = (data, caption, arr, dom, nextPro, ids) => {
         let ul = document.createElement("ul");
-        ul.setAttribute('class', 'publick_checked_list')
+        ul.className = 'publick_checked_list';
+        ul.setAttribute('id', ids);
         let labelCaption = document.createElement("label");
         var div = document.createElement('div');
         div.setAttribute('class', 'divs_public_shenfen');
         labelCaption.setAttribute('class', 'labels_public_shenfen');
         labelCaption.innerText = caption;
         ul.appendChild(labelCaption);
+
         ul.appendChild(div);
+
+        //     application_list_one_ul_li_div
         var str = "";
         for (var i = 0; i < arr.length; i++) {
             var radios = null;
@@ -2344,22 +2656,59 @@ function Component_list() {
                 '</li>';
         }
 
+
+        if (subject_boolean == true) {
+            ul.style.paddingLeft = '30px';
+        }
+
+
         div.innerHTML += str;
+
+
+
+
+
+
+
         dom.appendChild(ul);
-        ul.innerHTML += '<i class="ico-msg-s ask" id="ico-msg-s_ask"></i>';
+
+
+
+        ul.innerHTML += '<i class="ico-msg-s" id="ico-msg-s_ask"></i>';
         var str2 = '<div class="popup pop-left pos-top ng-hide" id="popup_ask" style="display:none">' +
-            '<div class="inner" id="popup_ask_childrens_aks">' +
+            '<div class="inner">' +
             '<p class="ng-binding ng-scope">根据国家相关法律法规，您需要提供公司受益所有人信息。受益所有人需符合至少以下条件之一：1. 直接或者间接拥有超过25%公司股权或者表决权的自然人；2. 通过人事、财务等其他方式对公司进行控制的自然人；3. 公司的高级管理人员，包括公司的经理、副经理、财务负责人，上市公司董事会秘书和公司章程规定的其他人员</p>' +
             '</div>' +
             '<p class="rotate_p"></p><p class="rotate_p_Two"></p>' +
             '</div>'
         ul.innerHTML += str2;
-        var ico_msg_s_ask = document.getElementById('ico-msg-s_ask');
-        if(subject_type=='SUBJECT_TYPE_INDIVIDUAL'){
-            ico_msg_s_ask.style.display='none';
-        }else{
-            ico_msg_s_ask.style.display='block';
+
+
+        var inputs = ul.getElementsByTagName('input');
+        inputs[0].checked = true;
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].onchange = function () {
+                nextPro(arr[i].type);
+            }
         }
+
+        var ico_msg_s_ask = document.getElementById('ico-msg-s_ask');
+        var popup_ask = document.getElementById('popup_ask');
+
+
+        ico_msg_s_ask.onmousemove = function () {
+            popup_ask.style.display = 'block';
+        }
+        ico_msg_s_ask.onmouseout = function () {
+            popup_ask.style.display = 'none';
+        }
+
+        if (caption == '是否为受益所有人') {
+            var div_hr = document.createElement('div');
+            div_hr.setAttribute('class', 'public_hrs');
+            dom.appendChild(div_hr);
+        }
+
         caption = caption.replace(/\s+/g, '');
         if (caption == '超级管理员资料类型') {
             ico_msg_s_ask.style.display = 'none';
@@ -2370,24 +2719,16 @@ function Component_list() {
             ul.appendChild(divInnerTexts);
             divInnerTexts.style.paddingTop = 0;
             divInnerTexts.style.marginTop = '-15px';
+            if (subject_boolean) {
+                ul.style.display = 'none';
+            }
         }
-
-        if (caption == '是否为受益所有人') {
-            var div_hr = document.createElement('div');
-            div_hr.setAttribute('class', 'public_hrs');
-            dom.appendChild(div_hr);
-        }
-
 
         var popup_ask = document.getElementById('popup_ask');
         var popup_ask_p = popup_ask.getElementsByTagName('p');
-        console.log(popup_ask_p);
         ico_msg_s_ask.onmousemove = function () {
             var rectObject_top = this.getBoundingClientRect().bottom;
             var windowH = window.innerHeight;
-            console.log(windowH)
-            console.log(rectObject_top)
-            console.log(popup_ask.offsetHeight)
             if (windowH - rectObject_top < popup_ask.offsetHeight) {
                 console.log(1)
                 console.log(popup_ask_p[1])
@@ -2410,13 +2751,6 @@ function Component_list() {
 
 
 
-        var inputs = ul.getElementsByTagName('input');
-        inputs[0].checked = true;
-        for (let i = 0; i < inputs.length; i++) {
-            inputs[i].onchange = function () {
-                nextPro(arr[i].type);
-            }
-        }
 
     }
 
@@ -2464,13 +2798,19 @@ function Component_list() {
             common_banks_account_bank_span.onOff = true;
         }
         common_banks_account_bank_span.onclick = function () {
-            if (this.onOff) {
-                common_banks_account_bank.style.display = 'block';
-            } else {
-                common_banks_account_bank.style.display = 'none';
+            if (subject_boolean == false) {
+                if (this.onOff) {
+                    common_banks_account_bank.style.display = 'block';
+                } else {
+                    common_banks_account_bank.style.display = 'none';
+                }
+                this.onOff = !this.onOff;
             }
-            this.onOff = !this.onOff;
+
         }
+
+
+
 
         common_banks_account_bank_span_two.onblur = function () {
             data.value = common_banks_account_bank_span_two.value;
@@ -2484,6 +2824,11 @@ function Component_list() {
         common_banks_account_bank_span_two.onfocus = function () {
             common_banks_account_bank_p.style.display = 'none';
         }
+
+        if (subject_boolean) {
+            div.style.paddingLeft = '30px';
+        }
+
 
 
     }
@@ -2591,7 +2936,7 @@ function Component_list() {
 
 
     // 头部的方法 有副标题
-    this.createTitleTop_no_hr = function (str1, str2,ids) {
+    this.createTitleTop_no_hr = function (str1, str2, ids) {
         var str = "<div class='form-item_children'>" +
             "<div class='application_phone' id='application_phone'>" +
             "<div class='data-hd'>" +
@@ -2600,7 +2945,7 @@ function Component_list() {
             "<div class='inner ng-scope'>" +
             "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
             "<div class='msg-cnt'>" +
-            "<p class='ng-binding' id=\""+ids+"\">" + str2 + "</p>" +
+            "<p class='ng-binding' id=\"" + ids + "\">" + str2 + "</p>" +
             "</div>" +
             "</div>" +
             "</div>" +
@@ -2652,9 +2997,9 @@ function Component_list() {
         var str = '<div class="createTitleTopAndImg_top">' +
             '<label class = "labels ng-binding">' + str1 + '</label>' +
             '<div class="application_phone_div">' +
-            '<a href="javascript:;" class="a-upload"><input type="file" name="" id="">上传</a >' +
-            '<a href="javascript:;" style="display:none" class="a-upload"><input type="file" name="" id="">重新上传</a>' +
-            '<div class="upload-tips ng-binding">' + str3 + '</div>' +
+            '<a href="javascript:;" class="a-upload"><input type="file" name="" class="input_updata" id=""><span>上传</span></a >' +
+            // '<a href="javascript:;" style="display:none" class="a-upload"><input type="file" name="" class="input_updata" id="">重新上传</a>' +
+            '<div class="upload-tips">' + str3 + '</div>' +
             '</div>' +
             '</div>' +
             '<ul class="application_list_one_ul_childer">' +
@@ -2674,12 +3019,16 @@ function Component_list() {
         var div = document.createElement("div");
         div.setAttribute('class', 'common_header_method');
         div.setAttribute('id', domID);
+        div.style.overflow = 'hidden';
+        if (subject_boolean) {
+            div.style.paddingLeft = '30px';
+        }
         var str = '<div class="createTitleTopAndImg_top">' +
             '<label class = "labels ng-binding">' + str1 + '</label>' +
             '<div class="application_phone_div">' +
-            '<a href="javascript:;" class="a-upload"><input type="file" multiple="multiple"  id=""><span>上传</span></a >' +
+            '<a href="javascript:;" class="a-upload"><input type="file" multiple="multiple" class="input_updata"  id=""><span>上传</span></a >' +
             // '<a href="javascript:;" style="display:none" class="a-upload"><input type="file" name="" id="">重新上传</a>' +
-            '<div class="upload-tips ng-binding" id="duozhangtupiande_shangchuan">' + str3 + '</div>' +
+            '<div class="upload-tips" id="duozhangtupiande_shangchuan">' + str3 + '</div>' +
             '</div>' +
             '</div>' +
             '<ul class="application_list_one_ul_childer">' +
@@ -2723,7 +3072,14 @@ function Component_list() {
             locale: moment.locale('zh-cn')
         });
         var input = div.getElementsByTagName('input')[0];
-
+        if (subject_boolean == true) {
+            console.log(input);
+            input.value = data.value;
+            input.disabled = true;
+            input.border = 'none';
+            input.style.cssText = "background:#ffffff;border:1px solid transparent";
+            div.style.paddingLeft = '30px';
+        }
         input.onblur = function () {
             var text_errors_timeone = document.getElementById(idP);
             data.value = input.value ? input.value : "";
@@ -2779,6 +3135,13 @@ function Component_list() {
         var p2 = document.createElement('p');
         p2.className = "text-errors_timetwo";
         organization_code_certificate.appendChild(p2);
+        if (subject_boolean == true) {
+            console.log(input);
+            input.value = data.value;
+            input.disabled = true;
+            input.border = 'none';
+            input.style.cssText = "background:#ffffff;border:1px solid transparent";
+        }
         input.onblur = function () {
             data.value = input.value ? input.value : "";
             console.log(data.value)
@@ -2806,38 +3169,78 @@ function Component_list() {
         var inputs = yingyezhizhao.getElementsByTagName('input');
         var ul = yingyezhizhao.getElementsByTagName('ul')[0];
         var p = yingyezhizhao.getElementsByTagName('p');
+        var span = yingyezhizhao.getElementsByTagName('span')[0];
         var img = ul.getElementsByTagName('img')[0];
         var li = ul.getElementsByTagName('li')[0];
         li.style.display = 'none';
         p[0].style.display = 'none';
         p[1].style.display = 'none';
-        for (var i = 0; i < inputs.length; i++) {
-            inputs[i].onchange = function (e) {
-                var file = this.files[0];
-                var sizeImg = file.size;
-                if (sizeImg > 1024 * 1024 * 2) {
-                    p[1].style.display = 'block';
-                    return;
-                } else {
-                    p[0].style.display = 'none';
+
+        if (subject_boolean) {
+            yingyezhizhao.style.paddingLeft = '30px';
+        }
+
+        inputs[0].onchange = function () {
+            var file = this.files[0];
+            if (!file) {
+                p[0].style.display = 'block';
+                p[0].setAttribute('isnext', 'nextStep');
+                return;
+            }
+            var sizeImg = file.size;
+            if (sizeImg > 1024 * 1024 * 2) {
+                p[1].style.display = 'block';
+                p[1].setAttribute('isnext', 'nextStep');
+                return;
+            } else {
+                p[0].style.display = 'none';
+
+            }
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (ev) {
+                li.style.display = 'block';
+                data.value = file;
+                img.src = ev.target.result;
+                span.innerHTML = '重新上传';
+                p[0].style.display = 'none';
+                p[1].style.display = 'none';
+                if (p[0].hasAttribute('isnext')) {
+                    p[0].removeAttribute('isnext');
                 }
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function (ev) {
-                    li.style.display = 'block';
-                    data.value = e.target.files[0];
-                    img.src = ev.target.result;
-                    aA[1].style.display = 'block';
-                    aA[0].style.display = 'none';
-                    inputs[1].style.width = '100px';
-                    aA[1].style.width = '100px';
-                    aA[1].style.paddingLeft = '0px';
-                    aA[1].style.paddingRight = '0px';
-                    p[0].style.display = 'none';
-                    p[1].style.display = 'none';
+                if (p[1].hasAttribute('isnext')) {
+                    p[1].removeAttribute('isnext');
                 }
             }
+       
         }
+        
+        
+        if(data.value){
+            var file = data.value;
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (ev) {
+                li.style.display = 'block';
+                data.value = file;
+                img.src = ev.target.result;
+                span.innerHTML = '重新上传';
+                p[0].style.display = 'none';
+                p[1].style.display = 'none';
+                if (p[0].hasAttribute('isnext')) {
+                    p[0].removeAttribute('isnext');
+                }
+                if (p[1].hasAttribute('isnext')) {
+                    p[1].removeAttribute('isnext');
+                }
+            }
+
+        }
+
+      
+
+
+
         li.onmousemove = function () {
             this.children[1].style.display = 'block';
         }
@@ -2845,11 +3248,20 @@ function Component_list() {
             this.children[1].style.display = 'none';
         }
         var a = ul.getElementsByTagName('a')[0];
-        a.onclick = function () {
+        a.onclick = function () { // 单张图片的删除
             li.style.display = 'none';
             p[0].style.display = 'block';
             data.value = "";
         }
+
+        if (subject_boolean) {
+            aA[0].remove();
+            ul.style.paddingLeft='0px';
+            a.remove();
+        }
+
+
+       
 
     }
 
@@ -2874,6 +3286,7 @@ function Component_list() {
         input.onchange = function (e) {
             span.innerText = '继续上传';
             var files = e.target.files;
+
             var num = 0;
             for (let i = 0; i < files.length; i++) {
                 var file = e.target.files[i];
@@ -2924,13 +3337,12 @@ function Component_list() {
                     p[2].style.display = 'none';
                     p[3].style.display = 'none';
                     li.onmousemove = function () {
-                        // console.log(a);
                         a.style.display = 'block';
                     }
                     li.onmouseout = function () {
                         a.style.display = 'none';
                     }
-                    //  console.log(data.value)
+                  
                     a.onclick = function () {
                         var index_name = this.parentNode.getAttribute('index');
                         this.parentNode.remove();
@@ -2952,8 +3364,6 @@ function Component_list() {
                         arr = arrs;
                         arr_result = arr_results;
                         data.value = arr_data;
-                        // console.log(arr);
-                        // console.log(data.value);
                         p[2].style.display = 'none';
                         console.log(data.value);
                         if (data.value.length == 0) {
@@ -2964,10 +3374,41 @@ function Component_list() {
                 }
             }
 
+
+
+
+
         }
+        // if(data.value){
+        //     var files = data.value;
+
+           
+        //     for (let i = 0; i < files.length; i++) {
+        //         var file = e.target.files[i];
+        //         var sizeImg = file.size;
+
+        //         var reader = new FileReader();
+        //         reader.readAsDataURL(files[i]);
+        //         reader.onload = function (ev) {
+        //             var li = document.createElement('li');
+        //             var img = document.createElement('img');
+        //             var a = document.createElement('a');
+        //             a.setAttribute('class', 'del');
+        //             img.src = ev.target.result;
+        //             ul.appendChild(li);
+        //             li.appendChild(img);
+        //             li.appendChild(a);
+                   
+                  
+        //             arr_result.push(datas_result);
+        //             li.setAttribute('index', nums - 1);
+                  
+                
+
+        //         }
+        // }
 
     }
-
 
 
 
@@ -2991,12 +3432,37 @@ function Component_list() {
         div.appendChild(input);
         div.appendChild(p);
         matation_business_pictrue_box.appendChild(div);
+
+        if (subject_boolean == true) {
+            input.value = data.value;
+            input.disabled = true;
+            input.border = 'none';
+            input.style.cssText = "background:#ffffff;border:1px solid transparent";
+            div.style.paddingLeft = '30px';
+        } else {
+            if (data.value) {
+                input.value = data.value;
+                input.disabled = false;
+                input.style.cssText = "background:#ffffff;border:1px solid #e0e0e0";
+            }
+        }
+
+
+
         input.onblur = function () {
             data.value = input.value ? input.value : "";
             var a = data.verification_method(); // 前面赋值了，后面调用函数；
+
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
+                p.setAttribute("isNext", "nextStep");
+                return;
+            } else {
+                if (p.hasAttribute('isNext')) {
+                    p.removeAttribute("isNext");
+                }
+
             }
 
             if (componentNextPro) {
@@ -3039,12 +3505,38 @@ function Component_list() {
         div.appendChild(input);
         div.appendChild(p);
         matation_business_pictrue_box.appendChild(div);
+
+
+        if (subject_boolean == true) {
+            input.value = data.value;
+            input.disabled = true;
+            input.border = 'none';
+            input.style.cssText = "background:#ffffff;border:1px solid transparent";
+            div.style.paddingLeft = '30px';
+        } else {
+            if (data.value) {
+                input.value = data.value;
+                input.disabled = false;
+                input.style.cssText = "background:#ffffff;border:1px solid #e0e0e0";
+            }
+        }
+
+
+
         input.onblur = function () {
             data.value = input.value ? input.value : "";
             var a = data.verification_method(); // 前面赋值了，后面调用函数；
+
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
+                p.setAttribute("isNext", "nextStep");
+                return;
+            } else {
+                if (p.hasAttribute('isNext')) {
+                    p.removeAttribute("isNext");
+                }
+
             }
 
             if (componentNextPro) {
@@ -3092,7 +3584,7 @@ function Component_list() {
 
 
     // 多选框公共方法
-    this.checkbox_public = function (caption, arr, dom, nextPro) {
+    this.checkbox_public = function (data, caption, arr, dom, nextPro) {
         let ul = document.createElement("ul");
         let labelCaption = document.createElement("label");
         var div = document.createElement('div');
@@ -3109,7 +3601,13 @@ function Component_list() {
                 '</li>';
         }
 
-        div.innerHTML += str;
+        if (subject_boolean) {
+            ul.style.paddingLeft = '30px';
+            div.innerHTML = data.value;
+        } else {
+            div.innerHTML = str;
+        }
+
         dom.appendChild(ul);
         var inputs = ul.getElementsByTagName('input');
         for (let i = 0; i < inputs.length; i++) {
@@ -3133,6 +3631,24 @@ function Component_list() {
         return str;
     }
 
+    // 上一步下一步保存草稿按钮
+    this.prev_next = function () {
+        var str = '<ul class="list"><li>返回</li><li>保存草稿</li><li>保存并下一步</li></ul>';
+        return str;
+    }
+
+
+    this.getClassName_dom = function (parents, dom_class) {
+        var dom = parents.getElementsByTagName('*');
+        var dom_arr = [];
+        for (var i = 0; i < dom.length; i++) {
+            if (dom[i].className == dom_class) {
+                dom_arr.push(dom[i]);
+            }
+        }
+
+        return dom_arr;
+    }
 
 }
 

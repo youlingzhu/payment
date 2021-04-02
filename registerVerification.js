@@ -123,7 +123,7 @@ function Validation_Type() {
             if (reg.test(str)) {
                 return "";
             } else {
-                strValue = '请上传法人的身份证件（即与营业执照上的经营者/法人姓名相同的身份证件）';
+                strValue = '请填写法人的身份证件（即与营业执照上的经营者/法人姓名相同的身份证件）';
                 return strValue;
             }
         }) 

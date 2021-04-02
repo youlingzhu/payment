@@ -72,6 +72,8 @@
     <script>
         let subject_type = null;
         let subject_index=null;
+        let subject_boolean=false;
+        var application_list_one=document.getElementById('application_list_one');
         new Register(wechartJson, function () {}); // 这个是 registerEvent.js 里面的对象；专门是挂载生成的组件和input框的value值；
         new RecursiveTool(function (res) {
             if (res.caption == "主体资料") {
@@ -93,14 +95,14 @@
         }).recursive(wechartJson);
 
 
-
+         // 主体信息
         let SubjectInformation = function (value) {
+            application_list_one.innerHTML='';
             let array = wechartJson[2].subobject.filter(item => {
                 if (item.caption != "主体类型") {
                     return item;
                 }
             });
-           // console.log(array);
             new RecursiveTool(function (response) {
                 if (response.generate_component != null && typeof response.generate_component ==
                     'function') {
@@ -110,7 +112,9 @@
             }).recursive(array);
         }
 
+        // 经营信息
         let ManagementInformation = function (value) {
+            application_list_one.innerHTML='';
             let array = wechartJson[3].subobject;
             new RecursiveTool(function (response) {
                 if (response.generate_component != null && typeof response.generate_component =='function') {
@@ -119,8 +123,9 @@
             }).recursive(array);
         }
 
-
+         // 结算规则
         let Settlementrules = function (value) {
+            application_list_one.innerHTML='';
             let array = wechartJson[4].subobject;
             new RecursiveTool(function (response) {
                // console.log(response);
@@ -132,6 +137,7 @@
 
         // 结算账户
         let SettlementAccount = function(value) {
+            application_list_one.innerHTML='';
             let array = wechartJson[5].subobject;
             new RecursiveTool(function(response){
                 if(response.generate_component!=null&&typeof response.generate_component == 'function') {
@@ -142,6 +148,8 @@
         
          // 超级管理员
          let SuperAdmin = function(value) {
+          
+            application_list_one.innerHTML='';
             let array = wechartJson[1].subobject;
             new RecursiveTool(function(response){
                 if(response.generate_component!=null&&typeof response.generate_component == 'function') {
