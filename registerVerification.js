@@ -24,7 +24,7 @@ function Validation_Type() {
                 return strValue;
             }
         });
-        console.log(b);
+       // console.log(b);
         return b;
     }
 

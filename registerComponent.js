@@ -59,7 +59,7 @@ function Component_list() {
                     if (componentNextPro) {
                         componentNextPro(data.value, i);
                     }
-                    pushHistory_two(); // 自己做的回退事件;
+                    pushHistory_one(); // 自己做的回退事件;
                 })
             }
         }
@@ -104,10 +104,10 @@ function Component_list() {
             "<div class='upload-tips'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
             "</div>" +
             "<ul id='application_list_one_ul_childer' class='application_list_one_ul_childer'>" +
-            "<li>" +
-            "<img src='' />" +
-            "<a href='javascript:;'  class='del'>删除</a>" +
-            "</li>" +
+            // "<li>" +
+            // "<img src='' />" +
+            // "<a href='javascript:;'  class='del'>删除</a>" +
+            // "</li>" +
             "</ul>" +
             "<p class='text-error'>请填写营业执照照片</p>" +
             "<p class='text-error'>请上传2M内的彩色图片，格式可为bmp、png、jpeg、jpg或gif</p>" +
@@ -141,8 +141,10 @@ function Component_list() {
             var organization_code_certificate = document.getElementById('organization_code_certificate');
             if (a == "" && data.value.length == 15 && subject_type != 'SUBJECT_TYPE_INDIVIDUAL') {
                 organization_code_certificate.style.display = "block";
+                wechartJson[0].is_organization = true; // 组织机构显示
             } else {
                 organization_code_certificate.style.display = "none";
+                wechartJson[0].is_organization = false;
             }
         })
 
@@ -179,10 +181,10 @@ function Component_list() {
             "<div class='upload-tips'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
             "</div>" +
             "<ul class='application_list_one_ul_childer'>" +
-            "<li style='display:none'>" +
-            "<img src='' />" +
-            "<a href='javascript:;'  class='del'>删除</a>" +
-            "</li>" +
+            // "<li style='display:none'>" +
+            // "<img src='' />" +
+            // "<a href='javascript:;'  class='del'>删除</a>" +
+            // "</li>" +
             "</ul>" +
             "<p class='text-error' style='display:none'>请填写营业执照照片</p>" +
             "<p class='text-error' style='display:none'>请上传2M内的彩色图片，格式可为bmp、png、jpeg、jpg或gif</p>" +
@@ -259,11 +261,20 @@ function Component_list() {
         this.cert_type_ul(data, arr, divs, function (index) {
             console.log(index);
             data.value = arr[index].type;
+            data.data_value_type = arr[index].title;
             console.log(data.value);
             var common_xuanze_zhengji_span = document.getElementById('common_xuanze_zhengji_span');
             common_xuanze_zhengji_span.firstChild.nodeValue = arr[index].title;
+            var common_xuanze_zhengji_p_yuansu = document.getElementById('common_xuanze_zhengji_p_yuansu');
+            common_xuanze_zhengji_p_yuansu.style.display = 'none';
 
         });
+
+        var common_xuanze_zhengji_span = document.getElementById('common_xuanze_zhengji_span');
+
+        if (data.value) {
+            common_xuanze_zhengji_span.firstChild.nodeValue = data.data_value_type;
+        }
 
     }
 
@@ -301,6 +312,31 @@ function Component_list() {
         }
 
 
+    }
+
+    // 登记证书 证书号
+    this.cert_number = function (data) {
+        this.input_box_dengji(data, function (data) {
+            var a = data.verification_method();
+            var organization_code_certificate = document.getElementById('organization_code_certificate');
+            if (a == "" && data.value.length == 15 && subject_type == 'SUBJECT_TYPE_INSTITUTIONS') {
+                organization_code_certificate.style.display = "block";
+                wechartJson[0].is_organization_dang = true; // 组织机构显示
+            } else {
+                organization_code_certificate.style.display = "none";
+                wechartJson[0].is_organization_dang = false;
+            }
+
+            if (a == "" && data.value.length == 15 && subject_type == 'SUBJECT_TYPE_OTHERS') {
+                organization_code_certificate.style.display = "block";
+                wechartJson[0].is_organization_gongyi = true; // 组织机构显示
+            } else {
+                organization_code_certificate.style.display = "none";
+                wechartJson[0].is_organization_gongyi = false;
+            }
+
+
+        })
     }
 
     // 是否是受益人证件开始的时间
@@ -353,10 +389,10 @@ function Component_list() {
             "<div class='upload-tips'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
             "</div>" +
             "<ul id='application_list_one_ul_childer'>" +
-            "<li>" +
-            "<img src='' />" +
-            "<a href='javascript:;'  class='del'>删除</a>" +
-            "</li>" +
+            // "<li>" +
+            // "<img src='' />" +
+            // "<a href='javascript:;'  class='del'>删除</a>" +
+            // "</li>" +
             "</ul>" +
             "<p class='text-error'>请填写组织机构代码证照片</p>" +
             "<p class='text-error'>请上传2M内的彩色图片，格式可为bmp、png、jpeg、jpg或gif</p>" +
@@ -365,7 +401,26 @@ function Component_list() {
         div.innerHTML = str;
         application_list_one.appendChild(div);
         var organization_code_certificate = document.getElementById('organization_code_certificate');
-        organization_code_certificate.style.display = 'none';
+        console.log(subject_type)
+        // wechartJson[0].is_organization_dang
+        if (wechartJson[0].is_organization && subject_type == 'SUBJECT_TYPE_ENTERPRISE') {
+            organization_code_certificate.style.display = 'block';
+        } else {
+            organization_code_certificate.style.display = 'none';
+        }
+
+        if (wechartJson[0].is_organization_dang && subject_type == 'SUBJECT_TYPE_INSTITUTIONS') {
+            organization_code_certificate.style.display = 'block';
+        } else {
+            organization_code_certificate.style.display = 'none';
+        }
+        if (wechartJson[0].is_organization_gongyi && subject_type == 'SUBJECT_TYPE_OTHERS') {
+            organization_code_certificate.style.display = 'block';
+        } else {
+            organization_code_certificate.style.display = 'none';
+        }
+
+
         this.publicImgUupData('zuzhijigou_matation_form', data);
 
     }
@@ -409,11 +464,12 @@ function Component_list() {
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
-                p.setAttribute("isNext", "nextStep");
+                input.setAttribute("isNext", "nextStep");
                 return;
             } else {
-                if (p.hasAttribute('isNext')) {
-                    p.removeAttribute("isNext");
+                p.style.display = 'none';
+                if (input.hasAttribute('isNext')) {
+                    input.removeAttribute("isNext");
                 }
 
             }
@@ -453,6 +509,9 @@ function Component_list() {
 
         });
         var input = div.getElementsByTagName('input')[0];
+        if (data.value) {
+            input.value = data.value;
+        }
 
         input.onblur = function () {
             var text_errors_timeone = document.getElementById('text_errors_timeone');
@@ -461,6 +520,11 @@ function Component_list() {
             if (a) {
                 text_errors_timeone.style.display = 'block';
                 text_errors_timeone.innerHTML = a;
+                input.setAttribute("isNext", "nextStep");
+            } else {
+                if (input.hasAttribute('isNext')) {
+                    input.removeAttribute("isNext");
+                }
             }
             if (componentNextPro) {
                 componentNextPro(data);
@@ -503,6 +567,9 @@ function Component_list() {
         p.setAttribute('id', 'text_errors_timetwo');
         p.className = "text-errors_timetwo";
         organization_code_certificate.appendChild(p);
+        if (data.value) {
+            input.value = data.value;
+        }
         input.onblur = function () {
             data.value = input.value ? input.value : "";
             console.log(data);
@@ -513,11 +580,11 @@ function Component_list() {
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
-                p.setAttribute("isNext", "nextStep");
+                input.setAttribute("isNext", "nextStep");
                 return;
             } else {
-                if (p.hasAttribute('isNext')) {
-                    p.removeAttribute("isNext");
+                if (input.hasAttribute('isNext')) {
+                    input.removeAttribute("isNext");
                 }
 
             }
@@ -536,15 +603,30 @@ function Component_list() {
 
     // 证件类型 身份证还是其他类型的通行证（港澳台护照）
     this.id_doc_type = function (data) {
-        var div = document.createElement("div");
-        div.setAttribute('class', 'form-item_shenfenzheng');
+        var div = document.createElement("div"); // 这个是选择证件的类型
+        div.setAttribute('id', 'form-item_shenfenzheng');
+        div.className = 'form-item_shenfenzheng';
         var divs = document.createElement("div");
-        divs.setAttribute('id', 'form_item_shenfenzhengbottom');
+        divs.setAttribute('id', 'form_item_shenfenzhengbottom'); // 身份证
         divs.setAttribute('class', 'clear_float');
         var divTwo = document.createElement('div');
-        divTwo.setAttribute('id', 'form_item_shenfenzhengbottomTwo');
+        divTwo.setAttribute('id', 'form_item_shenfenzhengbottomTwo'); // 护照类
         divTwo.setAttribute('class', 'clear_float');
-        divTwo.style.display = "none";
+
+        if (data.value) {
+            data.value = data.value;
+        } else {
+            data.value = 'IDENTIFICATION_TYPE_IDCARD';
+        }
+
+        if (wechartJson[0].is_ID_or_passport) {
+            divs.style.display = "block";
+            divTwo.style.display = "none";
+        } else {
+            divs.style.display = "none";
+            divTwo.style.display = "block";
+        }
+
 
         div.innerHTML += this.createTitleTop('法定代表人/个体户经营者证件', '请上传法人的身份证/护照');
         var arr = [{
@@ -573,7 +655,6 @@ function Component_list() {
 
 
         this.three_syndromes_component(data, "证件类型", arr, div, function (value) {
-
             var form_item_shenfenzhengbottom = document.getElementById('form_item_shenfenzhengbottom');
             var form_item_shenfenzhengbottomTwo = document.getElementById('form_item_shenfenzhengbottomTwo');
 
@@ -583,23 +664,45 @@ function Component_list() {
                 //证件照隐藏
                 form_item_shenfenzhengbottom.style.display = "block";
                 form_item_shenfenzhengbottomTwo.style.display = "none";
+                wechartJson[0].is_ID_or_passport = true;
 
             } else {
                 //身份证照隐藏
                 //证件照显示
                 form_item_shenfenzhengbottom.style.display = "none";
                 form_item_shenfenzhengbottomTwo.style.display = "block";
+                wechartJson[0].is_ID_or_passport = false;
             }
-
-
-
-
 
         });
         application_list_one.appendChild(div);
         application_list_one.appendChild(divs);
         application_list_one.appendChild(divTwo);
-        //  div.querySelectorAll("input")[0].click();
+
+        var form_item_shenfenzheng = document.getElementById('form-item_shenfenzheng');
+        var form_item_shenfenzheng_ul = form_item_shenfenzheng.getElementsByTagName('ul')[0];
+        var form_item_shenfenzheng_input = form_item_shenfenzheng_ul.getElementsByTagName('input');
+        if (data.value == 'IDENTIFICATION_TYPE_IDCARD') {
+            form_item_shenfenzheng_input[0].checked = true;
+        }
+
+        if (data.value == 'IDENTIFICATION_TYPE_HONGKONG_PASSPORT') {
+            form_item_shenfenzheng_input[1].checked = true;
+        }
+        if (data.value == 'IDENTIFICATION_TYPE_MACAO_PASSPORT') {
+            form_item_shenfenzheng_input[2].checked = true;
+        }
+        if (data.value == 'IDENTIFICATION_TYPE_TAIWAN_PASSPORT') {
+            form_item_shenfenzheng_input[3].checked = true;
+        }
+        if (data.value == 'IDENTIFICATION_TYPE_OVERSEA_PASSPORT') {
+            form_item_shenfenzheng_input[4].checked = true;
+        }
+
+
+
+
+
     }
 
     // 身份证人像面照片
@@ -669,10 +772,21 @@ function Component_list() {
             var divParent = document.getElementById('divParent_matation_form');
             if (data.value == true) {
                 divParent.style.display = 'none';
+                wechartJson[0].is_beneficiary = true;
             } else {
                 divParent.style.display = 'block';
+                wechartJson[0].is_beneficiary = false;
             }
         }, 'matation_form_is_shouyiren');
+
+        var matation_form_is_shouyiren = document.getElementById('matation_form_is_shouyiren');
+        var matation_form_is_shouyiren_input = matation_form_is_shouyiren.getElementsByTagName('input');
+        if (data.value) {
+            matation_form_is_shouyiren_input[0].checked = true;
+        } else {
+            matation_form_is_shouyiren_input[1].checked = true;
+        }
+
 
         if (subject_boolean) {
             var matation_form_is_shouyiren = document.getElementById('matation_form_is_shouyiren');
@@ -683,6 +797,8 @@ function Component_list() {
                 div.innerHTML = '否';
             }
         }
+
+
 
 
 
@@ -736,7 +852,15 @@ function Component_list() {
         div_hr.setAttribute('class', 'public_hrs');
         divChildrenThree.appendChild(div_hr);
         divChildrenOne.innerHTML += str;
-        divParent.style.display = 'none';
+
+
+        if (wechartJson[0].is_beneficiary) { // 默认隐藏
+            divParent.style.display = 'none';
+        } else {
+            divParent.style.display = 'block';
+        }
+
+
         var arr = [{
                 name: '中国大陆居民--身份证',
                 type: 'IDENTIFICATION_TYPE_IDCARD'
@@ -756,7 +880,12 @@ function Component_list() {
             }
         ];
 
-        data.value = 'IDENTIFICATION_TYPE_IDCARD'; // 默认是身份证;
+        if (!data.value) {
+            data.value = 'IDENTIFICATION_TYPE_IDCARD'; // 默认是身份证;
+        } else {
+            data.value = data.value;
+        }
+
 
         this.three_syndromes_component(data, "证件类型", arr, divChildrenOne, function (values) {
             data.value = values; // 赋值给经营者/法人是否为受益人这个数据
@@ -773,6 +902,7 @@ function Component_list() {
                 shenfenzhengzhaopianzhengmian_one.style.display = "block";
                 shenfenzhengzhaopianfanmian_one.style.display = "block";
                 qitazhengjianzhaopian_one.style.display = "none";
+                wechartJson[0].is_beneficiary_pic = true; // 身份证照片显示
 
             } else {
                 //身份证照隐藏
@@ -780,9 +910,37 @@ function Component_list() {
                 shenfenzhengzhaopianzhengmian_one.style.display = "none";
                 shenfenzhengzhaopianfanmian_one.style.display = "none";
                 qitazhengjianzhaopian_one.style.display = "block";
+                wechartJson[0].is_beneficiary_pic = false; // 护照照片显示
             }
 
         });
+
+
+        var divChildrenOne_ul = divChildrenOne.getElementsByTagName('ul')[0];
+        var divChildrenOne_input = divChildrenOne_ul.getElementsByTagName('input');
+
+        if (data.value == 'IDENTIFICATION_TYPE_IDCARD') {
+            divChildrenOne_input[0].checked = true;
+
+        }
+
+        if (data.value == 'IDENTIFICATION_TYPE_HONGKONG_PASSPORT') {
+            divChildrenOne_input[1].checked = true;
+
+        }
+        if (data.value == 'IDENTIFICATION_TYPE_MACAO_PASSPORT') {
+            divChildrenOne_input[2].checked = true;
+
+        }
+        if (data.value == 'IDENTIFICATION_TYPE_TAIWAN_PASSPORT') {
+            divChildrenOne_input[3].checked = true;
+
+        }
+        if (data.value == 'IDENTIFICATION_TYPE_OVERSEA_PASSPORT') {
+            divChildrenOne_input[4].checked = true;
+
+        }
+
 
 
 
@@ -795,39 +953,238 @@ function Component_list() {
         }
         li[2].onclick = function () {
             subject_boolean = false;
-            var input_text = _this.getClassName_dom(application_list_one, 'input_public'); // 表单 注册号等
-            var input_time = _this.getClassName_dom(application_list_one, 'form-control'); // 表单 时间表单
-            var input_file = _this.getClassName_dom(application_list_one, 'input_updata'); // 上传图片的表单
-            var input = [...input_text, ...input_time];
-            for (var i = 0; i < input.length; i++) {
-                input[i].onblur();
-            }
-            for (var i = 0; i < input_file.length; i++) {
-                input_file[i].onchange();
-            }
+            var arr_isnext = [];
+            var matation_business_pictrue_box = document.getElementById('matation_business_pictrue_box'); // 营业执照
+            var matation_business_dengji_box = document.getElementById('matation_business_dengji_box'); // 登记证书
+            var organization_code_certificate = document.getElementById('organization_code_certificate'); // 组织机构代码
+            var form_item_shenfenzhengbottom = document.getElementById('form_item_shenfenzhengbottom'); // 法定代表人身份证信息
+            var form_item_shenfenzhengbottomTwo = document.getElementById('form_item_shenfenzhengbottomTwo'); // 法定代表人港澳台护照信息;
+            var divChildrenTwo = document.getElementById('divChildrenTwo'); // 受益人信息
+            var input_zhizhao_pic = _this.getClassName_dom(matation_business_pictrue_box, 'input_updata'); //营业执照照片；
+            var input_zhizhao_input = _this.getClassName_dom(matation_business_pictrue_box, 'input_public'); //营业执照input框；
+            var input_dengji_pic = _this.getClassName_dom(matation_business_dengji_box, 'input_updata'); //登记执照照片；
+            var input_dengji_input = _this.getClassName_dom(matation_business_dengji_box, 'input_public'); //登记执照input框；
+            var input_dengji_riqi = _this.getClassName_dom(matation_business_dengji_box, 'form-control'); //登记执照到期日期；
+            var input_zuzhi_pic = _this.getClassName_dom(organization_code_certificate, 'input_updata'); // 组织机构照片；
+            var input_zuzhi_input = _this.getClassName_dom(organization_code_certificate, 'input_public'); // 组织机构input框
+            var input_zuzhi_riqi = _this.getClassName_dom(organization_code_certificate, 'form-control'); //组织机构执照到期日期；
+            var input_shenfenzheng_pic = _this.getClassName_dom(form_item_shenfenzhengbottom, 'input_updata'); //法人证件身份证照片；
+            var input_shenfenzheng_input = _this.getClassName_dom(form_item_shenfenzhengbottom, 'input_public'); //法人证件身份证input框；
+            var input_shenfenzheng_riqi = _this.getClassName_dom(form_item_shenfenzhengbottom, 'form-control'); //法人证件身份证input框；
+            var input_huzhao_pic = _this.getClassName_dom(form_item_shenfenzhengbottomTwo, 'input_updata'); //法人证件身份证照片；
+            var input_huzhao_input = _this.getClassName_dom(form_item_shenfenzhengbottomTwo, 'input_public'); //法人证件身份证input框；
+            var input_huzhao_riqi = _this.getClassName_dom(form_item_shenfenzhengbottomTwo, 'form-control'); //法人证件身份证到期日期；
 
-            var p_common = _this.getClassName_dom(application_list_one, 'text-errors');
-            var p_pic = _this.getClassName_dom(application_list_one, 'text-error');
-            var p = [...p_common, ...p_pic];
+            var input_shouyiren_input = _this.getClassName_dom(divChildrenTwo, 'input_public'); //受益人证件身份证input框；
+            var input_shouyiren_riqi = _this.getClassName_dom(divChildrenTwo, 'form-control'); //受益人证件身份证到期日期；
 
 
-            var arr = [];
 
-            new Promise(function (resolve) {
 
-                for (var i = 0; i < p.length; i++) {
-                    if (p[i].hasAttribute('isnext')) {
-                        arr.push(p[i]);
+
+
+
+            if (subject_type == 'SUBJECT_TYPE_ENTERPRISE' || subject_type == 'SUBJECT_TYPE_INDIVIDUAL') { // 营业执照input 调用
+                for (let i = 0; i < input_zhizhao_pic.length; i++) {
+                    var ul_pic_dom = input_zhizhao_pic[i].parentNode.parentNode.nextElementSibling;
+                    if (ul_pic_dom.children.length == 0) {
+                        input_zhizhao_pic[i].onchange();
+                    }
+
+                    if (input_zhizhao_pic[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_zhizhao_pic[i]);
+                    }
+                };
+                for (let i = 0; i < input_zhizhao_input.length; i++) {
+                    input_zhizhao_input[i].onblur();
+                    if (input_zhizhao_input[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_zhizhao_input[i]);
                     }
                 }
-                resolve(arr)
-            }).then((arr) => {
-                if (arr.length > 0) {
-                    return;
-                } else {
-                    ManagementInformation();
+            }
+            if (subject_type == 'SUBJECT_TYPE_INSTITUTIONS' || subject_type == 'SUBJECT_TYPE_OTHERS') { // 登记证书input 调用
+                for (let i = 0; i < input_dengji_pic.length; i++) {
+                    var ul_pic_dom = input_dengji_pic[i].parentNode.parentNode.nextElementSibling;
+                    console.log(ul_pic_dom)
+                    if (ul_pic_dom.children.length == 0) {
+                        console.log('登记证书')
+                        input_dengji_pic[i].onchange();
+                    }
+
+                    if (input_dengji_pic[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_dengji_pic[i]);
+                    }
+                };
+                for (let i = 0; i < input_dengji_input.length; i++) {
+                    input_dengji_input[i].onblur();
+                    if (input_dengji_input[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_dengji_input[i]);
+                    }
                 }
-            })
+                for (let i = 0; i < input_dengji_riqi.length; i++) {
+                    input_dengji_riqi[i].onblur();
+                    if (input_dengji_riqi[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_dengji_riqi[i]);
+                    }
+                }
+            }
+
+            if (wechartJson[0].is_organization) { // 组织机构input 调用
+                for (let i = 0; i < input_zuzhi_pic.length; i++) {
+                    var ul_pic_dom = input_zuzhi_pic[i].parentNode.parentNode.nextElementSibling;
+                    if (ul_pic_dom.children.length == 0) {
+                        input_zuzhi_pic[i].onchange();
+                    }
+
+                    if (input_zuzhi_pic[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_zuzhi_pic[i]);
+                    }
+                };
+                for (let i = 0; i < input_zuzhi_input.length; i++) {
+                    input_zuzhi_input[i].onblur();
+                    if (input_zuzhi_input[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_zuzhi_input[i]);
+                    }
+                }
+                for (let i = 0; i < input_zuzhi_riqi.length; i++) {
+                    input_zuzhi_riqi[i].onblur();
+                    if (input_zuzhi_riqi[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_zuzhi_riqi[i]);
+                    }
+                }
+            }
+
+
+            if (wechartJson[0].is_ID_or_passport) { // 证件类型 身份证
+                for (var i = 0; i < input_shenfenzheng_pic.length; i++) {
+                    var ul_pic_dom = input_shenfenzheng_pic[i].parentNode.parentNode.nextElementSibling;
+                    if (ul_pic_dom.children.length == 0) {
+                        input_shenfenzheng_pic[i].onchange();
+                    }
+
+                    if (input_shenfenzheng_pic[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_shenfenzheng_pic[i]);
+                    }
+                }
+                for (let i = 0; i < input_shenfenzheng_input.length; i++) {
+                    input_shenfenzheng_input[i].onblur();
+                    if (input_shenfenzheng_input[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_shenfenzheng_input[i]);
+                    }
+                }
+                for (let i = 0; i < input_shenfenzheng_riqi.length; i++) {
+                    input_shenfenzheng_riqi[i].onblur();
+                    if (input_shenfenzheng_riqi[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_shenfenzheng_riqi[i]);
+                    }
+                }
+
+            } else { // 证件类型 护照类
+                for (var i = 0; i < input_huzhao_pic.length; i++) {
+                    var ul_pic_dom = input_huzhao_pic[i].parentNode.parentNode.nextElementSibling;
+                    if (ul_pic_dom.children.length == 0) {
+                        input_huzhao_pic[i].onchange();
+                    }
+
+                    if (input_huzhao_pic[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_huzhao_pic[i]);
+                    }
+                }
+                for (let i = 0; i < input_huzhao_input.length; i++) {
+                    input_huzhao_input[i].onblur();
+                    if (input_huzhao_input[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_huzhao_input[i]);
+                    }
+                }
+                for (let i = 0; i < input_huzhao_riqi.length; i++) {
+                    input_huzhao_riqi[i].onblur();
+                    if (input_huzhao_riqi[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_huzhao_riqi[i]);
+                    }
+                }
+            }
+
+            if (wechartJson[0].is_beneficiary == false) { // 受益人显示
+                if (wechartJson[0].is_beneficiary_pic) { // 证件类型，身份证类型
+                    var shenfenzhengzhaopianzhengmian_one = document.getElementById('shenfenzhengzhaopianzhengmian_one');
+                    var shenfenzhengzhaopianfanmian_one = document.getElementById('shenfenzhengzhaopianfanmian_one');
+                    var input_zheng = shenfenzhengzhaopianzhengmian_one.getElementsByTagName('input')[0];
+                    var input_fan = shenfenzhengzhaopianfanmian_one.getElementsByTagName('input')[0];
+                    var ul_pic_dom_zheng = input_zheng.parentNode.parentNode.nextElementSibling;
+                    var ul_pic_dom_fan = input_fan.parentNode.parentNode.nextElementSibling;
+
+                    if (ul_pic_dom_zheng.children.length == 0) {
+                        input_zheng.onchange();
+                    }
+                    if (ul_pic_dom_fan.children.length == 0) {
+                        input_fan.onchange();
+                    }
+
+                    if (input_zheng.hasAttribute('isnext')) {
+                        arr_isnext.push(input_zheng);
+
+                    }
+                    if (input_fan.hasAttribute('isnext')) {
+                        arr_isnext.push(input_fan);
+
+                    }
+
+
+                } else {
+                    var qitazhengjianzhaopian_one = document.getElementById('qitazhengjianzhaopian_one');
+                    var input_huzhao = qitazhengjianzhaopian_one.getElementsByTagName('input')[0];
+                    var ul_pic_dom = input_huzhao.parentNode.parentNode.nextElementSibling;
+
+                    if (ul_pic_dom.children.length == 0) {
+                        input_huzhao.onchange();
+                    }
+                    if (input_huzhao.hasAttribute('isnext')) {
+                        arr_isnext.push(input_huzhao);
+                    }
+
+                }
+
+                for (var i = 0; i < input_shouyiren_input.length; i++) {
+                    input_shouyiren_input[i].onblur();
+                    if (input_shouyiren_input[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_shouyiren_input[i]);
+                    }
+                }
+
+
+                for (var i = 0; i < input_shouyiren_riqi.length; i++) {
+                    input_shouyiren_riqi[i].onblur();
+                    if (input_shouyiren_riqi[i].hasAttribute('isnext')) {
+                        arr_isnext.push(input_shouyiren_riqi[i]);
+                    }
+                }
+
+
+            }
+
+
+
+
+
+            console.log(arr_isnext);
+            var common_xuanze_zhengji_span = document.getElementById('common_xuanze_zhengji_span');
+            var common_xuanze_zhengji_p_yuansu = document.getElementById('common_xuanze_zhengji_p_yuansu');
+            var value = common_xuanze_zhengji_span.firstChild.nodeValue;
+            if ((subject_type == 'SUBJECT_TYPE_INSTITUTIONS' || subject_type == 'SUBJECT_TYPE_OTHERS') && value == '请选择') {
+                common_xuanze_zhengji_p_yuansu.style.display = 'block';
+                return;
+            }
+            if (arr_isnext.length > 0) {
+                return;
+            } else {
+                wechartJson[0].subject_information = true; // 代表主体信息已经填写完成并且确认；
+                ManagementInformation();
+            }
+
+
+
+
+
         }
 
         if (subject_boolean == true) {
@@ -845,6 +1202,13 @@ function Component_list() {
         var divChildrenTwo = document.getElementById('divChildrenTwo');
         divChildrenTwo.appendChild(str);
         this.publicImgUupData('shenfenzhengzhaopianzhengmian_one', data);
+        var shenfenzhengzhaopianzhengmian_one = document.getElementById('shenfenzhengzhaopianzhengmian_one');
+        console.log('is_beneficiary_pic', wechartJson[0].is_beneficiary_pic)
+        if (wechartJson[0].is_beneficiary_pic == false) {
+            shenfenzhengzhaopianzhengmian_one.style.display = 'none';
+        } else {
+            shenfenzhengzhaopianzhengmian_one.style.display = 'block';
+        }
     }
 
 
@@ -854,6 +1218,13 @@ function Component_list() {
         var divChildrenTwo = document.getElementById('divChildrenTwo');
         divChildrenTwo.appendChild(str);
         this.publicImgUupData('shenfenzhengzhaopianfanmian_one', data);
+        var shenfenzhengzhaopianfanmian_one = document.getElementById('shenfenzhengzhaopianfanmian_one');
+        console.log('is_beneficiary_pic', wechartJson[0].is_beneficiary_pic)
+        if (wechartJson[0].is_beneficiary_pic == false) {
+            shenfenzhengzhaopianfanmian_one.style.display = 'none';
+        } else {
+            shenfenzhengzhaopianfanmian_one.style.display = 'block';
+        }
     }
 
     // 是否是受益人中的证件照片
@@ -864,7 +1235,12 @@ function Component_list() {
         this.publicImgUupData('qitazhengjianzhaopian_one', data);
         var qitazhengjianzhaopian_one = document.getElementById('qitazhengjianzhaopian_one');
         qitazhengjianzhaopian_one.style.display = "none";
-
+        console.log('is_beneficiary_pic', wechartJson[0].is_beneficiary_pic)
+        if (wechartJson[0].is_beneficiary_pic) {
+            qitazhengjianzhaopian_one.style.display = 'none';
+        } else {
+            qitazhengjianzhaopian_one.style.display = 'block';
+        }
     }
 
     // 是否是受益人姓名
@@ -881,7 +1257,6 @@ function Component_list() {
     // 是否是受益人证件开始的时间
     this.id_period_begin = function (data, componentNextPro) {
         this.validity_start_time(data, componentNextPro, "datetimepicker7", "divChildrenTwo", "证件有效期限", "text_errors_timefive");
-
     }
 
 
@@ -978,42 +1353,41 @@ function Component_list() {
     this.sales_scenes_type = function (data) {
 
         var divone = document.createElement('div');
-        divone.setAttribute('id', 'matation_form-item_shenfenzhengfour')
+        divone.setAttribute('id', 'matation_form-item_shenfenzhengfour') // 经营场景多选框
         application_list_one.appendChild(divone);
 
         var divTwo = document.createElement('div');
-        divTwo.setAttribute('id', 'matation_form_item_checkbox_jingying_parent')
-        application_list_one.appendChild(divone);
+        divTwo.setAttribute('id', 'matation_form_item_checkbox_jingying_parent') // 接收选中经营场景的信息的div
         application_list_one.appendChild(divTwo);
 
         var divPrev = document.createElement('div');
         divPrev.className = 'matation_form_div_prev';
-        divPrev.setAttribute('id', 'matation_form_div_pren_two');
+        divPrev.setAttribute('id', 'matation_form_div_pren_two'); // 这个是保存 下一步按钮；
         divPrev.innerHTML += this.prev_next();
         application_list_one.appendChild(divPrev);
 
         var divxianxia = document.createElement('div');
-        divxianxia.setAttribute('id', "matation_form_item_xianxia");
+        divxianxia.setAttribute('id', "matation_form_item_xianxia"); // 线下场所 
         divTwo.appendChild(divxianxia);
 
         var div_official_account = document.createElement('div');
-        div_official_account.setAttribute('id', "matation_form_item_div_official_account");
+        div_official_account.setAttribute('id', "matation_form_item_div_official_account"); // 公众号
         divTwo.appendChild(div_official_account);
 
         var div_applets_scene = document.createElement('div');
-        div_applets_scene.setAttribute('id', "div_applets_scene");
+        div_applets_scene.setAttribute('id', "div_applets_scene"); // 小程序
         divTwo.appendChild(div_applets_scene);
 
         var div_app_scence = document.createElement('div');
-        div_app_scence.setAttribute('id', "div_app_scence");
+        div_app_scence.setAttribute('id', "div_app_scence"); // app
         divTwo.appendChild(div_app_scence);
 
         var div_pc_scence = document.createElement('div');
-        div_pc_scence.setAttribute('id', "div_pc_scence");
+        div_pc_scence.setAttribute('id', "div_pc_scence"); // pc
         divTwo.appendChild(div_pc_scence);
 
         var div_enterprise_wechat = document.createElement('div');
-        div_enterprise_wechat.setAttribute('id', "div_enterprise_wechat");
+        div_enterprise_wechat.setAttribute('id', "div_enterprise_wechat"); // 企业微信
         divTwo.appendChild(div_enterprise_wechat);
 
 
@@ -1043,7 +1417,8 @@ function Component_list() {
             }
         ];
 
-        var arrType = ['SALES_SCENES_STORE', 'SALES_SCENES_MP', 'SALES_SCENES_MINI_PROGRAM', 'SALES_SCENES_APP', 'SALES_SCENES_WEB', 'SALES_SCENES_WEWORK']
+        var arrType = ['SALES_SCENES_STORE', 'SALES_SCENES_MP', 'SALES_SCENES_MINI_PROGRAM', 'SALES_SCENES_APP', 'SALES_SCENES_WEB', 'SALES_SCENES_WEWORK'];
+        var arrText = ['线下场所', '公众号', '小程序', 'APP', 'PC网站', '企业微信']
 
         divxianxia.style.display = 'none';
         div_official_account.style.display = 'none';
@@ -1058,19 +1433,80 @@ function Component_list() {
         arrDom.push(div_app_scence);
         arrDom.push(div_pc_scence);
         arrDom.push(div_enterprise_wechat);
-        var array = [];
+        var str_xianxia = '线下场所';
+        var str_gongzhonghao = '公众号';
+        var str_xiaochengxu = '小程序';
+        var str_app = 'APP';
+        var str_pc = 'PC网站';
+        var str_weixin = '企业微信';
+      
+        if (wechartJson[0].business_scenario[0]) {
+            for (var i = 0; i < wechartJson[0].business_scenario.length; i++) {
+                if (wechartJson[0].business_scenario.indexOf(str_xianxia) != -1) {
+                    //  console.log('线下场所有')
+                    divxianxia.style.display = 'block';
+                } else {
+                    divxianxia.style.display = 'none';
+                }
 
-        this.checkbox_public(data, '经营场景', arr, divone, function (values, is_checked) {
+                if (wechartJson[0].business_scenario.indexOf(str_gongzhonghao) != -1) {
+                    // console.log('公众号有')
+                    div_official_account.style.display = 'block';
+                } else {
+                    div_official_account.style.display = 'none';
+                }
+
+                if (wechartJson[0].business_scenario.indexOf(str_xiaochengxu) != -1) {
+                    // console.log('小程序有')
+                    div_applets_scene.style.display = 'block';
+                } else {
+                    div_applets_scene.style.display = 'none';
+                }
+
+                if (wechartJson[0].business_scenario.indexOf(str_app) != -1) {
+                    // console.log('APP有')
+                    div_app_scence.style.display = 'block';
+                } else {
+                    div_app_scence.style.display = 'none';
+                }
+
+                if (wechartJson[0].business_scenario.indexOf(str_pc) != -1) {
+                    //  console.log('PC端有')
+                    div_pc_scence.style.display = 'block';
+                } else {
+                    div_pc_scence.style.display = 'none';
+                }
+
+                if (wechartJson[0].business_scenario.indexOf(str_weixin) != -1) {
+                    //  console.log('企业微信有')
+                    div_enterprise_wechat.style.display = 'block';
+                } else {
+                    div_enterprise_wechat.style.display = 'none';
+                }
+
+
+
+            }
+        }
+        var array = [];
+        var array_text = [];
+        array=data.value?data.value:[];
+        array_text=data.data_value_text?data.data_value_text:[];
+        this.checkbox_public(data, '经营场景', arr, divone, function (values, is_checked, index) {
             var arrayDom = [];
             divTwo.innerHTML = '';
             if (is_checked) {
-                array.push(values)
+                array.push(values);
+                array_text.push(arr[index].name);
             } else {
-                console.log(array.indexOf(values));
-                var index = array.indexOf(values);
+                var index_s = array.indexOf(values);
+                var index_text = array_text.indexOf(arr[index].name);
                 array.splice(index, 1);
+                array_text.splice(index_text);
             }
+            data.data_value_text = array_text;
             data.value = array;
+            wechartJson[0].business_scenario = array_text;
             for (var i = 0; i < array.length; i++) {
                 var index = arrType.indexOf(array[i]);
                 arrayDom.push(arrDom[index]);
@@ -1088,14 +1524,103 @@ function Component_list() {
             subject_boolean = false;
             SubjectInformation();
         }
+        var _this=this;
         li[2].onclick = function () {
             subject_boolean = false;
-            Settlementrules();
+            var arr_isnext = [];
+            var matation_form_item_shenfenzhengTwo = document.getElementById('matation_form-item_shenfenzhengTwo');
+            var matation_form_item_shenfenzhengThree = document.getElementById('matation_form-item_shenfenzhengThree')
+            matation_form_item_shenfenzhengTwo_input = matation_form_item_shenfenzhengTwo.getElementsByTagName('input')[0];
+            matation_form_item_shenfenzhengThree_input = matation_form_item_shenfenzhengThree.getElementsByTagName('input')[0];
+            var matation_form_item_xianxia=document.getElementById('matation_form_item_xianxia'); // 线下门店
+            var input_xianxia_input=_this.getClassName_dom(matation_form_item_xianxia,'input_public');
+            var input_xianxia_pic=_this.getClassName_dom(matation_form_item_xianxia,'input_updata')
+            matation_form_item_shenfenzhengTwo_input.onblur();
+            matation_form_item_shenfenzhengThree_input.onblur();
+             
+            if (matation_form_item_shenfenzhengTwo_input.hasAttribute('isnext')) {
+                arr_isnext.push(matation_form_item_shenfenzhengTwo_input);
+            }
+            if (matation_form_item_shenfenzhengThree_input.hasAttribute('isnext')) {
+                arr_isnext.push(matation_form_item_shenfenzhengThree_input);
+            }
+
+            if (wechartJson[0].business_scenario[0]) {
+                for (var i = 0; i < wechartJson[0].business_scenario.length; i++) {
+                    if (wechartJson[0].business_scenario.indexOf(str_xianxia) != -1) {
+                        for(var j=0;j<input_xianxia_input.length;j++){
+                            input_xianxia_input[j].onblur();
+                            if(input_xianxia_input[j].hasAttribute('isnext')){
+                                arr_isnext.push(input_xianxia_input[j]);
+                            }
+                        }
+                        for(var z=0;z<input_xianxia_pic.length;z++){
+                           //console.log('input_xianxia_pic', input_xianxia_pic[i]);
+                            var ul_pic_dom = input_xianxia_pic[z].parentNode.parentNode.nextElementSibling;
+                            if(ul_pic_dom.children.length == 0){
+                                input_xianxia_pic[z].onchange();
+                            }
+                            if(input_xianxia_pic[z].hasAttribute('isnext')){
+                                arr_isnext.push(input_xianxia_pic[z]);
+                            }
+                        }
+                      
+
+                    }
+    
+                    if (wechartJson[0].business_scenario.indexOf(str_gongzhonghao) != -1) {
+                       
+                    }
+    
+                    if (wechartJson[0].business_scenario.indexOf(str_xiaochengxu) != -1) {
+                    
+                    }
+    
+                    if (wechartJson[0].business_scenario.indexOf(str_app) != -1) {
+                      
+                    }
+    
+                    if (wechartJson[0].business_scenario.indexOf(str_pc) != -1) {
+                     
+                    }
+    
+                    if (wechartJson[0].business_scenario.indexOf(str_weixin) != -1) {
+                       
+                    }
+    
+    
+    
+                }
+            }
+
+
+            if (arr_isnext.length > 0) {
+                return;
+            } else {
+                wechartJson[0].business_information = true; // 代表主体信息已经填写完成并且确认；
+                Settlementrules();
+            }
+
+
+
         }
 
         if (subject_boolean == true) {
-            divPrev.style.display = 'none';
+            divPrev.style.display = 'none'; //   这个是保存 下一步按钮;
         }
+
+        if (wechartJson[0].business_scenario[0]) {   // 复选框是否选中函数
+            var matation_form_item_shenfenzhengfour = document.getElementById('matation_form-item_shenfenzhengfour');
+            var inputs = matation_form_item_shenfenzhengfour.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                var input_sing_prev = inputs[i].nextElementSibling.innerHTML;
+                if (wechartJson[0].business_scenario.indexOf(input_sing_prev) != -1) {
+                    inputs[i].checked = true;
+                }
+            }
+
+        }
+
 
 
     }
@@ -1106,11 +1631,11 @@ function Component_list() {
         var matation_form_item_xianxia = document.getElementById('matation_form_item_xianxia');
         matation_form_item_xianxia.innerHTML += str;
         this.input_box_id_card(data, 'matation_form_item_xianxia', componentNextPro);
-
     }
 
     // 线下场景 省市编号
     this.biz_address_code = function (data, componentNextPro) {
+
 
         this.input_box_id_card(data, 'matation_form_item_xianxia', componentNextPro);
 
@@ -2311,13 +2836,13 @@ function Component_list() {
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
-                p.setAttribute("isNext", "nextStep");
+                input.setAttribute("isNext", "nextStep");
                 return;
             } else {
-                if (p.hasAttribute('isNext')) {
-                    p.removeAttribute("isNext");
+                p.style.display = 'none';
+                if (input.hasAttribute('isNext')) {
+                    input.removeAttribute("isNext");
                 }
-
             }
 
             if (componentNextPro) {
@@ -3001,12 +3526,11 @@ function Component_list() {
             // '<a href="javascript:;" style="display:none" class="a-upload"><input type="file" name="" class="input_updata" id="">重新上传</a>' +
             '<div class="upload-tips">' + str3 + '</div>' +
             '</div>' +
-            '</div>' +
             '<ul class="application_list_one_ul_childer">' +
-            '<li>' +
-            '<img src="">' +
-            '<a href="javascript:;" class="del">删除</a>' +
-            '</li>' +
+            // '<li>' +
+            // '<img src="">' +
+            // '<a href="javascript:;" class="del">删除</a>' +
+            // '</li>' +
             '</ul>' +
             '<p class="text-error">' + str2 + '</p>' +
             '<p class="text-error">请上传2M内的彩色图片，格式可为bmp、png、jpg</p>';
@@ -3029,7 +3553,6 @@ function Component_list() {
             '<a href="javascript:;" class="a-upload"><input type="file" multiple="multiple" class="input_updata"  id=""><span>上传</span></a >' +
             // '<a href="javascript:;" style="display:none" class="a-upload"><input type="file" name="" id="">重新上传</a>' +
             '<div class="upload-tips" id="duozhangtupiande_shangchuan">' + str3 + '</div>' +
-            '</div>' +
             '</div>' +
             '<ul class="application_list_one_ul_childer">' +
             // '<li>' +
@@ -3080,6 +3603,9 @@ function Component_list() {
             input.style.cssText = "background:#ffffff;border:1px solid transparent";
             div.style.paddingLeft = '30px';
         }
+        if (data.value) {
+            input.value = data.value;
+        }
         input.onblur = function () {
             var text_errors_timeone = document.getElementById(idP);
             data.value = input.value ? input.value : "";
@@ -3088,8 +3614,12 @@ function Component_list() {
             if (a) {
                 text_errors_timeone.style.display = 'block';
                 text_errors_timeone.innerHTML = a;
+                input.setAttribute('isnext', 'nextStep');
             } else {
                 text_errors_timeone.style.display = 'none';
+                if (input.hasAttribute('isnext')) {
+                    input.removeAttribute('isnext');
+                }
             }
 
             if (componentNextPro) {
@@ -3142,17 +3672,25 @@ function Component_list() {
             input.border = 'none';
             input.style.cssText = "background:#ffffff;border:1px solid transparent";
         }
+        if (data.value) {
+            input.value = data.value;
+        }
         input.onblur = function () {
             data.value = input.value ? input.value : "";
-            console.log(data.value)
             var a = data.verification_method();
-            console.log(a);
             if (a) {
                 p2.style.display = 'block';
                 p2.innerHTML = a;
+                input.setAttribute('isnext', 'nextStep');
+            } else {
+                p2.innerHTML = '';
+                if (input.hasAttribute('isnext')) {
+                    input.removeAttribute('isnext');
+                }
             }
             if (componentNextPro) {
                 componentNextPro(data);
+
             }
         }
         input.onfocus = function () {
@@ -3165,14 +3703,14 @@ function Component_list() {
     // 上传单张图片验证的公共方法
     this.publicImgUupData = function (dom, data) {
         var yingyezhizhao = document.getElementById(dom);
-        var aA = yingyezhizhao.getElementsByTagName('a');
+        //  var aA = yingyezhizhao.getElementsByTagName('a');
         var inputs = yingyezhizhao.getElementsByTagName('input');
         var ul = yingyezhizhao.getElementsByTagName('ul')[0];
         var p = yingyezhizhao.getElementsByTagName('p');
         var span = yingyezhizhao.getElementsByTagName('span')[0];
-        var img = ul.getElementsByTagName('img')[0];
-        var li = ul.getElementsByTagName('li')[0];
-        li.style.display = 'none';
+        // var img = ul.getElementsByTagName('img')[0];
+        // var li = ul.getElementsByTagName('li')[0];
+        //li.style.display = 'none';
         p[0].style.display = 'none';
         p[1].style.display = 'none';
 
@@ -3184,44 +3722,74 @@ function Component_list() {
             var file = this.files[0];
             if (!file) {
                 p[0].style.display = 'block';
-                p[0].setAttribute('isnext', 'nextStep');
+                inputs[0].setAttribute('isnext', 'nextStep');
                 return;
             }
+
             var sizeImg = file.size;
             if (sizeImg > 1024 * 1024 * 2) {
                 p[1].style.display = 'block';
-                p[1].setAttribute('isnext', 'nextStep');
+                inputs[0].setAttribute('isnext', 'nextStep');
                 return;
             } else {
                 p[0].style.display = 'none';
-
             }
             var reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function (ev) {
-                li.style.display = 'block';
+                var li = document.createElement('li');
+                var img = document.createElement('img');
+                var a = document.createElement('a');
+                a.setAttribute('class', 'del');
+                img.src = ev.target.result;
+                ul.innerHTML = '';
+                ul.appendChild(li);
+                li.appendChild(img);
+                li.appendChild(a);
                 data.value = file;
                 img.src = ev.target.result;
                 span.innerHTML = '重新上传';
                 p[0].style.display = 'none';
                 p[1].style.display = 'none';
-                if (p[0].hasAttribute('isnext')) {
-                    p[0].removeAttribute('isnext');
+
+                if (inputs[0].hasAttribute('isnext')) {
+                    inputs[0].removeAttribute('isnext');
                 }
-                if (p[1].hasAttribute('isnext')) {
-                    p[1].removeAttribute('isnext');
+                li.onmousemove = function () {
+                    a.style.display = 'block';
+                    a.onclick = function () { // 单张图片的删除
+                        li.remove();
+                        p[0].style.display = 'block';
+                        data.value = "";
+                        console.log(data.value);
+                    }
                 }
+                li.onmouseout = function () {
+                    a.style.display = 'none';
+                }
+
+
+
+
+
             }
-       
+
         }
-        
-        
-        if(data.value){
+
+
+        if (data.value) {
             var file = data.value;
             var reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function (ev) {
-                li.style.display = 'block';
+                var li = document.createElement('li');
+                var img = document.createElement('img');
+                var a = document.createElement('a');
+                a.setAttribute('class', 'del');
+                img.src = ev.target.result;
+                ul.appendChild(li);
+                li.appendChild(img);
+                li.appendChild(a);
                 data.value = file;
                 img.src = ev.target.result;
                 span.innerHTML = '重新上传';
@@ -3237,31 +3805,15 @@ function Component_list() {
 
         }
 
-      
-
-
-
-        li.onmousemove = function () {
-            this.children[1].style.display = 'block';
-        }
-        li.onmouseout = function () {
-            this.children[1].style.display = 'none';
-        }
-        var a = ul.getElementsByTagName('a')[0];
-        a.onclick = function () { // 单张图片的删除
-            li.style.display = 'none';
-            p[0].style.display = 'block';
-            data.value = "";
-        }
 
         if (subject_boolean) {
             aA[0].remove();
-            ul.style.paddingLeft='0px';
+            ul.style.paddingLeft = '0px';
             a.remove();
         }
 
 
-       
+
 
     }
 
@@ -3270,145 +3822,135 @@ function Component_list() {
     // 多图片上传
     this.multiple_pictures = function (dom, data) {
         var parentId = document.getElementById(dom);
-        var ul = parentId.getElementsByTagName('ul')[0];
+        var _this = this;
+        var ul_ul = parentId.getElementsByTagName('ul')[0];
         var input = parentId.getElementsByTagName('input')[0];
-        var span = parentId.getElementsByTagName('span')[0];
-        var p = parentId.getElementsByTagName('p');
-        p[0].style.display = 'none';
-        p[1].style.display = 'none';
-        p[2].style.display = 'none';
-        p[3].style.display = 'none';
-        ul.innerHTML = '';
+        var span_span = parentId.getElementsByTagName('span')[0];
+        var p_p = parentId.getElementsByTagName('p');
+        ul_ul.innerHTML = '';
+        p_p[0].style.display = 'none';
+        p_p[1].style.display = 'none';
+        p_p[2].style.display = 'none';
+        p_p[3].style.display = 'none';
+        ul_ul.innerHTML = '';
         var arr = [];
-        var arr_result = [];
-        var nums = 0;
-        var arr_data = [];
-        input.onchange = function (e) {
-            span.innerText = '继续上传';
-            var files = e.target.files;
+        arr = data.value ? data.value : [];
+        data.value = data.value ? data.value : [];
+        input.onchange = function () {
+            var that = this;
+           
+            _this.onchangePic(that, data, arr, ul_ul, span_span, p_p,input);
+        }
 
-            var num = 0;
-            for (let i = 0; i < files.length; i++) {
-                var file = e.target.files[i];
-                var sizeImg = file.size;
-
-                if (sizeImg > 1024 * 1024 * 2) {
-                    p[1].style.display = 'block';
-                    return;
-                }
-
-                num += 1;
-                //   if (data.caption == '小程序截图' || data.caption == '公众号页面截图') {
-                var len = parseInt(arr.length) + num;
-                if (len > 5) {
-                    p[2].style.display = 'block';
-                    return;
-                }
-                //  }
+        if (data.value && data.value.length > 0) {
+            for (let i = 0; i < data.value.length; i++) {
+                var file = data.value[i];
                 var reader = new FileReader();
-                reader.readAsDataURL(files[i]);
+                reader.readAsDataURL(file);
                 reader.onload = function (ev) {
                     var li = document.createElement('li');
                     var img = document.createElement('img');
                     var a = document.createElement('a');
                     a.setAttribute('class', 'del');
                     img.src = ev.target.result;
-                    ul.appendChild(li);
+                    ul_ul.appendChild(li);
                     li.appendChild(img);
                     li.appendChild(a);
-                    nums += 1;
-                    var datas = {
-                        name: nums - 1,
-                        data_file: files[i]
-                    }
-                    arr.push(datas);
-                    var datas_result = {
-                        name: nums - 1,
-                        datas: e.target.result
-                    }
-                    arr_result.push(datas_result);
-                    li.setAttribute('index', nums - 1);
-                    //  console.log(i);
-                    arr_data.push(files[i]);
-                    data.value = arr_data;
-                    //  console.log(data.value);
-                    p[0].style.display = 'none';
-                    p[1].style.display = 'none';
-                    p[2].style.display = 'none';
-                    p[3].style.display = 'none';
+                    var lis = null;
                     li.onmousemove = function () {
                         a.style.display = 'block';
+                        lis = ul_ul.children;
+                        for (let j = 0; j < lis.length; j++) {
+                            var a_a = lis[j].children[1];
+                            a_a.onclick = function () {
+                                arr.splice(j, 1);
+                                data.value = arr;
+                                this.parentNode.remove();
+                            }
+                        }
                     }
                     li.onmouseout = function () {
                         a.style.display = 'none';
                     }
-                  
-                    a.onclick = function () {
-                        var index_name = this.parentNode.getAttribute('index');
-                        this.parentNode.remove();
-                        var arrs = [];
-                        var arr_results = [];
-                        arr_data = [];
-                        for (var i = 0; i < arr.length; i++) {
-                            if (arr[i].name != index_name) {
-                                arrs.push(arr[i]);
-                                arr_data.push(arr[i].data_file);
-                            }
-                        }
-                        for (var i = 0; i < arr_result.length; i++) {
-                            if (arr_result[i].name != index_name) {
-                                // console.log(index_name);
-                                arr_results.push(arr_result[i]);
-                            }
-                        }
-                        arr = arrs;
-                        arr_result = arr_results;
-                        data.value = arr_data;
-                        p[2].style.display = 'none';
-                        console.log(data.value);
-                        if (data.value.length == 0) {
-                            p[0].style.display = 'block';
-                        }
-                    }
-
                 }
             }
 
-
-
-
-
         }
-        // if(data.value){
-        //     var files = data.value;
-
-           
-        //     for (let i = 0; i < files.length; i++) {
-        //         var file = e.target.files[i];
-        //         var sizeImg = file.size;
-
-        //         var reader = new FileReader();
-        //         reader.readAsDataURL(files[i]);
-        //         reader.onload = function (ev) {
-        //             var li = document.createElement('li');
-        //             var img = document.createElement('img');
-        //             var a = document.createElement('a');
-        //             a.setAttribute('class', 'del');
-        //             img.src = ev.target.result;
-        //             ul.appendChild(li);
-        //             li.appendChild(img);
-        //             li.appendChild(a);
-                   
-                  
-        //             arr_result.push(datas_result);
-        //             li.setAttribute('index', nums - 1);
-                  
-                
-
-        //         }
-        // }
-
     }
+
+
+    //多图片上传onchange后的方法
+    this.onchangePic = function (that, data, arr, ul, span, p,input) {
+
+        span.innerText = '继续上传';
+        var files = that.files;
+        var num = 0;
+        if(files.length==0){
+            p[0].style.display = 'block';
+            input.setAttribute('isnext', 'nextStep');
+            return;
+        }
+        for (let i = 0; i < files.length; i++) {
+            var file = files[i];
+            var sizeImg = file.size;
+            
+            if (sizeImg > 1024 * 1024 * 2) {
+                p[1].style.display = 'block';
+                input.setAttribute('isnext', 'nextStep');
+                return;
+            }
+            num += 1;
+            var len = data.value.length + num;
+            if (len > 5) {
+                p[2].style.display = 'block';
+                console.log(input)
+                input.setAttribute('isnext', 'nextStep');
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.readAsDataURL(files[i]);
+            reader.onload = function (ev) {
+                arr.push(files[i]);
+                data.value = arr;
+                var li = document.createElement('li');
+                var img = document.createElement('img');
+                var a = document.createElement('a');
+                a.setAttribute('class', 'del');
+                img.src = ev.target.result;
+                ul.appendChild(li);
+                li.appendChild(img);
+                li.appendChild(a);
+                p[0].style.display = 'none';
+                p[1].style.display = 'none';
+                p[2].style.display = 'none';
+                p[3].style.display = 'none';
+                var lis = null;
+                if (input.hasAttribute('isnext')) {
+                    input.removeAttribute('isnext');
+                };
+                li.onmousemove = function () {
+                    a.style.display = 'block';
+                    lis = ul.children;
+                    for (let j = 0; j < lis.length; j++) {
+                        var a_a = lis[j].children[1];
+                        a_a.onclick = function () {
+                            arr.splice(j, 1);
+                            data.value = arr;
+                            this.parentNode.remove();
+                        }
+                    }
+                }
+                li.onmouseout = function () {
+                    a.style.display = 'none';
+                }
+
+
+
+            }
+        }
+    }
+
 
 
 
@@ -3452,15 +3994,15 @@ function Component_list() {
         input.onblur = function () {
             data.value = input.value ? input.value : "";
             var a = data.verification_method(); // 前面赋值了，后面调用函数；
-
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
-                p.setAttribute("isNext", "nextStep");
+                //  p.setAttribute("isNext", "nextStep");
+                input.setAttribute("isNext", "nextStep");
                 return;
             } else {
-                if (p.hasAttribute('isNext')) {
-                    p.removeAttribute("isNext");
+                if (input.hasAttribute('isNext')) {
+                    input.removeAttribute("isNext");
                 }
 
             }
@@ -3530,13 +4072,12 @@ function Component_list() {
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
-                p.setAttribute("isNext", "nextStep");
+                input.setAttribute("isNext", "nextStep");
                 return;
             } else {
-                if (p.hasAttribute('isNext')) {
-                    p.removeAttribute("isNext");
+                if (input.hasAttribute('isNext')) {
+                    input.removeAttribute("isNext");
                 }
-
             }
 
             if (componentNextPro) {
@@ -3613,7 +4154,7 @@ function Component_list() {
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].onchange = function () {
 
-                nextPro(arr[i].type, this.checked);
+                nextPro(arr[i].type, this.checked, i);
 
             }
         }
@@ -3627,7 +4168,7 @@ function Component_list() {
 
     // 选择登记证书 方法
     this.xuanze_dengji = function () {
-        var str = '<label class="lable_left">登记证书类型</label><span class="span_public" id="common_xuanze_zhengji_span">请选择<i class="triangle_banks"></i></span>'
+        var str = '<label class="lable_left">登记证书类型</label><span class="span_public" id="common_xuanze_zhengji_span">请选择<i class="triangle_banks"></i></span><p id="common_xuanze_zhengji_p_yuansu">请选择证书类型</p>'
         return str;
     }
 
@@ -3637,7 +4178,7 @@ function Component_list() {
         return str;
     }
 
-
+    // 根据class获取元素；
     this.getClassName_dom = function (parents, dom_class) {
         var dom = parents.getElementsByTagName('*');
         var dom_arr = [];

@@ -1875,3 +1875,9 @@ img {
    border-radius: 4px;
    color: white;
 }
+
+#applicationParent #common_xuanze_zhengji_p_yuansu{
+  color: #f15451;
+  margin-left: 138px;
+  display: none;
+}

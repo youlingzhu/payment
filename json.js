@@ -16,7 +16,18 @@
             encryption_type: null, //加密类型
             encryption_method: null, //通过加密类型来注册对应的加密方法，
             is_it_required: true, // 是否必填  true代码必填，true代码选填， false 为不填
-
+            is_organization:false,   // 默认组织机构不显示
+            is_organization_dang:false, //默认组织机构不显示  针对党政机关
+            is_organization_gongyi:false, //默认组织机构不显示  针对其他组织
+            is_ID_or_passport:true,   // 默认是身份证
+            is_beneficiary:true,      // 受益人显示和隐藏,默认隐藏
+            is_beneficiary_pic:true,   // 受益人默认是身份证照片显示还是其他类型照片显示，默认是身份证；
+            subject_information:false,  // 代表主体信息已经填写完成并且正确；
+            business_information:false,  // 代表经营信息已经填写完成并且正确；
+            business_scenario:[],         // 经营场景信息         
+            
+            
+            
             // 如果还有子属性就按照上面的继续复制一遍，要修改第一项属性的key值，和对应的类型，
         },
 
@@ -211,14 +222,15 @@
                             verification_method: null,
                             encryption_type: null,
                             encryption_method: null,
-                            is_it_required: true
+                            is_it_required: true,
+                            data_value_type:null
                         },
                         {
                             key_name: "cert_number",
                             caption: "证书号",
                             value: null,
                             fieldType: "text",
-                            component_type: "input_box_dengji",
+                            component_type: "cert_number",
                             generate_component: null,
                             verification_type: 'cert_number_type',
                             verification_method: null,
@@ -733,7 +745,8 @@
                             verification_method: null,
                             encryption_type: null,
                             encryption_method: null,
-                            is_it_required: true
+                            is_it_required: true,
+                            data_value_text:null
                         },
                         {
                             key_name: "biz_store_info",

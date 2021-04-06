@@ -95,7 +95,7 @@ function required_information(nextPro) {
             Information_to_fill_out.style.display = 'none';
             order_application.style.display = 'block';
             nextPro(objArr[this.index].component);
-            //pushHistory_one();
+            pushHistory_one();
         }
 
         
@@ -231,7 +231,7 @@ function order_of_payment_and_registration() {
         title: "title",
         url: "#"
     };
-    window.history.pushState(state, "title", "#one");
+    window.history.pushState(state, "title", "#two");
 }
 
 function prev_next(){
