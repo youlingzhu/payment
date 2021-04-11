@@ -70,9 +70,9 @@
     <script src="./registerComponent.js"></script>
 
     <script>
-        let subject_type = null;
-        let subject_index=null;
-        let subject_boolean=false;
+        let subject_type = null;    // 主体信息类型
+        let subject_index=null;     // 选择主体信息下标
+        let subject_boolean=false;  // 预览信息
         var application_list_one=document.getElementById('application_list_one');
         new Register(wechartJson, function () {}); // 这个是 registerEvent.js 里面的对象；专门是挂载生成的组件和input框的value值；
         new RecursiveTool(function (res) {
@@ -83,7 +83,8 @@
                         response.generate_component(function (value,index) {
                             subject_type = value;
                             subject_index = index;
-                            // console.log(value); 公司还是个体
+                         //    console.log('subject_type',subject_type);       // 公司还是个体
+                         //    console.log('subject_index',subject_index)
                             required_information(function (values) {
                                 var fun = eval(values);
                                 fun(values);
@@ -160,17 +161,14 @@
 
 
         window.addEventListener("popstate", function (e) {
-            console.log("我监听到了浏览器的返回按钮事件啦"); //根据自己的需求实现自己的功能  
+           // console.log("我监听到了浏览器的返回按钮事件啦"); //根据自己的需求实现自己的功能  
            // window.location.href = 'http://127.0.0.1:5500/index.html#';
-           console.log(location.hash);
+           //  console.log(location.hash);
            var Information_to_fill_out = document.getElementById('Information_to_fill_out');
            var order_application = document.getElementById('order_application');
-           if(location.hash=='#two'){
              Information_to_fill_out.style.display='block';
              order_application.style.display='none';
-           }else if(location.hash=='#one'){
-                
-           }
+             required_information();
         }, false);
    
    

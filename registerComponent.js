@@ -39,12 +39,13 @@ function Component_list() {
         ul.innerHTML = str;
         div.innerHTML = strTitle;
         div.appendChild(ul);
-        document.body.appendChild(div);
+        document.body.appendChild(div);         // 放到body的后面；
         var li = ul.getElementsByTagName('li');
         var aDiv = ul.getElementsByTagName("div");
         var applicationParent = document.getElementById('applicationParent');
         var Information_to_fill_out = document.getElementById('Information_to_fill_out');
         var order_application = document.getElementById('order_application');
+        
 
         for (let i = 0; i < li.length; i++) {
             li[i].index = i;
@@ -53,6 +54,9 @@ function Component_list() {
                 btn.addEventListener("click", function () {
                     var index = this.parentNode.index;
                     data.value = arr[index].value;
+                    wechartJson[0].zhuti_leixing_ziduan= arr[index].value;
+                    wechartJson[0].zhuti_leixing = arr[index].caption;
+                    data.data_value_type = arr[index].caption;
                     this.parentNode.parentNode.parentNode.style.display = 'none';
                     Information_to_fill_out.style.display = 'block';
                     order_application.style.display = 'none';
@@ -62,6 +66,15 @@ function Component_list() {
                     pushHistory_one(); // 自己做的回退事件;
                 })
             }
+        }
+        
+        if(subject_boolean){
+            div.style.display='none';
+            var datas=data.data_value_type;
+            var str='<div class="info-hd" id="zhutileixing_top_hrs"><h2>主体信息</h2></div><div class="application_list_one_ul_li_div" style="padding-left: 30px;padding-top:55px;padding-bottom:10px"><label class="lable_left">主体类型</label><span class="input_public" id="zhutileix_input" style="background: rgb(255, 255, 255); border: 1px solid transparent; width: 300px;"></span><p class="text-errors"></p></div><div class="public_hr"></div>';
+                    application_list_one.innerHTML+=str;
+                    var zhutileix_input=document.getElementById('zhutileix_input');
+                    zhutileix_input.innerHTML='&nbsp;&nbsp;&nbsp;'+datas;
         }
     }
 
@@ -78,13 +91,13 @@ function Component_list() {
         var div = document.createElement("div");
         div.className = 'form-item';
         div.setAttribute('id', 'form-item_jingyingxinxi');
-        var str = "<div class='info-hd'><h2>主体信息</h2></div>" +
+        var str = "<div class='info-hd' id='zhutixinxi_top_hrs'><h2>主体信息</h2></div>" +
             "<div class='form-item_children'>" +
             "<div class='application_phone' id='application_phone'>" +
             "<div class='data-hd'>" +
             "<h4 class='fl ng-binding'>营业执照</h4>" +
             "</div>" +
-            "<div class='inner ng-scope'>" +
+            "<div class='ng-scope'>" +
             "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
             "<div class='msg-cnt'>" +
             "<p class='ng-binding'>请上传营业执照，需年检章齐全，当年注册除外</p>" +
@@ -98,16 +111,9 @@ function Component_list() {
             "<a href='javascript:;' class='a-upload'>" +
             "<input type='file' name='' class='input_updata' id=''><span>上传</span>" +
             "</a>" +
-            // "<a href='javascript:;' class='a-upload'  style='display:none'>" +
-            // "<input type='file' name='' class='input_updata' id=''>重新上传" +
-            // "</a>" +
             "<div class='upload-tips'>请上传2M内的彩色照片 or 彩色扫描件 or 加盖公章鲜章的复印件，可添加“微信支付”相关水印（如微信支付认证）</div>" +
             "</div>" +
-            "<ul id='application_list_one_ul_childer' class='application_list_one_ul_childer'>" +
-            // "<li>" +
-            // "<img src='' />" +
-            // "<a href='javascript:;'  class='del'>删除</a>" +
-            // "</li>" +
+            "<ul id='application_list_one_ul_childers' class='application_list_one_ul_childer'>" +
             "</ul>" +
             "<p class='text-error'>请填写营业执照照片</p>" +
             "<p class='text-error'>请上传2M内的彩色图片，格式可为bmp、png、jpeg、jpg或gif</p>" +
@@ -127,6 +133,12 @@ function Component_list() {
             div_box_dengji.style.display = 'block';
         } else {
             div_box_dengji.style.display = 'none';
+        }
+        var zhutixinxi_top_hrs=document.getElementById('zhutixinxi_top_hrs');
+        if(subject_boolean){
+            zhutixinxi_top_hrs.style.display='none';
+            document.getElementById('yingyezhizhao').style.paddingLeft='40px';
+            document.getElementById('application_list_one_ul_childers').style.paddingLeft='10px'
         }
     }
 
@@ -161,7 +173,7 @@ function Component_list() {
             "<div class='data-hd'>" +
             "<h4 class='fl ng-binding'>登记证书</h4>" +
             "</div>" +
-            "<div class='inner ng-scope'>" +
+            "<div class='ng-scope'>" +
             "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
             "<div class='msg-cnt'>" +
             "<p class='ng-binding'>请上传相关部门颁发的证书，如：事业单位法人证书、统一社会信用代码证书</p>" +
@@ -339,14 +351,14 @@ function Component_list() {
         })
     }
 
-    // 是否是受益人证件开始的时间
+    // 登记证件开始的时间
     this.period_begin = function (data, componentNextPro) {
         this.validity_start_time(data, componentNextPro, "datetimepicker9", "matation_business_dengji_box", "证件有效期限", "text_errors_timesix");
 
     }
 
 
-    // 是否是收益人证件结束的时间
+    // 登记证件结束的时间
     this.period_end = function (data, componentNextPro) {
         this.validity_end_time(data, componentNextPro, 'datetimepicker10', "matation_business_dengji_box", "text_errors_timesix");
     }
@@ -369,7 +381,7 @@ function Component_list() {
             "<div class='data-hd'>" +
             "<h4 class='fl ng-binding'>组织机构代码证</h4>" +
             "</div>" +
-            "<div class='inner ng-scope'>" +
+            "<div class='ng-scope'>" +
             "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
             "<div class='msg-cnt'>" +
             "<p class='ng-binding'>由于你的营业执照未三证合一，请上传“组织机构代码证”</p>" +
@@ -448,13 +460,14 @@ function Component_list() {
             input.disabled = true;
             input.border = 'none';
             input.style.cssText = "background:#ffffff;border:1px solid transparent";
-            div.style.paddingLeft = '30px';
+            div.style.paddingLeft ='40px';
         } else {
             if (data.value) {
                 input.value = data.value;
                 input.disabled = false;
                 input.style.cssText = "background:#ffffff;border:1px solid #e0e0e0";
             }
+            div.style.paddingLeft = '40px';
         }
 
         input.onblur = function () {
@@ -617,6 +630,7 @@ function Component_list() {
             data.value = data.value;
         } else {
             data.value = 'IDENTIFICATION_TYPE_IDCARD';
+            data.data_value_type = '中国大陆居民--身份证';
         }
 
         if (wechartJson[0].is_ID_or_passport) {
@@ -654,11 +668,13 @@ function Component_list() {
         ];
 
 
-        this.three_syndromes_component(data, "证件类型", arr, div, function (value) {
+
+        this.three_syndromes_component(data, "证件类型", arr, div, function (value,index) {
             var form_item_shenfenzhengbottom = document.getElementById('form_item_shenfenzhengbottom');
             var form_item_shenfenzhengbottomTwo = document.getElementById('form_item_shenfenzhengbottomTwo');
 
             data.value = value;
+            data.data_value_type=arr[index].name;
             if (value == "IDENTIFICATION_TYPE_IDCARD") {
                 //身份证照显示
                 //证件照隐藏
@@ -682,24 +698,40 @@ function Component_list() {
         var form_item_shenfenzheng = document.getElementById('form-item_shenfenzheng');
         var form_item_shenfenzheng_ul = form_item_shenfenzheng.getElementsByTagName('ul')[0];
         var form_item_shenfenzheng_input = form_item_shenfenzheng_ul.getElementsByTagName('input');
-        if (data.value == 'IDENTIFICATION_TYPE_IDCARD') {
-            form_item_shenfenzheng_input[0].checked = true;
+        var divParent_matation_form= document.getElementById('divParent_matation_form');
+       
+        if(subject_boolean==false){
+        
+            if (data.value == 'IDENTIFICATION_TYPE_IDCARD') {
+                form_item_shenfenzheng_input[0].checked = true;
+            }
+
+            if (data.value == 'IDENTIFICATION_TYPE_HONGKONG_PASSPORT') {
+                form_item_shenfenzheng_input[1].checked = true;
+            }
+            if (data.value == 'IDENTIFICATION_TYPE_MACAO_PASSPORT') {
+                form_item_shenfenzheng_input[2].checked = true;
+            }
+            if (data.value == 'IDENTIFICATION_TYPE_TAIWAN_PASSPORT') {
+                form_item_shenfenzheng_input[3].checked = true;
+            }
+            if (data.value == 'IDENTIFICATION_TYPE_OVERSEA_PASSPORT') {
+                form_item_shenfenzheng_input[4].checked = true;
+            }
+        
+        }else{
+            var matation_form_is_shouyiren = document.getElementById('form-item_shenfenzheng');
+            var ul = matation_form_is_shouyiren.getElementsByTagName('ul')[0];
+            console.log(ul)
+            var div = ul.children[1];
+            var datas=data.data_value_type;
+            div.innerHTML='&nbsp;&nbsp;&nbsp;'+datas;
+            ul.style.paddingLeft='40px';
+            ul.children[0].style.paddingLeft='10px';
+            ul.children[1].innerHTML=data.data_value_type;
         }
 
-        if (data.value == 'IDENTIFICATION_TYPE_HONGKONG_PASSPORT') {
-            form_item_shenfenzheng_input[1].checked = true;
-        }
-        if (data.value == 'IDENTIFICATION_TYPE_MACAO_PASSPORT') {
-            form_item_shenfenzheng_input[2].checked = true;
-        }
-        if (data.value == 'IDENTIFICATION_TYPE_TAIWAN_PASSPORT') {
-            form_item_shenfenzheng_input[3].checked = true;
-        }
-        if (data.value == 'IDENTIFICATION_TYPE_OVERSEA_PASSPORT') {
-            form_item_shenfenzheng_input[4].checked = true;
-        }
-
-
+        
 
 
 
@@ -711,6 +743,11 @@ function Component_list() {
         var form_item_shenfenzhengbottom = document.getElementById('form_item_shenfenzhengbottom');
         form_item_shenfenzhengbottom.appendChild(str);
         this.publicImgUupData('shenfenzhengzhaopianzhengmian', data);
+        if(subject_boolean){
+      
+          document.getElementById('shenfenzhengzhaopianzhengmian').style.paddingLeft='30px';
+               
+       }
     }
 
 
@@ -720,6 +757,11 @@ function Component_list() {
         var form_item_shenfenzhengbottom = document.getElementById('form_item_shenfenzhengbottom');
         form_item_shenfenzhengbottom.appendChild(str);
         this.publicImgUupData('shenfenzhengzhaopianfanmian', data);
+        if(subject_boolean){
+      
+            document.getElementById('shenfenzhengzhaopianfanmian').style.paddingLeft='40px';
+                
+         }
     }
 
 
@@ -770,11 +812,17 @@ function Component_list() {
         this.three_syndromes_components(data, "是否为受益所有人", arr, dom, function (value) {
             data.value = value; // 赋值给经营者/法人是否为受益人这个数据
             var divParent = document.getElementById('divParent_matation_form');
+            var divChildrenThree=document.getElementById('divChildrenThree');
+            var divChildrenFour = document.getElementById('divChildrenFour');
             if (data.value == true) {
                 divParent.style.display = 'none';
+                divChildrenThree.style.display = 'none';
+                divChildrenFour.style.display='none';
                 wechartJson[0].is_beneficiary = true;
             } else {
                 divParent.style.display = 'block';
+                divChildrenThree.style.display = 'block';
+                divChildrenFour.style.display='block';
                 wechartJson[0].is_beneficiary = false;
             }
         }, 'matation_form_is_shouyiren');
@@ -796,6 +844,8 @@ function Component_list() {
             } else {
                 div.innerHTML = '否';
             }
+            matation_form_is_shouyiren.style.paddingLeft='40px';
+            div.style.paddingLeft='150px';
         }
 
 
@@ -832,32 +882,43 @@ function Component_list() {
     this.id_type = function (data) {
         var str = this.createTitleTopTwo("受益人信息");
         var divParent = document.createElement('div');
-        var divChildrenOne = document.createElement('div');
-        var divChildrenTwo = document.createElement('div');
-        var divChildrenThree = document.createElement('div');
-        var divPrev = document.createElement('div');
+        var divChildrenOne = document.createElement('div');     // 证件类型 身份证或护照类
+        var divChildrenTwo = document.createElement('div');     // 证件类型信息
+        var divChildrenThree = document.createElement('div');   // 受益人日期组件
+        var divChildrenFour = document.createElement('div');    // hr线
+        var divPrev = document.createElement('div');            // 保存 返回按钮
         divPrev.className = 'matation_form_div_prev';
-        divPrev.setAttribute('id', 'matation_form_div_pren_one');
+        divPrev.setAttribute('id', 'matation_form_div_pren_one');   // 保存 返回按钮
         divPrev.innerHTML += this.prev_next();
+        
         divParent.setAttribute('id', 'divParent_matation_form');
         divChildrenOne.setAttribute('id', 'divChildrenOne');
         divChildrenTwo.setAttribute('id', 'divChildrenTwo');
         divChildrenThree.setAttribute('id', 'divChildrenThree');
+        divChildrenFour.setAttribute('id', 'divChildrenFour');
+       
         application_list_one.appendChild(divParent);
         divParent.appendChild(divChildrenOne);
         divParent.appendChild(divChildrenTwo);
-        divParent.appendChild(divChildrenThree);
+        application_list_one.appendChild(divChildrenThree);
+        application_list_one.appendChild(divChildrenFour);
+       
         application_list_one.appendChild(divPrev);
         var div_hr = document.createElement('div');
         div_hr.setAttribute('class', 'public_hrs');
-        divChildrenThree.appendChild(div_hr);
+        divChildrenFour.appendChild(div_hr);
+        
         divChildrenOne.innerHTML += str;
 
 
         if (wechartJson[0].is_beneficiary) { // 默认隐藏
             divParent.style.display = 'none';
+            divChildrenThree.style.display = 'none';
+            divChildrenFour.style.display='none';
         } else {
             divParent.style.display = 'block';
+            divChildrenThree.style.display = 'block';
+            divChildrenFour.style.display = 'block';
         }
 
 
@@ -882,12 +943,14 @@ function Component_list() {
 
         if (!data.value) {
             data.value = 'IDENTIFICATION_TYPE_IDCARD'; // 默认是身份证;
+            data.data_value_type='中国大陆居民--身份证';
         } else {
             data.value = data.value;
+            
         }
 
 
-        this.three_syndromes_component(data, "证件类型", arr, divChildrenOne, function (values) {
+        this.three_syndromes_component(data, "证件类型", arr, divChildrenOne, function (values,index) {
             data.value = values; // 赋值给经营者/法人是否为受益人这个数据
             var shenfenzhengzhaopianzhengmian_one = document.getElementById('shenfenzhengzhaopianzhengmian_one');
             var shenfenzhengzhaopianfanmian_one = document.getElementById('shenfenzhengzhaopianfanmian_one');
@@ -895,7 +958,7 @@ function Component_list() {
             shenfenzhengzhaopianzhengmian_one.style.display = "block";
             shenfenzhengzhaopianfanmian_one.style.display = "block";
             qitazhengjianzhaopian_one.style.display = "none";
-
+            data.data_value_type=arr[index].name;
             if (values == "IDENTIFICATION_TYPE_IDCARD") {
                 //身份证照显示
                 //证件照隐藏
@@ -919,33 +982,42 @@ function Component_list() {
         var divChildrenOne_ul = divChildrenOne.getElementsByTagName('ul')[0];
         var divChildrenOne_input = divChildrenOne_ul.getElementsByTagName('input');
 
-        if (data.value == 'IDENTIFICATION_TYPE_IDCARD') {
-            divChildrenOne_input[0].checked = true;
+        if(subject_boolean==false){      // 受益人相关的证件类型 就是被选择
+            if (data.value == 'IDENTIFICATION_TYPE_IDCARD') {
+                divChildrenOne_input[0].checked = true;
 
+            }
+
+            if (data.value == 'IDENTIFICATION_TYPE_HONGKONG_PASSPORT') {
+                divChildrenOne_input[1].checked = true;
+
+            }
+            if (data.value == 'IDENTIFICATION_TYPE_MACAO_PASSPORT') {
+                divChildrenOne_input[2].checked = true;
+
+            }
+            if (data.value == 'IDENTIFICATION_TYPE_TAIWAN_PASSPORT') {
+                divChildrenOne_input[3].checked = true;
+
+            }
+            if (data.value == 'IDENTIFICATION_TYPE_OVERSEA_PASSPORT') {
+                divChildrenOne_input[4].checked = true;
+
+            }
+            divPrev.style.display='block';
+        }else{
+            // document.getElementById('shenfenzhengzhaopianzhengmian_one').style.paddingLeft='40px';
+            // document.getElementById('shenfenzhengzhaopianfanmian_one').style.paddingLeft='40px';
+            // document.getElementById('qitazhengjianzhaopian_one').style.paddingLeft='40px';
+           
+            
         }
-
-        if (data.value == 'IDENTIFICATION_TYPE_HONGKONG_PASSPORT') {
-            divChildrenOne_input[1].checked = true;
-
-        }
-        if (data.value == 'IDENTIFICATION_TYPE_MACAO_PASSPORT') {
-            divChildrenOne_input[2].checked = true;
-
-        }
-        if (data.value == 'IDENTIFICATION_TYPE_TAIWAN_PASSPORT') {
-            divChildrenOne_input[3].checked = true;
-
-        }
-        if (data.value == 'IDENTIFICATION_TYPE_OVERSEA_PASSPORT') {
-            divChildrenOne_input[4].checked = true;
-
-        }
-
 
 
 
         //  保存并下一步
         var li = divPrev.getElementsByTagName('li');
+
         var _this = this;
         li[0].onclick = function () {
             subject_boolean = false;
@@ -960,6 +1032,7 @@ function Component_list() {
             var form_item_shenfenzhengbottom = document.getElementById('form_item_shenfenzhengbottom'); // 法定代表人身份证信息
             var form_item_shenfenzhengbottomTwo = document.getElementById('form_item_shenfenzhengbottomTwo'); // 法定代表人港澳台护照信息;
             var divChildrenTwo = document.getElementById('divChildrenTwo'); // 受益人信息
+            var divChildrenThree = document.getElementById('divChildrenThree'); // 证件有效期限；
             var input_zhizhao_pic = _this.getClassName_dom(matation_business_pictrue_box, 'input_updata'); //营业执照照片；
             var input_zhizhao_input = _this.getClassName_dom(matation_business_pictrue_box, 'input_public'); //营业执照input框；
             var input_dengji_pic = _this.getClassName_dom(matation_business_dengji_box, 'input_updata'); //登记执照照片；
@@ -976,7 +1049,7 @@ function Component_list() {
             var input_huzhao_riqi = _this.getClassName_dom(form_item_shenfenzhengbottomTwo, 'form-control'); //法人证件身份证到期日期；
 
             var input_shouyiren_input = _this.getClassName_dom(divChildrenTwo, 'input_public'); //受益人证件身份证input框；
-            var input_shouyiren_riqi = _this.getClassName_dom(divChildrenTwo, 'form-control'); //受益人证件身份证到期日期；
+            var input_shouyiren_riqi = _this.getClassName_dom(divChildrenThree, 'form-control'); //受益人证件身份证到期日期；
 
 
 
@@ -1166,7 +1239,7 @@ function Component_list() {
 
 
 
-            console.log(arr_isnext);
+            
             var common_xuanze_zhengji_span = document.getElementById('common_xuanze_zhengji_span');
             var common_xuanze_zhengji_p_yuansu = document.getElementById('common_xuanze_zhengji_p_yuansu');
             var value = common_xuanze_zhengji_span.firstChild.nodeValue;
@@ -1177,7 +1250,7 @@ function Component_list() {
             if (arr_isnext.length > 0) {
                 return;
             } else {
-                wechartJson[0].subject_information = true; // 代表主体信息已经填写完成并且确认；
+                wechartJson[0].leixing[subject_index].subject_information = true; // 代表主体信息已经填写完成并且确认；
                 ManagementInformation();
             }
 
@@ -1209,6 +1282,9 @@ function Component_list() {
         } else {
             shenfenzhengzhaopianzhengmian_one.style.display = 'block';
         }
+        if(subject_boolean){
+            shenfenzhengzhaopianzhengmian_one.style.paddingLeft='40px';
+        }
     }
 
 
@@ -1224,6 +1300,9 @@ function Component_list() {
             shenfenzhengzhaopianfanmian_one.style.display = 'none';
         } else {
             shenfenzhengzhaopianfanmian_one.style.display = 'block';
+        }
+        if(subject_boolean){
+            shenfenzhengzhaopianfanmian_one.style.paddingLeft='40px';
         }
     }
 
@@ -1241,6 +1320,9 @@ function Component_list() {
         } else {
             qitazhengjianzhaopian_one.style.display = 'block';
         }
+        if(subject_boolean){
+            qitazhengjianzhaopian_one.style.paddingLeft='40px';
+        }
     }
 
     // 是否是受益人姓名
@@ -1256,13 +1338,139 @@ function Component_list() {
 
     // 是否是受益人证件开始的时间
     this.id_period_begin = function (data, componentNextPro) {
-        this.validity_start_time(data, componentNextPro, "datetimepicker7", "divChildrenTwo", "证件有效期限", "text_errors_timefive");
+       // this.validity_start_time(data, componentNextPro, "datetimepicker7", "divChildrenTwo", "证件有效期限", "text_errors_timefive");
+   
+     //  var idChildrens = idChildren + '_input';
+       var div = document.createElement("div");
+       div.className = 'application_list_one_ul_li_divs';
+       var str = "<label class='lable_lefts_time'>证件有效期限 </label>" +
+           "<div class='col-sm-6 col-sm_time'>" +
+           "<div class='form-group'>" +
+           "<div class='input-group date' id= datetimepicker7>" +
+           "<input type='text' id=datetimepicker7_input class='form-control' />" +
+           "<span class='input-group-addon'>" +
+           "<span class='glyphicon glyphicon-calendar'></span>" +
+           "</span>" +
+           "</div>" +
+           "</div>" +
+           "</div>" +
+           "<i class='col-sm_time_i'>至</i>";
+       div.innerHTML = str;
+       var organization_code_certificate = document.getElementById('divChildrenThree');
+       console.log(organization_code_certificate)
+       organization_code_certificate.appendChild(div);
+       $('#datetimepicker7').datetimepicker({
+           format: 'YYYY-MM-DD',
+           locale: moment.locale('zh-cn')
+       });
+       var input = div.getElementsByTagName('input')[0];
+       if (subject_boolean == true) {
+           console.log(input);
+           input.value = data.value;
+           input.disabled = true;
+           input.border = 'none';
+           input.style.cssText = "background:#ffffff;border:1px solid transparent";
+           div.style.paddingLeft = '40px';
+       }else{
+           div.style.paddingLeft = '40px';
+       }
+       if (data.value) {
+           input.value = data.value;
+       }
+       input.onblur = function () {
+           var text_errors_timeone = document.getElementById('text_errors_timefive');
+           data.value = input.value ? input.value : "";
+           var a = data.verification_method();
+
+           if (a) {
+               text_errors_timeone.style.display = 'block';
+               text_errors_timeone.innerHTML = a;
+               input.setAttribute('isnext', 'nextStep');
+           } else {
+               text_errors_timeone.style.display = 'none';
+               if (input.hasAttribute('isnext')) {
+                   input.removeAttribute('isnext');
+               }
+           }
+
+           if (componentNextPro) {
+
+               componentNextPro(data);
+           }
+       }
+
+       input.onfocus = function () {
+           text_errors_timeone.style.display = 'none';
+       }
+
+   
+   
     }
 
 
     // 是否是收益人证件结束的时间
     this.id_period_end = function (data, componentNextPro) {
-        this.validity_end_time(data, componentNextPro, 'datetimepicker8', "divChildrenTwo", "text_errors_timefive");
+       // this.validity_end_time(data, componentNextPro, 'datetimepicker8', "divChildrenTwo", "text_errors_timefive");
+      // var idChildrens = 'datetimepicker8' + '_input'
+       var div = document.createElement("div");
+       div.className = 'application_list_one_ul_li_divs';
+       var str = "<div class='col-sm-6'>" +
+           "<div class='form-group'>" +
+           "<div class='input-group date' id='datetimepicker8'>" +
+           "<input type='text' class='form-control' />" +
+           "<span class='input-group-addon'>" +
+           "<span class='glyphicon glyphicon-calendar'></span>" +
+           "</span>" +
+           "</div>" +
+           "</div>" +
+           "</div>";
+       div.innerHTML = str;
+       var organization_code_certificate = document.getElementById('divChildrenThree');
+       organization_code_certificate.appendChild(div);
+       $('#datetimepicker8').datetimepicker({
+           format: 'YYYY-MM-DD',
+           locale: moment.locale('zh-cn')
+       });
+       var input = div.getElementsByTagName('input')[0];
+       var p1 = document.createElement('p');
+       p1.setAttribute('id', 'text_errors_timefive');
+       p1.className = "text-errors_timeone";
+       organization_code_certificate.appendChild(p1);
+       var p2 = document.createElement('p');
+       p2.className = "text-errors_timetwo";
+       organization_code_certificate.appendChild(p2);
+       if (subject_boolean == true) {
+           console.log(input);
+           input.value = data.value;
+           input.disabled = true;
+           input.border = 'none';
+           input.style.cssText = "background:#ffffff;border:1px solid transparent";
+       }
+       if (data.value) {
+           input.value = data.value;
+       }
+       input.onblur = function () {
+           data.value = input.value ? input.value : "";
+           var a = data.verification_method();
+           if (a) {
+               p2.style.display = 'block';
+               p2.innerHTML = a;
+               input.setAttribute('isnext', 'nextStep');
+           } else {
+               p2.innerHTML = '';
+               if (input.hasAttribute('isnext')) {
+                   input.removeAttribute('isnext');
+               }
+           }
+           if (componentNextPro) {
+               componentNextPro(data);
+
+           }
+       }
+       input.onfocus = function () {
+           //  p2.style.display = 'none';
+           p2.innerHTML = '';
+       }
     }
 
     // 经营信息 商户简称
@@ -1439,8 +1647,9 @@ function Component_list() {
         var str_app = 'APP';
         var str_pc = 'PC网站';
         var str_weixin = '企业微信';
-      
+
         if (wechartJson[0].business_scenario[0]) {
+            console.log(wechartJson[0].business_scenario);
             for (var i = 0; i < wechartJson[0].business_scenario.length; i++) {
                 if (wechartJson[0].business_scenario.indexOf(str_xianxia) != -1) {
                     //  console.log('线下场所有')
@@ -1488,35 +1697,44 @@ function Component_list() {
 
             }
         }
+
         var array = [];
         var array_text = [];
-        array=data.value?data.value:[];
-        array_text=data.data_value_text?data.data_value_text:[];
-        this.checkbox_public(data, '经营场景', arr, divone, function (values, is_checked, index) {
+        array = data.value ? data.value : [];
+        array_text = data.data_value_text ? data.data_value_text : [];
+        this.checkbox_public(data, '经营场景', arr, divone, function (values, is_checked, indexs) {
             var arrayDom = [];
             divTwo.innerHTML = '';
             if (is_checked) {
                 array.push(values);
-                array_text.push(arr[index].name);
+                array_text.push(arr[indexs].name);
             } else {
                 var index_s = array.indexOf(values);
-                var index_text = array_text.indexOf(arr[index].name);
-                array.splice(index, 1);
+                var index_text = array_text.indexOf(arr[indexs].name);
+                array.splice(index_s, 1);
                 array_text.splice(index_text);
             }
+
             data.data_value_text = array_text;
             data.value = array;
             wechartJson[0].business_scenario = array_text;
+            // console.log(array);
+            // console.log(arrayDom);
+            // console.log(array_text);
             for (var i = 0; i < array.length; i++) {
                 var index = arrType.indexOf(array[i]);
+                console.log(index);
                 arrayDom.push(arrDom[index]);
             }
+            console.log(array); // 这个是赋值给后台data.value的值；
+            console.log(arrayDom);
             for (var i = 0; i < arrayDom.length; i++) {
                 divTwo.appendChild(arrayDom[i]);
                 arrayDom[i].style.display = 'block';
             }
 
-        })
+        },'matation_form-item_shenfenzhengfour_uls')
+    //    matation_form-item_shenfenzhengfour
 
         //  保存并下一步
         var li = divPrev.getElementsByTagName('li');
@@ -1524,7 +1742,7 @@ function Component_list() {
             subject_boolean = false;
             SubjectInformation();
         }
-        var _this=this;
+        var _this = this;
         li[2].onclick = function () {
             subject_boolean = false;
             var arr_isnext = [];
@@ -1532,12 +1750,13 @@ function Component_list() {
             var matation_form_item_shenfenzhengThree = document.getElementById('matation_form-item_shenfenzhengThree')
             matation_form_item_shenfenzhengTwo_input = matation_form_item_shenfenzhengTwo.getElementsByTagName('input')[0];
             matation_form_item_shenfenzhengThree_input = matation_form_item_shenfenzhengThree.getElementsByTagName('input')[0];
-            var matation_form_item_xianxia=document.getElementById('matation_form_item_xianxia'); // 线下门店
-            var input_xianxia_input=_this.getClassName_dom(matation_form_item_xianxia,'input_public');
-            var input_xianxia_pic=_this.getClassName_dom(matation_form_item_xianxia,'input_updata')
+            var matation_form_item_xianxia = document.getElementById('matation_form_item_xianxia'); // 线下门店
+            var matation_form_item_div_official_account = document.getElementById('matation_form_item_div_official_account'); // 公众号
+            var div_applets_scene = document.getElementById('div_applets_scene'); // 小程序
+            var div_app_scence = document.getElementById('div_app_scence');   // app
             matation_form_item_shenfenzhengTwo_input.onblur();
             matation_form_item_shenfenzhengThree_input.onblur();
-             
+
             if (matation_form_item_shenfenzhengTwo_input.hasAttribute('isnext')) {
                 arr_isnext.push(matation_form_item_shenfenzhengTwo_input);
             }
@@ -1547,49 +1766,70 @@ function Component_list() {
 
             if (wechartJson[0].business_scenario[0]) {
                 for (var i = 0; i < wechartJson[0].business_scenario.length; i++) {
-                    if (wechartJson[0].business_scenario.indexOf(str_xianxia) != -1) {
-                        for(var j=0;j<input_xianxia_input.length;j++){
+                    if (wechartJson[0].business_scenario.indexOf(str_xianxia) != -1) {        // 线下场景input执行
+                        var input_xianxia_input = _this.getClassName_dom(matation_form_item_xianxia, 'input_public');
+                        var input_xianxia_pic = _this.getClassName_dom(matation_form_item_xianxia, 'input_updata')
+                        for (var j = 0; j < input_xianxia_input.length-1; j++) {
                             input_xianxia_input[j].onblur();
-                            if(input_xianxia_input[j].hasAttribute('isnext')){
+                            if (input_xianxia_input[j].hasAttribute('isnext')) {
                                 arr_isnext.push(input_xianxia_input[j]);
                             }
                         }
-                        for(var z=0;z<input_xianxia_pic.length;z++){
-                           //console.log('input_xianxia_pic', input_xianxia_pic[i]);
+                        for (var z = 0; z < input_xianxia_pic.length; z++) {
                             var ul_pic_dom = input_xianxia_pic[z].parentNode.parentNode.nextElementSibling;
-                            if(ul_pic_dom.children.length == 0){
+                            if (ul_pic_dom.children.length == 0) {
                                 input_xianxia_pic[z].onchange();
                             }
-                            if(input_xianxia_pic[z].hasAttribute('isnext')){
+                            if (input_xianxia_pic[z].hasAttribute('isnext')) {
                                 arr_isnext.push(input_xianxia_pic[z]);
                             }
                         }
-                      
+
 
                     }
-    
-                    if (wechartJson[0].business_scenario.indexOf(str_gongzhonghao) != -1) {
+
+                    if (wechartJson[0].business_scenario.indexOf(str_gongzhonghao) != -1) {    // 公众号场景input执行
+                        _this.yingyongchangjing(matation_form_item_div_official_account,'input_public',_this,arr_isnext);
+                    }
+
+                    if (wechartJson[0].business_scenario.indexOf(str_xiaochengxu) != -1) {     // 小程序场景input执行
+                        _this.yingyongchangjing(div_applets_scene,'input_public',_this,arr_isnext);
                        
                     }
-    
-                    if (wechartJson[0].business_scenario.indexOf(str_xiaochengxu) != -1) {
-                    
+
+                    if (wechartJson[0].business_scenario.indexOf(str_app) != -1) {            //app 场景input执行
+                        _this.yingyongchangjing(div_app_scence,'input_public',_this,arr_isnext);
                     }
-    
-                    if (wechartJson[0].business_scenario.indexOf(str_app) != -1) {
-                      
+
+                    if (wechartJson[0].business_scenario.indexOf(str_pc) != -1) {           // pc网站input z执行
+                        var input_pc_input = _this.getClassName_dom(div_pc_scence, 'input_public');
+                        input_pc_input[0].onblur();
+                        if (input_pc_input[0].hasAttribute('isnext')) {
+                            arr_isnext.push(input_pc_input[0]);
+                        }
+
                     }
-    
-                    if (wechartJson[0].business_scenario.indexOf(str_pc) != -1) {
-                     
+
+                    if (wechartJson[0].business_scenario.indexOf(str_weixin) != -1) {       // 企业微信input 执行
+                        var input_qiye_input = _this.getClassName_dom(div_enterprise_wechat, 'input_public');
+                        var input_qiye_pic = _this.getClassName_dom(div_enterprise_wechat, 'input_updata');
+                        input_qiye_input[0].onblur();
+                        if(input_qiye_input[0].hasAttribute('isnext')){
+                            arr_isnext.push(input_qiye_input[0]);
+                        }
+                        var ul_pic_dom = input_qiye_pic[0].parentNode.parentNode.nextElementSibling;
+                        if (ul_pic_dom.children.length == 0) {
+                            input_qiye_pic[0].onchange();
+                        }
+                        if (input_qiye_pic[0].hasAttribute('isnext')) {
+                            arr_isnext.push(input_qiye_pic[0]);
+                        }
+
+
                     }
-    
-                    if (wechartJson[0].business_scenario.indexOf(str_weixin) != -1) {
-                       
-                    }
-    
-    
-    
+
+
+
                 }
             }
 
@@ -1597,7 +1837,7 @@ function Component_list() {
             if (arr_isnext.length > 0) {
                 return;
             } else {
-                wechartJson[0].business_information = true; // 代表主体信息已经填写完成并且确认；
+                wechartJson[0].leixing[subject_index].business_information = true; // 代表经营信息已经填写完成并且确认；
                 Settlementrules();
             }
 
@@ -1607,9 +1847,11 @@ function Component_list() {
 
         if (subject_boolean == true) {
             divPrev.style.display = 'none'; //   这个是保存 下一步按钮;
+            document.getElementById('matation_form-item_shenfenzhengfour_uls').style.paddingLeft='0px';
+            document.getElementById('matation_form-item_shenfenzhengfour_uls').children[1].innerHTML=data.data_value_text
         }
 
-        if (wechartJson[0].business_scenario[0]) {   // 复选框是否选中函数
+        if (wechartJson[0].business_scenario[0]) { // 复选框是否选中函数
             var matation_form_item_shenfenzhengfour = document.getElementById('matation_form-item_shenfenzhengfour');
             var inputs = matation_form_item_shenfenzhengfour.getElementsByTagName('input');
             for (var i = 0; i < inputs.length; i++) {
@@ -1623,6 +1865,30 @@ function Component_list() {
 
 
 
+    }
+
+
+    this.yingyongchangjing=function(ids,className,_this,arr_isnext){
+        var input_xiaochengxu_input = _this.getClassName_dom(ids,className);
+            if (input_xiaochengxu_input[0].value && !input_xiaochengxu_input[1].value) {
+                input_xiaochengxu_input[0].onblur();
+                if (input_xiaochengxu_input[0].hasAttribute('isnext')) {
+                    arr_isnext.push(input_xiaochengxu_input[0]);
+                }
+            }
+            if (input_xiaochengxu_input[1].value && !input_xiaochengxu_input[0].value) {
+                input_xiaochengxu_input[1].onblur();
+                if (input_xiaochengxu_input[1].hasAttribute('isnext')) {
+                    arr_isnext.push(input_xiaochengxu_input[1]);
+                }
+            }
+            if (!input_xiaochengxu_input[1].value && !input_xiaochengxu_input[0].value) {
+                input_xiaochengxu_input[1].onblur();
+                if (input_xiaochengxu_input[1].hasAttribute('isnext')) {
+                    arr_isnext.push(input_xiaochengxu_input[1]);
+                }
+            }
+            console.log(arr_isnext)
     }
 
     // 线下场景 门店名称
@@ -1690,7 +1956,7 @@ function Component_list() {
         this.input_box_id_card(data, 'matation_form_item_div_official_account');
         var divInnerText = document.createElement('div');
         divInnerText.setAttribute('class', 'tips-info');
-        divInnerText.innerHTML = '1、服务商公众号APPID与商家公众号APPID，二选一必填。<br>2、可填写当前服务商商户号已绑定的公众号APPID。';
+        divInnerText.innerHTML = '1、请根据实际情况填写，你如果是服务商请填写服务商公众号APPID，你如果是商家请填写商家公众号APPID。<br>2、服务商公众号APPID与商家公众号APPID，二选一必填。<br>3、可填写当前服务商商户号已绑定的公众号APPID。';
         var matation_form_item_div_official_account = document.getElementById('matation_form_item_div_official_account');
         matation_form_item_div_official_account.appendChild(divInnerText);
 
@@ -1742,7 +2008,7 @@ function Component_list() {
 
     // 小程序小程序截图
     this.mini_program_pics = function (data) {
-        var str = this.create_multiple_pictures('小程序截图', '请上传小程序截图', '请提供展示商品/服务的页面截图/设计稿（最多5张），若小程序未建设完善或未上线请务必提供。图片需在2M内。', 'xiaochengxu_appid');
+        var str = this.create_multiple_pictures('小程序截图(选填)', '请上传小程序截图', '请提供展示商品/服务的页面截图/设计稿（最多5张），若小程序未建设完善或未上线请务必提供。图片需在2M内。', 'xiaochengxu_appid');
         var matation_form_item_div_official_account = document.getElementById('div_applets_scene');
         matation_form_item_div_official_account.appendChild(str);
         var div_hr = document.createElement('div');
@@ -1845,26 +2111,35 @@ function Component_list() {
     }
 
 
-    //结算规则 结算规则信息 入驻结算规则ID   matation_title
+    //结算规则 结算规则信息 入驻结算规则ID   
     this.settlement_id = function (data) {
         var div = document.createElement('div');
         div.setAttribute('id', 'matation_settlement_rules');
         application_list_one.appendChild(div);
         div.innerHTML += this.matation_title('结算规则');
-
         var h2 = div.getElementsByTagName('h2')[0];
-        console.log(h2)
         if (subject_boolean) {
             h2.style.position = 'absolute';
             h2.style.top = '-22px';
             div.style.paddingTop = '30px';
         }
         var div_bottom = document.createElement('div');
+        var p=document.createElement('p');
+        p.innerHTML='请选择结算规则信息！';
+        p.className='text-error';
+        p.setAttribute('id','matation_settlement_rules_p_children');
+        p.style.display='none';
+
         div_bottom.setAttribute('class', 'matation_settlement_rules_bottom')
         div_bottom.innerHTML = '请根据实际经营行业选择结算规则，可看 <a href="https://kf.qq.com/faq/190610vmIfei190610AfMzii.html" target="_blank">结算规则指引</a>，若结算规则说明有单笔收款限额，请看 <a href="https://kf.qq.com/faq/201130jyeAFr201130NJVv6z.html" target="_blank">收款限额说明</a>';
         this.rules_lable(data, 'matation_settlement_rules', 'matation_settlement_rules_children');
         this.pay_rule(data, div, 'matation_settlement_rules_children');
+        div.appendChild(p);
         div.appendChild(div_bottom);
+        if(subject_boolean){
+            document.getElementById('matation_settlement_rules_children').style.marginLeft='10px';
+        }
+         
 
     }
 
@@ -1875,9 +2150,11 @@ function Component_list() {
         var p = document.createElement('p');
         var p_rotate = document.createElement('p');
         p_rotate.className = 'rotate_ps';
-        div.className = 'application_list_one_ul_li_div';
+        div.className = 'application_list_one_ul_li_divs_hangye';
         if (subject_boolean) {
-            div.style.paddingLeft = '30px';
+            div.style.paddingLeft = '40px';
+        }else{
+            div.style.paddingLeft = '40px';
         }
         label.className = "lable_left_rule";
         p.className = "text-errors";
@@ -1897,6 +2174,13 @@ function Component_list() {
         divs.appendChild(p_rotate);
         var organization_code_certificate = document.getElementById(dom);
         organization_code_certificate.appendChild(div);
+        console.log('入驻结算规则ID ',data.data_value_type);
+        console.log(divs);
+        if(data.data_value_type){
+          span.innerHTML = data.data_value_type.hangye_range;
+          i.innerHTML = data.data_value_type.rate;
+          divs.style.height=parseInt(getComputedStyle(span)['height'])+20+'px';
+        }
     }
 
     // 结算规则所属行业
@@ -1907,6 +2191,13 @@ function Component_list() {
         this.rules_lable(data, 'matation_qualification_type', 'matation_qualification_type_children');
         var div_bottom = document.createElement('div');
         this.qualification_type_ul(data);
+       
+        var p1=document.createElement('p');
+        p1.innerHTML='请选择所属行业信息！';
+        p1.className='text-error';
+        p1.setAttribute('id','matation_qualification_type_children_p_children');
+        p1.style.display='none';
+        div.appendChild(p1);
         div_bottom.setAttribute('class', 'matation_settlement_rules_bottom');
         div_bottom.innerHTML = '1、请提供为“申请商家主体”所属的特殊资质，可授权使用总公司/分公司的特殊资质；<a href="https://kf.qq.com/faq/190610B7baQb190610NN3mQN.html" target="_blank">上传特殊资质指引</a><br>2、请上传2M以内的图片。';
         div.appendChild(div_bottom);
@@ -1919,6 +2210,32 @@ function Component_list() {
         ul.setAttribute('class', 'categoryList_rules');
         ul.style.display = 'none';
         div.appendChild(ul);
+       
+        var  matation_qualification_type_children=document.getElementById('matation_qualification_type_children');
+        // matation_qualification_type_children
+        var  span=matation_qualification_type_children.getElementsByTagName('span')[0];
+        var  i = matation_qualification_type_children.getElementsByTagName('i')[0];
+       
+        if(data.data_value_type){
+            span.style.display='block';
+            span.style.fontWeight = 'bold';
+            i.style.display='block';
+            span.style.float='none';
+            i.style.width='100%';
+            i.style.textAlign='left';
+            i.style.paddingLeft='20px';
+            span.innerHTML = data.data_value_type.title;
+            i.innerHTML = data.data_value_type.require;
+            console.log(getComputedStyle(span)['height']);
+            matation_qualification_type_children.style.height='100%';
+        }
+        var ul=div.getElementsByTagName('ul')[0];
+       
+        if(subject_boolean){
+            document.getElementById('matation_settlement_rules_children').style.marginLeft='10px';
+            document.getElementById('matation_qualification_type_children').style.marginLeft='10px';
+        }
+
     }
 
     // 结算规则信息方法下面生成的ul;
@@ -2001,9 +2318,6 @@ function Component_list() {
                         },
                     ]
                 },
-
-
-
                 {
                     hangye_range: '保险公司、保险代理公司',
                     rate: '费率0.6%，入账周期T+1',
@@ -2113,6 +2427,54 @@ function Component_list() {
             ],
 
 
+            [ // 党政，机关及事业
+                {
+                    hangye_range: '党团费、停车缴费、物业缴费等其他缴费类业务',
+                    rate: '费率0.6%，入账周期T+1',
+                    rule_id: '725',
+                    arr: [{
+                        title: '其他缴费',
+                        require: '收费资质'
+                    }]
+                },
+                {
+                    hangye_range: '水电煤暖气民生缴费',
+                    rate: '费率0.2%，入账周期T+1',
+                    rule_id: '722',
+                    arr: [{
+                        title: '公共事业（水电煤气）',
+                        require: '收费授权证明文件（如授权证明书或合同）'
+                    }]
+                },
+                {
+                    hangye_range: '交通罚款业务',
+                    rate: '费率0.1%，入账周期T+1',
+                    rule_id: '723',
+                    arr: [{
+                        title: '交通罚款',
+                        require: '收费授权证明文件（如授权证明书或合同）'
+                    }]
+                },
+                {
+                    hangye_range: '公立医院、公立院校及指定要求的挂号平台',
+                    rate: '费率0%，入账周期T+1',
+                    rule_id: '724',
+                    arr: [{
+                            title: '公立医院',
+                            require: '《医疗机构执业许可证》'
+                        },
+                        {
+                            title: '公立学校',
+                            require: '无需提供特需资质'
+                        },
+                        {
+                            title: '挂号平台',
+                            require: '卫生局的批文'
+                        },
+                    ]
+                }
+
+            ],
 
 
             [ // 个体户
@@ -2192,54 +2554,7 @@ function Component_list() {
                 }
             ],
 
-            [ // 党政，机关及事业
-                {
-                    hangye_range: '党团费、停车缴费、物业缴费等其他缴费类业务',
-                    rate: '费率0.6%，入账周期T+1',
-                    rule_id: '725',
-                    arr: [{
-                        title: '其他缴费',
-                        require: '收费资质'
-                    }]
-                },
-                {
-                    hangye_range: '水电煤暖气民生缴费',
-                    rate: '费率0.2%，入账周期T+1',
-                    rule_id: '722',
-                    arr: [{
-                        title: '公共事业（水电煤气）',
-                        require: '收费授权证明文件（如授权证明书或合同）'
-                    }]
-                },
-                {
-                    hangye_range: '交通罚款业务',
-                    rate: '费率0.1%，入账周期T+1',
-                    rule_id: '723',
-                    arr: [{
-                        title: '交通罚款',
-                        require: '收费授权证明文件（如授权证明书或合同）'
-                    }]
-                },
-                {
-                    hangye_range: '公立医院、公立院校及指定要求的挂号平台',
-                    rate: '费率0%，入账周期T+1',
-                    rule_id: '724',
-                    arr: [{
-                            title: '公立医院',
-                            require: '《医疗机构执业许可证》'
-                        },
-                        {
-                            title: '公立学校',
-                            require: '无需提供特需资质'
-                        },
-                        {
-                            title: '挂号平台',
-                            require: '卫生局的批文'
-                        },
-                    ]
-                }
-
-            ],
+           
 
             [ // 其他组织
                 {
@@ -2292,9 +2607,9 @@ function Component_list() {
 
         var ul = document.createElement('ul');
         ul.setAttribute('class', 'categoryList_rule');
-        var arrs = arr_subject_type[subject_index];
+        var arrs = arr_subject_type[subject_index];    // subject_index 是索引 根据选择的是企业，个体户，党政机关，组织去渲染数据；
         ul.style.display = 'none';
-        var div_b_public = document.getElementById(dom_children);
+        var div_b_public = document.getElementById(dom_children);   // 入住结算规则ID 右边的框；
         for (let j = 0; j < arrs.length; j++) {
             var li = document.createElement('li');
             var span = document.createElement('span');
@@ -2310,7 +2625,11 @@ function Component_list() {
                 wechartJson[4].subobject[1].value = null;
                 console.log(wechartJson[4].subobject[1]);
                 console.log(wechartJson[4].subobject[1].value);
-                data.value = arrs[j].rule_id;
+                data.value = arrs[j].rule_id;                         // 这里赋值了；
+                data.data_value_type= arrs[j];                        // 得到了值；
+                wechartJson[4].subobject[1].value=null;
+                wechartJson[4].subobject[1].data_value_type=null;
+               // console.log('点击后生成的数据入驻规则ID',data.data_value_type);
                 div_b_public.children[0].innerHTML = this.children[1].innerText;
                 div_b_public.children[1].innerHTML = this.children[2].innerText;
                 div_b_public.style.height = this.offsetHeight + 'px';
@@ -2326,10 +2645,12 @@ function Component_list() {
                 div_hangye_children.children[1].style.cssText = 'text-align: right;width: 290px;float: left;';
                 div_hangye_children.style.cssText = 'height:45px';
                 var h = getComputedStyle(this.children[2])["paddingTop"];
+                document.getElementById('matation_settlement_rules_p_children').style.display='none';
                 ul_children.style.display = 'none';
                 if (j == 0) {
                     div_b_public.style.paddingTop = '10px';
-                    div_b_public.children[1].style.paddingTop = parseInt(h) + 'px';
+                    //div_b_public.children[1].style.paddingTop = parseInt(h) + 'px';
+                    div_b_public.children[1].style.paddingTop =  '28px';
                 } else if (j == 5) {
                     div_b_public.children[1].style.paddingTop = '15px';
                 } else {
@@ -2345,7 +2666,7 @@ function Component_list() {
         }
 
         div_b_public.onclick = function () {
-            var h = 63 + parseInt(this.offsetHeight);
+            var h = 60 + parseInt(this.offsetHeight);
             ul.style.display = 'block';
             ul.style.top = h + 'px';
         }
@@ -2359,6 +2680,7 @@ function Component_list() {
     // 结算规则所属行业下的ul框
     this.qualification_type_ul = function (arr) {
         //  console.log(wechartJson[4].subobject[1]);
+        console.log('所属行业',arr);
         if (Array.isArray(arr)) {
             var matation_qualification_type = document.getElementById('matation_qualification_type');
             var div_hangye_children = document.getElementById('matation_qualification_type_children');
@@ -2382,6 +2704,7 @@ function Component_list() {
                 ul.appendChild(li);
                 li.onclick = function () {
                     wechartJson[4].subobject[1].value = arr[j].title;
+                    wechartJson[4].subobject[1].data_value_type=arr[j]
                     console.log(wechartJson[4].subobject[1]);
                     console.log(wechartJson[4].subobject[1].value);
                     var matation_qualification_type_p = document.getElementById('matation_qualification_type_p');
@@ -2399,7 +2722,6 @@ function Component_list() {
                     div_hangye_children.children[1].style.float = 'none';
                     div_hangye_children.children[0].innerHTML = arr[j].title;
                     div_hangye_children.children[1].innerHTML = arr[j].require;
-                    ul.style.top = this.offsetHeight + 'px';
                     for (var n = 0; n < ul.children.length; n++) {
                         ul.children[n].children[0].style.display = 'none';
                     }
@@ -2407,6 +2729,15 @@ function Component_list() {
                     ul.style.display = 'none';
                 }
             }
+
+            var matation_qualification_type_children=document.getElementById('matation_qualification_type_children');
+            matation_qualification_type_children.onclick=function(){
+                var h = 22 + parseInt(this.offsetHeight);
+                ul.style.display = 'block';
+                ul.style.top = h + 'px';
+            }
+           
+    
         }
     }
 
@@ -2415,6 +2746,9 @@ function Component_list() {
         var str = this.create_multiple_pictures('特殊资质图片', '请上传特殊资质图片', '', 'qualifications_pic');
         application_list_one.appendChild(str);
         this.multiple_pictures('qualifications_pic', data);
+        if(subject_boolean){
+            document.getElementById('qualifications_pic').style.paddingTop='30px';
+        }
     }
 
     // 结算规则 优惠费率活动ID
@@ -2455,7 +2789,55 @@ function Component_list() {
         }
         li[2].onclick = function () {
             subject_boolean = false;
-            SettlementAccount();
+            var arr_isnext=[];
+            var matation_settlement_rules=document.getElementById('matation_settlement_rules');
+            var matation_qualification_type=document.getElementById('matation_qualification_type');
+            var qualifications_pic=document.getElementById('qualifications_pic');
+            var matation_settlement_rules_children=document.getElementById('matation_settlement_rules_children');
+            var matation_settlement_rules_children_span=matation_settlement_rules_children.getElementsByTagName('span')[0];
+            var matation_settlement_rules_p_children=document.getElementById('matation_settlement_rules_p_children');
+            var matation_qualification_type_children=document.getElementById('matation_qualification_type_children');
+            var matation_qualification_type_children_span=matation_qualification_type_children.getElementsByTagName('span')[0];
+            var matation_qualification_type_p=document.getElementById('matation_qualification_type_p');
+           
+            
+            var qualifications_pic=document.getElementById('qualifications_pic');
+            var ul=qualifications_pic.getElementsByTagName('ul')[0];
+            var input=qualifications_pic.getElementsByTagName('input')[0];
+           
+            if(matation_settlement_rules_children_span.innerHTML=='请选择'){
+                console.log(matation_settlement_rules_p_children);
+                matation_settlement_rules_p_children.style.display='block';
+                return;
+            }else{
+                matation_settlement_rules_p_children.style.display='none';
+            }
+          
+            
+            if(matation_qualification_type_children_span.innerHTML=='请选择'){
+                console.log(matation_qualification_type_children_p_children)
+                matation_qualification_type_p.style.display='block';
+                return;
+            }else{
+                matation_qualification_type_p.style.display='none';
+            }
+            
+            if(ul.children.length==0){
+               input.onchange();
+               if(input.hasAttribute('isnext')){
+                 arr_isnext.push(input);
+               }
+            }
+
+
+            if (arr_isnext.length > 0) {
+                return;
+            } else {
+                wechartJson[0].leixing[subject_index].settlement_rules = true; // 代表结算规则已经填写完成并且确认；
+                SettlementAccount();
+            }
+
+
         }
 
         if (subject_boolean == true) {
@@ -2524,8 +2906,24 @@ function Component_list() {
                 }
 
             }, 'matation_form_zhanghuleixing');
+            var matation_form_zhanghuleixing=document.getElementById('matation_form_zhanghuleixing');
+            var matation_form_zhanghuleixing_i=document.getElementsByTagName('i')[0];
+            console.log(matation_form_zhanghuleixing)
+            console.log(matation_form_zhanghuleixing_i);
+            matation_form_zhanghuleixing_i.style.display = 'none';
+            if(subject_boolean){
+                matation_form_zhanghuleixing.style.paddingLeft='40px';
+                 if(data.value=='BANK_ACCOUNT_TYPE_CORPORATE'){   // 对公账户
+                    matation_form_zhanghuleixing.children[1].innerHTML='对公账户'
+                 }else{
+                    matation_form_zhanghuleixing.children[1].innerHTML='&nbsp;&nbsp;&nbsp;法人账户'
+                 }
+            }
+            matation_form_zhanghuleixing.style.paddingLeft='40px';
         }
 
+      
+          
 
 
 
@@ -2564,36 +2962,47 @@ function Component_list() {
         this.banks_public_fn(data, 'matation_form_account_bank');
         var divInnerText = document.createElement('div');
         divInnerText.setAttribute('class', 'tips-info');
-
+        var p=document.createElement('p');
+        p.innerHTML='请选择正确的基本开户行信息';
+        p.className='text-error';
+        p.setAttribute('id','matation_form_account_bank_other_p');
+        div.appendChild(p);
+        p.style.display='none';
         if (subject_boolean == false) {
             div.appendChild(divInnerText);
         }
         divInnerText.innerHTML = '城市商业银行、农村商业银行、信用合作联社及其他银行,请选择“其他银行”';
+        
         var yinghang_normal_bank_list = document.getElementById('yinghang_normal_bank_list');
         var a = yinghang_normal_bank_list.getElementsByTagName('a');
         for (var i = 0; i < a.length; i++) {
             a[i].onclick = function () {
-                var common_banks_account_bank_span = document.getElementById('common_banks_account_bank_span');
-                var common_banks_account_bank_span_two = document.getElementById('common_banks_account_bank_span_two');
-                var common_banks_account_bank = document.getElementById('common_banks_account_bank');
+                var common_banks_account_bank_span = document.getElementById('common_banks_account_bank_span');           // 如果不是其他银行，就赋值了；
+                var common_banks_account_bank_span_two = document.getElementById('common_banks_account_bank_span_two');   // 这个是其他银行的input输入框；
+                var common_banks_account_bank = document.getElementById('common_banks_account_bank');                     // ul框具体的银行信息
+                var common_banks_account_bank_p=document.getElementById('common_banks_account_bank_p');
                 if (this.children[1].innerHTML != '其他银行') {
                     data.value = this.children[1].innerHTML;
                     common_banks_account_bank_span.firstChild.nodeValue = data.value;
                     common_banks_account_bank_span_two.style.display = 'none';
                     common_banks_account_bank.style.display = 'none';
                     common_banks_account_bank_span.onOff = true;
-                    data.other_banks = false;
+                    data.other_banks = false;                       
+                    common_banks_account_bank_p.style.display='none';
+                    matation_form_account_bank_other_p.style.display='none';
                 } else {
-                    common_banks_account_bank_span.firstChild.nodeValue = this.children[1].innerHTML;
-                    common_banks_account_bank_span_two.style.display = 'inline-block';
+                    common_banks_account_bank_span.firstChild.nodeValue = this.children[1].innerHTML;  
+                    common_banks_account_bank_span_two.style.display = 'inline-block';                 // 这个是其他银行的input输入框；
                     common_banks_account_bank.style.display = 'none';
                     common_banks_account_bank_span.onOff = true;
-                    data.other_banks = true;
+                    data.other_banks = true;                         
                 }
             }
         }
         var common_banks_account_bank_span = document.getElementById('common_banks_account_bank_span');
         var common_banks_account_bank_span_two = document.getElementById('common_banks_account_bank_span_two');
+
+
         if (subject_boolean) {
             common_banks_account_bank_span.firstChild.nodeValue = data.value;
         }
@@ -2606,6 +3015,19 @@ function Component_list() {
             common_banks_account_bank_span_two.style.cssText = "background:#ffffff;border:1px solid transparent";
         }
 
+        
+        if(data.other_banks===false){
+           // console.log('other_banks',data.other_banks);
+            common_banks_account_bank_span.firstChild.nodeValue = data.value;
+
+        }else if(data.other_banks===null){
+            common_banks_account_bank_span_two.style.display = 'none';
+        }else{
+            console.log('other_banks',data.other_banks);
+            common_banks_account_bank_span.firstChild.nodeValue='其他银行';
+            common_banks_account_bank_span_two.style.display = 'inline-block';
+            common_banks_account_bank_span_two.value=data.value;
+        }
 
     }
 
@@ -2718,6 +3140,8 @@ function Component_list() {
         var str = '1、开户银行全称（含支行）和开户银行联行号二选一填写。<br />2、开户银行联行号，详细参见<a href="https://pay.weixin.qq.com/wiki/doc/apiv3_partner/terms_definition/chapter1_1_3.shtml#part-6" target="_blank">开户银行全称（含支行）对照表</a>。示例值：402713354941';
         divInnerText.innerHTML = str;
         div.appendChild(divInnerText);
+        div.style.display='none';
+
     }
 
     // 开户银行 开户银行全称（含支行)
@@ -2733,7 +3157,7 @@ function Component_list() {
         div.appendChild(divInnerText);
     }
 
-    // 开户银行 银行账户
+    // 开户银行 银行账户  common_banks_account_bank_span_two
     this.account_number = function (data) {
         var div = document.createElement('div');
         div.setAttribute('id', 'matation_form_account_number');
@@ -2780,9 +3204,65 @@ function Component_list() {
             Settlementrules();
         }
         li[2].onclick = function () {
+          
+            var arr_isnext=[];
+            var arr_dom=[];
             subject_boolean = false;
-            SuperAdmin();
+            var matation_form_account_bank_other_p=document.getElementById('matation_form_account_bank_other_p');
+            var matation_form_account_name=document.getElementById('matation_form_account_name');
+            var input_kaihu=matation_form_account_name.getElementsByTagName('input')[0];          // 开户名称
+            var common_banks_account_bank_span=document.getElementById('common_banks_account_bank_span');  // 开户银行除了“其他银行”外信息    
+            var common_banks_account_bank_span_two=document.getElementById('common_banks_account_bank_span_two');  // input 其他银行信息
+            var matation_form_bank_address_code=document.getElementById('matation_form_bank_address_code');
+            var matation_form_bank_address_code_input=matation_form_bank_address_code.getElementsByTagName('input')[0];    // 开户银行省市编码
+            var matation_form_bank_branch_id=document.getElementById('matation_form_bank_branch_id');
+            var matation_form_bank_branch_id_input=matation_form_bank_branch_id.getElementsByTagName('input')[0];  // 开户行联行号
+            var matation_form_bank_name=document.getElementById('matation_form_bank_name');
+            var matation_form_bank_name_input=matation_form_bank_name.getElementsByTagName('input')[0];   // 开户银行全称
+            var matation_form_account_number=document.getElementById('matation_form_account_number');
+            var matation_form_account_number_input=matation_form_account_number.getElementsByTagName('input')[0];  // 银行账号
+            arr_dom.push(input_kaihu);
+            arr_dom.push(matation_form_bank_address_code_input);
+            arr_dom.push(matation_form_account_number_input);
+            arr_dom.push(matation_form_bank_name_input);
+            for(var i=0;i<arr_dom.length;i++){
+                arr_dom[i].onblur();
+                if(arr_dom[i].hasAttribute('isnext')){
+                   arr_isnext.push(arr_dom[i])
+                }
+            }
+            console.log(arr_isnext);
+            if(common_banks_account_bank_span.firstChild.nodeValue=='请选择'){
+               // console.log('请选择',common_banks_account_bank_span.firstChild.nodeValue)
+                matation_form_account_bank_other_p.style.display='block';
+                return;
+            }
+
+            if(common_banks_account_bank_span.firstChild.nodeValue=='其他银行'){
+                common_banks_account_bank_span_two.onblur();
+                if(common_banks_account_bank_span_two.hasAttribute('isnext')){
+                    arr_isnext.push(arr_dom[i]);
+                }
+            }
+
+           
+
+           
+        
+
+            if (arr_isnext.length > 0) {
+                return;
+            } else {
+                wechartJson[0].leixing[subject_index].settlement_account =true;  // 代表结算账户已经填写完成并且确认；
+                SuperAdmin();
+            }
+
+
+
+
         }
+
+
         if (subject_boolean == true) {
             divPrev.style.display = 'none';
         }
@@ -2817,13 +3297,15 @@ function Component_list() {
             input.disabled = true;
             input.border = 'none';
             input.style.cssText = "background:#ffffff;border:1px solid transparent";
-            div.style.paddingLeft = '30px';
+            div.style.paddingLeft = '40px';
+            
         } else {
             if (data.value) {
                 input.value = data.value;
                 input.disabled = false;
                 input.style.cssText = "background:#ffffff;border:1px solid #e0e0e0";
             }
+            div.style.paddingLeft = '40px';
         }
 
 
@@ -2877,13 +3359,14 @@ function Component_list() {
             input.disabled = true;
             input.border = 'none';
             input.style.cssText = "background:#ffffff;border:1px solid transparent";
-            div.style.paddingLeft = '30px';
+            div.style.paddingLeft = '40px';
         } else {
             if (data.value) {
                 input.value = data.value;
                 input.disabled = false;
                 input.style.cssText = "background:#ffffff;border:1px solid #e0e0e0";
             }
+            div.style.paddingLeft = '40px';
         }
 
 
@@ -2896,11 +3379,11 @@ function Component_list() {
             if (a) {
                 p.style.display = 'block';
                 p.innerHTML = a;
-                p.setAttribute("isNext", "nextStep");
+                input.setAttribute("isNext", "nextStep");
                 return;
             } else {
-                if (p.hasAttribute('isNext')) {
-                    p.removeAttribute("isNext");
+                if (input.hasAttribute('isNext')) {
+                    input.removeAttribute("isNext");
                 }
 
             }
@@ -2913,9 +3396,10 @@ function Component_list() {
         input.onfocus = function () {
             p.style.display = 'none';
             var span = organization_code_certificate.getElementsByTagName('span')[0];
-            if (data.value.length > 0) {
-                span.style.display = 'block';
-            }
+            document.getElementById('matation_form_account_bank_other_p').style.display='none';
+            // if (data.value.length > 0) {
+            //     span.style.display = 'block';
+            // }
 
         }
     }
@@ -2929,7 +3413,9 @@ function Component_list() {
         var p = document.createElement('p');
         div.className = 'application_list_one_ul_li_div';
         if (subject_boolean) {
-            div.style.paddingLeft = '30px';
+            div.style.paddingLeft = '40px';
+        }else{
+            div.style.paddingLeft = '40px';
         }
         label.className = "lable_left";
         p.className = "text-errors";
@@ -2948,7 +3434,7 @@ function Component_list() {
     }
 
 
-    // 超级管理员信息
+    // 超级管理员信息 超级管理员姓名；
     this.contact_name = function (data) {
         var div = document.createElement('div');
         div.setAttribute('id', 'matation_settlement_contact_name');
@@ -2967,6 +3453,7 @@ function Component_list() {
 
         } else {
             var str = "超级管理员信息";
+
         }
 
 
@@ -2997,9 +3484,11 @@ function Component_list() {
             var matation_form_contact_id_number = document.getElementById('matation_form_contact_id_number');
             var matation_form_contact_openid = document.getElementById('matation_form_contact_openid');
             if (onOff == true) {
+                wechartJson[0].Idcard_or_openid=false;
                 matation_form_contact_id_number.style.display = 'block';
                 matation_form_contact_openid.style.display = 'none';
             } else {
+                wechartJson[0].Idcard_or_openid=true;
                 matation_form_contact_id_number.style.display = 'none';
                 matation_form_contact_openid.style.display = 'block';
             }
@@ -3007,8 +3496,29 @@ function Component_list() {
         }, 'matation_form_chaoji_guanli');
 
 
+        var matation_form_chaoji_guanli=document.getElementById('matation_form_chaoji_guanli');
+        var input_chaoji=matation_form_chaoji_guanli.getElementsByTagName('input');
+      
+        if(wechartJson[0].Idcard_or_openid){
+            input_chaoji[1].checked=true;
+        }else{
+            input_chaoji[0].checked=true;
+        }
 
+        if(subject_boolean){
+            var matation_form_contact_name=document.getElementById('matation_form_contact_name');
+            var div=matation_form_contact_name.children[1];
+            console.log(div);
+            div.getElementsByTagName('input')[0].remove();
+            div.getElementsByTagName('p')[0].remove();
+            var span=document.createElement('span');
+            span.className='input_public';
+            span.innerHTML=data.value;
+            div.appendChild(span);
+            span.style.border='none';
+            div.style.paddingBottom='10px'
 
+        }
 
     }
 
@@ -3024,6 +3534,23 @@ function Component_list() {
         var str = '请填写超级管理员的证件号码，可传身份证，来往内地通行证、护照等证件号码。';
         divInnerTexts.innerHTML = str;
         div.appendChild(divInnerTexts);
+        div.style.display = "none";
+        if(wechartJson[0].Idcard_or_openid==false){
+            div.style.display='block';
+        }
+        if(subject_boolean){
+            console.log(div.getElementsByTagName('input')[0].value);
+            div.getElementsByTagName('input')[0].remove();
+            div.children[0].getElementsByTagName('p')[0].remove();
+            var span=document.createElement('span');
+            span.className='input_public';
+            span.innerHTML=data.value;
+            div.children[0].appendChild(span);
+            span.style.border='none';
+            div.style.paddingBottom='30px'
+        }
+
+
     }
 
     // 超级管理员微信openid
@@ -3038,6 +3565,20 @@ function Component_list() {
         divInnerText.innerHTML = str;
         div.appendChild(divInnerText);
         div.style.display = "none";
+        if(wechartJson[0].Idcard_or_openid==true){
+            div.style.display='block';
+        }
+        if(subject_boolean){
+            console.log(div.getElementsByTagName('input')[0].value);
+            div.getElementsByTagName('input')[0].remove();
+            div.children[0].getElementsByTagName('p')[0].remove();
+            var span=document.createElement('span');
+            span.className='input_public';
+            span.innerHTML=data.value;
+            div.children[0].appendChild(span);
+            span.style.border='none';
+            div.style.paddingBottom='30px'
+        }
     }
 
     // 超级管理员联系手机
@@ -3051,6 +3592,17 @@ function Component_list() {
         var str = '用于接收微信支付的重要管理信息及日常操作验证码。';
         divInnerText.innerHTML = str;
         div.appendChild(divInnerText);
+        if(subject_boolean){
+            console.log(div.getElementsByTagName('input')[0].value);
+            div.getElementsByTagName('input')[0].remove();
+            div.children[0].getElementsByTagName('p')[0].remove();
+            var span=document.createElement('span');
+            span.className='input_public';
+            span.innerHTML=data.value;
+            div.children[0].appendChild(span);
+            span.style.border='none';
+            div.style.paddingBottom='10px'
+        }
     }
 
     // 超级管理员联系邮箱
@@ -3068,6 +3620,7 @@ function Component_list() {
         div_hr.setAttribute('class', 'public_hrs');
         div.appendChild(divInnerText);
         div.appendChild(div_hr);
+        div_hr.style.display='none';
         var divPrev = document.createElement('div');
         divPrev.className = 'matation_form_div_prev';
         divPrev.setAttribute('id', 'matation_form_div_pren_five');
@@ -3075,15 +3628,70 @@ function Component_list() {
         application_list_one.appendChild(divPrev);
         var li = divPrev.getElementsByTagName('li');
         var preview_all_information = document.getElementById('preview_all_information');
+        if(subject_boolean){
+            console.log(div.getElementsByTagName('input')[0].value);
+            div.getElementsByTagName('input')[0].remove();
+            div.children[0].getElementsByTagName('p')[0].remove();
+            var span=document.createElement('span');
+            span.className='input_public';
+            span.innerHTML=data.value;
+            div.children[0].appendChild(span);
+            span.style.border='none';
+            div.style.paddingBottom='30px';
+        }
+        
         li[0].onclick = function () {
             subject_boolean = false;
             SettlementAccount();
         }
+       
         li[2].onclick = function () {
-            preview_all_information.click()
+           var arr_isnext = [];
+           var arr_dom=[];
+           subject_boolean = false;
+           var matation_form_contact_name=document.getElementById('matation_form_contact_name');
+           var input_name_input=matation_form_contact_name.getElementsByTagName('input')[0];   // 超管姓名
+           var matation_form_contact_id_number = document.getElementById('matation_form_contact_id_number');
+           var input_number_input=matation_form_contact_id_number.getElementsByTagName('input')[0]; // 身份证号码
+           var matation_form_contact_openid=document.getElementById('matation_form_contact_openid');
+           var input_openid_input=matation_form_contact_openid.getElementsByTagName('input')[0];        // 微信openid
+           var matation_form_mobile_phone=document.getElementById('matation_form_mobile_phone');
+           var input_phone_input=matation_form_mobile_phone.getElementsByTagName('input')[0];   // 联系手机号码
+           var matation_form_contact_email=document.getElementById('matation_form_contact_email');
+           var input_email_input=matation_form_contact_email.getElementsByTagName('input')[0];   // 联系邮箱
+           arr_dom.push(input_name_input);
+           arr_dom.push(input_phone_input);
+           arr_dom.push(input_email_input);
+
+           
+           if(wechartJson[0].Idcard_or_openid){
+             arr_dom.push(input_openid_input);
+           }else{
+             arr_dom.push(input_number_input);
+           }
+
+           for(i=0;i<arr_dom.length;i++){
+               arr_dom[i].onblur();
+               if(arr_dom[i].hasAttribute('isnext')){
+                   arr_isnext.push(arr_dom[i]);
+               }
+           }
+
+
+            if (arr_isnext.length > 0) {
+                return;
+            } else {
+                wechartJson[0].leixing[subject_index].super_administrator = true; // 代表超级管理员已经填写完成并且确认；
+                preview_all_information.click()
+            }
+           
         }
+       
+       
+       
         if (subject_boolean == true) {
             divPrev.style.display = 'none';
+            div_hr.style.display='none';
         }
 
     }
@@ -3130,7 +3738,7 @@ function Component_list() {
             inputs[0].checked = true;
             for (let i = 0; i < inputs.length; i++) {
                 inputs[i].onchange = function () {
-                    nextPro(arr[i].type)
+                    nextPro(arr[i].type,i)
                 }
             }
 
@@ -3233,6 +3841,10 @@ function Component_list() {
             div_hr.setAttribute('class', 'public_hrs');
             dom.appendChild(div_hr);
         }
+        
+        if(caption == '账户类型'){
+            ico_msg_s_ask.style.display='none';
+        }
 
         caption = caption.replace(/\s+/g, '');
         if (caption == '超级管理员资料类型') {
@@ -3296,7 +3908,7 @@ function Component_list() {
         spans_two.className = "span_public";
         spans.setAttribute('id', 'common_banks_account_bank_span');
         spans_two.setAttribute('id', 'common_banks_account_bank_span_two');
-        spans_two.placeholder = '请输入开户银行名称';
+        spans_two.placeholder = '请输入正确的开户行信息';
         spans_two.style.display = 'none';
         var i = document.createElement('i');
         i.className = 'triangle_banks';
@@ -3333,25 +3945,34 @@ function Component_list() {
             }
 
         }
-
-
-
-
+       
         common_banks_account_bank_span_two.onblur = function () {
             data.value = common_banks_account_bank_span_two.value;
             let a = data.verification_method();
             if (a) {
                 common_banks_account_bank_p.style.display = 'block';
                 common_banks_account_bank_p.innerHTML = a;
+                this.setAttribute("isNext", "nextStep");
+                return;
+            }else {
+                common_banks_account_bank_p.style.display = 'none';
+                if (this.hasAttribute('isNext')) {
+                    this.removeAttribute("isNext");
+                }
             }
         }
 
-        common_banks_account_bank_span_two.onfocus = function () {
+        common_banks_account_bank_span_two.onfocus=function(){
             common_banks_account_bank_p.style.display = 'none';
         }
+       
+
+     
 
         if (subject_boolean) {
-            div.style.paddingLeft = '30px';
+            div.style.paddingLeft = '40px';
+        }else{
+            div.style.paddingLeft = '40px';
         }
 
 
@@ -3436,7 +4057,7 @@ function Component_list() {
             "<div class='data-hd'>" +
             "<h4 class='fl ng-binding'>" + str1 + "</h4>" +
             "</div>" +
-            "<div class='inner ng-scope'>" +
+            "<div class='ng-scope'>" +
             "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
             "<div class='msg-cnt'>" +
             "<p class='ng-binding'>" + str2 + "</p>" +
@@ -3467,7 +4088,7 @@ function Component_list() {
             "<div class='data-hd'>" +
             "<h4 class='fl ng-binding'>" + str1 + "</h4>" +
             "</div>" +
-            "<div class='inner ng-scope'>" +
+            "<div class='ng-scope'>" +
             "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
             "<div class='msg-cnt'>" +
             "<p class='ng-binding' id=\"" + ids + "\">" + str2 + "</p>" +
@@ -3498,7 +4119,7 @@ function Component_list() {
     this.createSubtitle = function (str1) {
         var str = "<div class='form-item_children'>" +
             "<div class='application_phone'>" +
-            "<div class='inner ng-scope'>" +
+            "<div class='ng-scope'>" +
             "<div class='msg-ico'><i class='ico-msg-s info'></i></div>" +
             "<div class='msg-cnt'>" +
             "<p class='ng-binding'>" + str1 + "</p>" +
@@ -3544,9 +4165,15 @@ function Component_list() {
         div.setAttribute('class', 'common_header_method');
         div.setAttribute('id', domID);
         div.style.overflow = 'hidden';
-        if (subject_boolean) {
-            div.style.paddingLeft = '30px';
-        }
+
+        // if (subject_boolean) {
+        //     div.style.paddingLeft = '40px';
+         
+        // }else{
+        //     div.style.paddingLeft = '40px';
+            
+        // }
+
         var str = '<div class="createTitleTopAndImg_top">' +
             '<label class = "labels ng-binding">' + str1 + '</label>' +
             '<div class="application_phone_div">' +
@@ -3565,6 +4192,14 @@ function Component_list() {
             '<p class="text-error">最多只能上传5张图片</p>' +
             '<p class="text-error">系统出现错误</p>';
         div.innerHTML = str;
+        if (subject_boolean) {
+            div.style.paddingLeft = '40px';
+            div.getElementsByTagName('ul')[0].style.paddingLeft='10px';
+            div.getElementsByTagName('a')[0].style.display='none';
+        }else{
+            div.style.paddingLeft = '40px';
+            
+        }
         return div;
     }
 
@@ -3601,7 +4236,9 @@ function Component_list() {
             input.disabled = true;
             input.border = 'none';
             input.style.cssText = "background:#ffffff;border:1px solid transparent";
-            div.style.paddingLeft = '30px';
+            div.style.paddingLeft = '40px';
+        }else{
+            div.style.paddingLeft = '40px';
         }
         if (data.value) {
             input.value = data.value;
@@ -3703,7 +4340,7 @@ function Component_list() {
     // 上传单张图片验证的公共方法
     this.publicImgUupData = function (dom, data) {
         var yingyezhizhao = document.getElementById(dom);
-        //  var aA = yingyezhizhao.getElementsByTagName('a');
+          var aA = yingyezhizhao.getElementsByTagName('a');
         var inputs = yingyezhizhao.getElementsByTagName('input');
         var ul = yingyezhizhao.getElementsByTagName('ul')[0];
         var p = yingyezhizhao.getElementsByTagName('p');
@@ -3808,8 +4445,7 @@ function Component_list() {
 
         if (subject_boolean) {
             aA[0].remove();
-            ul.style.paddingLeft = '0px';
-            a.remove();
+            ul.style.paddingLeft = '20px';
         }
 
 
@@ -3838,8 +4474,8 @@ function Component_list() {
         data.value = data.value ? data.value : [];
         input.onchange = function () {
             var that = this;
-           
-            _this.onchangePic(that, data, arr, ul_ul, span_span, p_p,input);
+
+            _this.onchangePic(that, data, arr, ul_ul, span_span, p_p, input);
         }
 
         if (data.value && data.value.length > 0) {
@@ -3880,12 +4516,12 @@ function Component_list() {
 
 
     //多图片上传onchange后的方法
-    this.onchangePic = function (that, data, arr, ul, span, p,input) {
+    this.onchangePic = function (that, data, arr, ul, span, p, input) {
 
         span.innerText = '继续上传';
         var files = that.files;
         var num = 0;
-        if(files.length==0){
+        if (files.length == 0) {
             p[0].style.display = 'block';
             input.setAttribute('isnext', 'nextStep');
             return;
@@ -3893,7 +4529,7 @@ function Component_list() {
         for (let i = 0; i < files.length; i++) {
             var file = files[i];
             var sizeImg = file.size;
-            
+
             if (sizeImg > 1024 * 1024 * 2) {
                 p[1].style.display = 'block';
                 input.setAttribute('isnext', 'nextStep');
@@ -3980,13 +4616,14 @@ function Component_list() {
             input.disabled = true;
             input.border = 'none';
             input.style.cssText = "background:#ffffff;border:1px solid transparent";
-            div.style.paddingLeft = '30px';
+            div.style.paddingLeft = '40px';
         } else {
             if (data.value) {
                 input.value = data.value;
                 input.disabled = false;
                 input.style.cssText = "background:#ffffff;border:1px solid #e0e0e0";
             }
+            div.style.paddingLeft = '40px';
         }
 
 
@@ -4054,13 +4691,14 @@ function Component_list() {
             input.disabled = true;
             input.border = 'none';
             input.style.cssText = "background:#ffffff;border:1px solid transparent";
-            div.style.paddingLeft = '30px';
+            div.style.paddingLeft = '40px';
         } else {
             if (data.value) {
                 input.value = data.value;
                 input.disabled = false;
                 input.style.cssText = "background:#ffffff;border:1px solid #e0e0e0";
             }
+            div.style.paddingLeft = '40px';
         }
 
 
@@ -4125,13 +4763,14 @@ function Component_list() {
 
 
     // 多选框公共方法
-    this.checkbox_public = function (data, caption, arr, dom, nextPro) {
+    this.checkbox_public = function (data, caption, arr, dom, nextPro,ids) {
         let ul = document.createElement("ul");
         let labelCaption = document.createElement("label");
         var div = document.createElement('div');
         div.setAttribute('class', 'divs_public_shenfen');
         labelCaption.setAttribute('class', 'labels_public_shenfen');
         labelCaption.innerText = caption;
+        ul.setAttribute('id',ids);
         ul.appendChild(labelCaption);
         ul.appendChild(div);
         var str = "";

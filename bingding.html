@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./css/css.css" />
+    <style>
+      
+    </style>
+</head>
+
+<body>
+
+    <div id="binding_of_special_merchants">
+
+        <div id="add_Binding_of_special_merchants">
+
+
+            <div class="bottom" id="add_application_of_special_merchant_bottom_erji">
+                <ul class="shanghu" id="add_application_of_special_merchant_bottom_one_erji">
+                    <li class="active">
+                        <span class="span_one">全部</span>
+                        <i class="i_one"></i>
+                    </li>
+                    <li>
+                        <span class="span_two">编辑中</span>
+                        <b></b>
+                        <i class="i_two"></i>
+                    </li>
+                    <li>
+                        <span class="span_three">申请中</span>
+                        <b></b>
+                        <i class="i_three"></i>
+                    </li>
+                    <li>
+                        <span class="span_four">已签约</span>
+                        <b></b>
+                        <i class="i_four"></i>
+                    </li>
+                    <li>
+                        <span class="span_five">失效</span>
+                        <b></b>
+                        <i class="i_five"></i>
+                    </li>
+                </ul>
+
+                <div id="add_application_of_special_merchant_bottom_two_erji">
+                    <ul class="list_one">
+                        <li>申请单编号</li>
+                        <li>商户名称</li>
+                        <li>状态</li>
+                        <li>支付通道</li>
+                        <li>时间</li>
+                        <li>操作</li>
+                    </ul>
+                    <ul class="list_two" id="add_application_of_special_merchant_bottom_ul_two_erji">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="binding_of_special_merchants_alert">
+            <div class="top"></div>
+            <div id="binding_of_special_merchants_alert_bottom_box" class="bottom_box">
+                <h3>特约商户绑定</h3>
+                <ul>
+                    <li>
+                        <label>支付通道显示名称</label>
+                        <span></span>
+                    </li>
+                    <li>
+                        <label>用户费率</label>
+                        <span></span>
+                    </li>
+                    <li>
+                        <label>支付授权</label>
+                        <span></span>
+                    </li>
+                    <li>
+                        <label>备注说明</label>
+                        <span></span>
+                    </li>
+
+                </ul>
+               <div class="bottom_canlce">
+                   <span id="binding_of_special_merchants_alert_bottom_box_canlce">取消</span>
+                   <span id="binding_of_special_merchants_alert_bottom_box_queren">确认绑定</span>
+               </div>
+                
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+
+    <script>
+        var arrs = [{
+                number: '123123',
+                'name': '张三餐饮',
+                zh_tai: '编辑中',
+                zhifu: '微信',
+                'time': '2021.03.29',
+                'caozuo': '编辑'
+            },
+            {
+                number: '123124',
+                'name': '张四餐饮',
+                zh_tai: '申请中',
+                zhifu: '支付宝',
+                'time': '2021.03.29',
+                'caozuo': '绑定'
+            },
+            {
+                number: '123125',
+                'name': '张五餐饮',
+                zh_tai: '已签约',
+                zhifu: '微信',
+                'time': '2021.03.29',
+                'caozuo': '绑定'
+            },
+            {
+                number: '123126',
+                'name': '张六餐饮',
+                zh_tai: '已失效',
+                zhifu: '银联',
+                'time': '2021.03.29',
+                'caozuo': '绑定'
+            }
+        ]
+
+        render(arrs);
+
+        function render(arr) {
+            var str = '';
+            var ul = document.getElementById('add_application_of_special_merchant_bottom_ul_two_erji');
+            var binding_alert=document.getElementById('binding_of_special_merchants_alert');
+            for (var i = 0; i < arr.length; i++) {
+                var li = document.createElement('li');
+                var span1 = document.createElement('span');
+                var span2 = document.createElement('span');
+                var span3 = document.createElement('span');
+                var span4 = document.createElement('span');
+                var span5 = document.createElement('span');
+
+                span1.innerHTML = arr[i].number;
+                span2.innerHTML = arr[i].name;
+                span3.innerHTML = arr[i].zh_tai;
+                span3.setAttribute('class','span3')
+                span4.innerHTML = arr[i].zhifu;
+                span5.innerHTML = arr[i].time;
+
+                if (arr[i].zh_tai == '编辑中') {
+                    span3.style.backgroundImage = "url('./img/ellipse_41_zhifu.png')";
+                }
+                if (arr[i].zh_tai == '申请中') {
+                    span3.style.backgroundImage = "url('./img/ellipse_42_zhifu.png')";
+                }
+                if (arr[i].zh_tai == '已签约') {
+                    span3.style.backgroundImage = "url('./img/ellipse_43_zhifu.png')";
+                }
+                if (arr[i].zh_tai == '已失效') {
+                    span3.style.backgroundImage = "url('./img/ellipse_44_zhifu.png')";
+                }
+
+
+                if (arr[i].caozuo == '绑定') {
+                    var div = document.createElement('div');
+                    var a_children = document.createElement('a');
+                    div.appendChild(a_children);
+                    a_children.style.color = '#008CEB';
+                    a_children.innerHTML = '绑定';
+                    a_children.style.textDecoration = 'none';
+                    a_children.href = '#xianqing';
+                    a_children.onclick=function(){
+                        binding_alert.style.display='block';
+                    }
+
+                } else {
+                    var div = document.createElement('div');
+                    var a_children = document.createElement('a');
+                    div.appendChild(a_children);
+                    a_children.style.color = '#008CEB';
+                    a_children.innerHTML = '取消绑定';
+                    a_children.style.textDecoration = 'none';
+                    a_children.href = '#xianqing';
+                    a_children.style.color = '#FB5040';
+                }
+
+                li.appendChild(span1);
+                li.appendChild(span2);
+                li.appendChild(span3);
+                li.appendChild(span4);
+                li.appendChild(span5);
+                li.appendChild(div);
+                ul.appendChild(li);
+            }
+
+        }
+
+
+        filters_fn()
+
+        function filters_fn() {
+            var ul = document.getElementById('add_application_of_special_merchant_bottom_one_erji');
+            var ul_two = document.getElementById('add_application_of_special_merchant_bottom_ul_two_erji');
+            var li = ul.getElementsByTagName('li');
+            var i_doms = ul.getElementsByTagName('i');
+            console.log(i_doms.length)
+            for (var i = 0; i < li.length; i++) {
+                li[i].index = i;
+                li[i].onclick = function () {
+                    var text = this.children[0].innerHTML;
+                    ul_two.innerHTML = '';
+                    for (var n = 0; n < li.length; n++) {
+                        li[n].className = '';
+                        console.log(i_doms[n])
+                        i_doms[n].style.display = 'none';
+                    }
+                    i_doms[this.index].style.display = 'block';
+                    this.className = "active";
+
+                    if (text == '全部') {
+                        render(arrs);
+                    } else if (text == '编辑中') {
+                        var arr_one = [];
+                        for (var j = 0; j < arrs.length; j++) {
+                            if (arrs[j].zh_tai == '编辑中') {
+                                arr_one.push(arrs[j])
+                            }
+                        }
+
+                        render(arr_one);
+                    } else if (text == '申请中') {
+                        var arr_one = [];
+                        for (var j = 0; j < arrs.length; j++) {
+                            if (arrs[j].zh_tai == '申请中') {
+                                arr_one.push(arrs[j])
+                            }
+                        }
+
+                        render(arr_one);
+                    } else if (text == '已签约') {
+                        var arr_one = [];
+                        for (var j = 0; j < arrs.length; j++) {
+                            if (arrs[j].zh_tai == '已签约') {
+                                arr_one.push(arrs[j])
+                            }
+                        }
+
+                        render(arr_one);
+                    } else {
+                        var arr_one = [];
+                        for (var j = 0; j < arrs.length; j++) {
+                            if (arrs[j].zh_tai == '已失效') {
+                                arr_one.push(arrs[j])
+                            }
+                        }
+
+                        render(arr_one);
+                    }
+                }
+            }
+        }
+
+        arr_taotal()
+
+        function arr_taotal() {
+            var arr_one = [];
+            var ul = document.getElementById('add_application_of_special_merchant_bottom_one_erji');
+            var b = ul.getElementsByTagName('b');
+            var i_doms = ul.getElementsByTagName('i');
+            for (var j = 0; j < arrs.length; j++) {
+                if (arrs[j].zh_tai == '编辑中') {
+                    arr_one.push(arrs[j])
+                }
+                if (arr_one.length > 0) {
+                    b[0].innerHTML = '(' + arr_one.length + ')';
+                    i_doms[1].style.width = '65px';
+                }
+            }
+            var arr_two = [];
+            for (var j = 0; j < arrs.length; j++) {
+                if (arrs[j].zh_tai == '申请中') {
+                    arr_two.push(arrs[j])
+                }
+                if (arr_two.length > 0) {
+                    b[1].innerHTML = '(' + arr_two.length + ')';
+                    i_doms[2].style.width = '65px';
+                }
+            }
+            var arr_three = [];
+            for (var j = 0; j < arrs.length; j++) {
+                if (arrs[j].zh_tai == '已签约') {
+                    arr_three.push(arrs[j])
+                }
+                if (arr_three.length > 0) {
+                    b[2].innerHTML = '(' + arr_three.length + ')';
+                    i_doms[3].style.width = '65px';
+                }
+            }
+            var arr_four = [];
+            for (var j = 0; j < arrs.length; j++) {
+                if (arrs[j].zh_tai == '已失效') {
+                    arr_four.push(arrs[j])
+                }
+                if (arr_four.length > 0) {
+                    b[3].innerHTML = '(' + arr_four.length + ')';
+                    i_doms[4].style.width = '48px';
+                }
+            }
+
+        }
+
+        position()
+
+        function position() {
+            var bottom_box = document.getElementById('binding_of_special_merchants_alert_bottom_box');
+            var h = window.innerHeight;
+            var w = window.innerWidth;
+            console.log(w);
+            console.log(h);
+            bottom_box.style.left = (w - 600) / 2 + 'px';
+            bottom_box.style.top = (h - 500) / 2 + 'px';
+        }
+
+         getidbanding()
+         function getidbanding(){
+             var binding_alert=document.getElementById('binding_of_special_merchants_alert');
+             var binding_canlce=document.getElementById('binding_of_special_merchants_alert_bottom_box_canlce');
+             var binding_queren=document.getElementById('binding_of_special_merchants_alert_bottom_box_queren');
+             binding_canlce.onclick=function(){
+                 console.log('tag', binding_alert);
+                binding_alert.style.display='none';
+             }
+             binding_queren.onclick=function(){
+                 console.log('tag', binding_alert);
+                binding_alert.style.display='none';
+             }
+         }
+
+
+
+    </script>
+
+</body>
+
+</html>

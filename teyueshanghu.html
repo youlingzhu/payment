@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./css/css.css" />
+</head>
+<body>
+
+    <div id="application_of_special_merchant_main">
+        <div id="application_of_special_merchant">
+            <div class="information_fill"><img src="./img/vector_go.png"><span>特约商户申请</span></div>
+        </div>
+        <div id="add_application_of_special_merchant">
+            <div class="top" id="add_application_of_special_merchant_top">
+                <h3>新增特约商户申请</h3>
+                <ul>
+                    <li>
+                        <a href="javascript:;">
+                            <img src="./img/icon_weixin.png">
+                            <span class="span_one">微信支付<br />特约商户申请</span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <img src="./img/icon_zhifubao.png">
+                            <span class="span_two">支付宝支付支付<br />特约商户申请</span>
+                        </a>
+
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom" id="add_application_of_special_merchant_bottom">
+                <ul id="add_application_of_special_merchant_bottom_one">
+                    <li class="active">
+                        <span class="span_one">全部</span>
+                        <i class="i_one"></i>
+                    </li>
+                    <li>
+                        <span class="span_two">编辑中</span>
+                        <b></b>
+                        <i class="i_two"></i>
+                    </li>
+                    <li>
+                        <span class="span_three">申请中</span>
+                        <b></b>
+                        <i class="i_three"></i>
+                    </li>
+                    <li>
+                        <span class="span_four">已签约</span>
+                        <b></b>
+                        <i class="i_four"></i>
+                    </li>
+                    <li>
+                        <span class="span_five">失效</span>
+                        <b></b>
+                        <i class="i_five"></i>
+                    </li>
+                </ul>
+
+                <div id="add_application_of_special_merchant_bottom_two">
+                    <ul class="list_one">
+                        <li>申请单编号</li>
+                        <li>商户名称</li>
+                        <li>状态</li>
+                        <li>支付通道</li>
+                        <li>时间</li>
+                        <li>操作</li>
+                    </ul>
+                    <ul class="list_two" id="add_application_of_special_merchant_bottom_ul_two">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var arrs = [{
+                number: '123123',
+                'name': '张三餐饮',
+                zh_tai: '编辑中',
+                zhifu: '微信',
+                'time': '2021.03.29',
+                'caozuo': '编辑'
+            },
+            {
+                number: '123124',
+                'name': '张四餐饮',
+                zh_tai: '申请中',
+                zhifu: '支付宝',
+                'time': '2021.03.29',
+                'caozuo': '详情'
+            },
+            {
+                number: '123125',
+                'name': '张五餐饮',
+                zh_tai: '已签约',
+                zhifu: '微信',
+                'time': '2021.03.29',
+                'caozuo': '详情'
+            },
+            {
+                number: '123126',
+                'name': '张六餐饮',
+                zh_tai: '已失效',
+                zhifu: '银联',
+                'time': '2021.03.29',
+                'caozuo': '详情'
+            }
+        ]
+
+        render(arrs);
+
+        function render(arr) {
+            var str = '';
+            var ul = document.getElementById('add_application_of_special_merchant_bottom_ul_two');
+            for (var i = 0; i < arr.length; i++) {
+                var li = document.createElement('li');
+                var span1 = document.createElement('span');
+                var span2 = document.createElement('span');
+                var span3 = document.createElement('span');
+                var span4 = document.createElement('span');
+                var span5 = document.createElement('span');
+
+                span1.innerHTML = arr[i].number;
+                span2.innerHTML = arr[i].name;
+                span3.innerHTML = arr[i].zh_tai;
+                span3.setAttribute('class','span3');
+                span4.innerHTML = arr[i].zhifu;
+                span5.innerHTML = arr[i].time;
+
+                if (arr[i].zh_tai == '编辑中') {
+                    span3.style.backgroundImage = "url('./img/ellipse_41_zhifu.png')";
+                }
+                if (arr[i].zh_tai == '申请中') {
+                    span3.style.backgroundImage = "url('./img/ellipse_42_zhifu.png')";
+                }
+                if (arr[i].zh_tai == '已签约') {
+                    span3.style.backgroundImage = "url('./img/ellipse_43_zhifu.png')";
+                }
+                if (arr[i].zh_tai == '已失效') {
+                    span3.style.backgroundImage = "url('./img/ellipse_44_zhifu.png')";
+                }
+
+
+                if (arr[i].caozuo == '详情') {
+                    var div = document.createElement('div');
+                    var a_children = document.createElement('a');
+                    div.appendChild(a_children);
+                    a_children.style.color = '#008CEB';
+                    a_children.innerHTML = '详情';
+                    a_children.style.textDecoration = 'none';
+                    a_children.href = '#xianqing';
+
+                } else {
+                    var div = document.createElement('div');
+                    var a_children = document.createElement('a');
+                    div.appendChild(a_children);
+                    var span_one = document.createElement('b');
+                    div.appendChild(span1);
+                    span_one.innerHTML = ' / 删除';
+                    div.appendChild(span_one);
+                    a_children.innerHTML = '编辑 ';
+                    a_children.href = '#bianji';
+                    a_children.style.color = '#008CEB';
+                    a_children.style.textDecoration = 'none';
+                    span_one.style.color = 'rgb(251,80,64)';
+                    span_one.style.display = 'inline-block';
+                }
+
+                li.appendChild(span1);
+                li.appendChild(span2);
+                li.appendChild(span3);
+                li.appendChild(span4);
+                li.appendChild(span5);
+                li.appendChild(div);
+                ul.appendChild(li);
+            }
+
+        }
+
+       
+        filters_fn()
+
+        function filters_fn() {
+            var ul = document.getElementById('add_application_of_special_merchant_bottom_one');
+            var ul_two = document.getElementById('add_application_of_special_merchant_bottom_ul_two');
+            var li = ul.getElementsByTagName('li');
+            var i_doms = ul.getElementsByTagName('i');
+            console.log(i_doms.length)
+            for (var i = 0; i < li.length; i++) {
+                li[i].index = i;
+                li[i].onclick = function () {
+                    var text = this.children[0].innerHTML;
+                    ul_two.innerHTML = '';
+                    for(var n=0;n<li.length;n++){
+                        li[n].className='';
+                        console.log(i_doms[n])
+                        i_doms[n].style.display='none';
+                    }
+                    i_doms[this.index].style.display = 'block';
+                    this.className="active";
+
+                    if (text == '全部') {
+                        render(arrs);
+                    } else if (text == '编辑中') {
+                        var arr_one = [];
+                        for (var j = 0; j < arrs.length; j++) {
+                            if (arrs[j].zh_tai == '编辑中') {
+                                arr_one.push(arrs[j])
+                            }
+                        }
+
+                        render(arr_one);
+                    } else if (text == '申请中') {
+                        var arr_one = [];
+                        for (var j = 0; j < arrs.length; j++) {
+                            if (arrs[j].zh_tai == '申请中') {
+                                arr_one.push(arrs[j])
+                            }
+                        }
+
+                        render(arr_one);
+                    } else if (text == '已签约') {
+                        var arr_one = [];
+                        for (var j = 0; j < arrs.length; j++) {
+                            if (arrs[j].zh_tai == '已签约') {
+                                arr_one.push(arrs[j])
+                            }
+                        }
+
+                        render(arr_one);
+                    } else {
+                        var arr_one = [];
+                        for (var j = 0; j < arrs.length; j++) {
+                            if (arrs[j].zh_tai == '已失效') {
+                                arr_one.push(arrs[j])
+                            }
+                        }
+
+                        render(arr_one);
+                    }
+                }
+            }
+        }
+
+         arr_taotal()
+        function arr_taotal() {
+            var arr_one = [];
+            var ul=document.getElementById('add_application_of_special_merchant_bottom_one');
+            var b=ul.getElementsByTagName('b');
+            var i_doms=ul.getElementsByTagName('i');
+            for (var j = 0; j < arrs.length; j++) {
+                if (arrs[j].zh_tai == '编辑中') {
+                    arr_one.push(arrs[j])
+                }
+                if(arr_one.length>0){
+                    b[0].innerHTML='('+arr_one.length+')';
+                    i_doms[1].style.width = '65px';
+                }
+            }
+            var arr_two = [];
+            for (var j = 0; j < arrs.length; j++) {
+                if (arrs[j].zh_tai == '申请中') {
+                    arr_two.push(arrs[j])
+                }
+                if(arr_two.length>0){
+                    b[1].innerHTML='('+arr_two.length+')';
+                    i_doms[2].style.width = '65px';
+                }
+            }
+            var arr_three = [];
+            for (var j = 0; j < arrs.length; j++) {
+                if (arrs[j].zh_tai == '已签约') {
+                    arr_three.push(arrs[j])
+                }
+                if(arr_three.length>0){
+                    b[2].innerHTML='('+arr_three.length+')';
+                    i_doms[3].style.width = '65px';
+                }
+            }
+            var arr_four = [];
+            for (var j = 0; j < arrs.length; j++) {
+                if (arrs[j].zh_tai == '已失效') {
+                    arr_four.push(arrs[j])
+                }
+                if(arr_four.length>0){
+                    b[3].innerHTML='('+arr_four.length+')';
+                    i_doms[4].style.width = '48px';
+                }
+            }
+
+        }
+    </script>
+
+    </body>
+
+</html>

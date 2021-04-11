@@ -205,12 +205,13 @@ function Validation_Type() {
     this.id_doc_number_type=function(data){
         return returnInfo(data, function(){
             var reg = /^[A-Za-z0-9]{7,11}$/;
+            var reg1 =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
             var str = data.value;
             var strValue = null;
-            if (reg.test(str)) {
+            if (reg.test(str)||reg1.test(str)) {
                 return "";
             } else {
-                strValue = '格式不正确，请输入7到11位的证件号码';
+                strValue = '格式不正确，请输入正确的证件号码';
                 return strValue;
             }
         })
@@ -322,7 +323,7 @@ function Validation_Type() {
    // 线下场所邮政编号  [1-9]\d{5}(?!\d)
     this.biz_address_code_type=function(data){
         return returnInfo(data,function(){
-            var reg=/[1-9]\d{5}(?!\d)/;
+            var reg=/^[1-9][0-9]{5}$/;
             var str = data.value;
             if (reg.test(str)) {
                 return "";
@@ -379,8 +380,9 @@ function Validation_Type() {
      // 互联网网站域名 互联网网站域名
      this.domain_type=function(data){
         return returnInfo(data,function(){
-            var reg=/[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/;      // 域名
-            var str = data.value;
+          //  var reg=/[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/;      // 域名
+          var reg=/(http|https):\/\/([\w.]+\/?)\S*/;
+          var str = data.value;
             if (reg.test(str)) {
                 return "";
             } else {
@@ -427,7 +429,7 @@ function Validation_Type() {
             if (reg.test(str)) {
                 return "";
             } else {
-                strValue ='请输入正确的银行名称';
+                strValue ='请选择正确的基本开户行信息';
                 return strValue;
             }
         })
